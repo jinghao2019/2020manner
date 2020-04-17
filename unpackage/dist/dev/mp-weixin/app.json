@@ -68,5 +68,6 @@
   },
   "usingComponents": {
     "loading": "/components/common/loading"
-  }
+  },
+  "sitemapLocation": "sitemap48.json"
 }
