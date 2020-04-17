@@ -1,0 +1,18 @@
+/* flex布局 */
+.u-f,.u-f-ac,.u-f-ajc{
+	display: flex;
+}
+/* 上下居中 */
+.u-f-ac,.u-f-ajc{
+	align-items: center;
+}
+/* 左右居中 */
+.u-f-ajc{
+	justify-content: center;
+}
+.u-f-jsb{
+	justify-content: space-between;
+}
+.u-f-ar{
+	justify-content: space-around;
+}

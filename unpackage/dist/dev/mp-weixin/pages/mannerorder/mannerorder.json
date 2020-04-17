@@ -1,0 +1,7 @@
+{
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "no-thing": "/components/common/no-thing",
+    "all-order": "/components/order/all-order"
+  }
+}

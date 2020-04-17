@@ -1,0 +1,80 @@
+
+.content {
+	text-align: center;
+	height: 400rpx;
+}
+.tab{
+	font-size: 28rpx;
+	background-color: #f5f5f5;
+	height: 90rpx;
+	padding-left: 20rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.tab.active{
+	
+	color:#f00;
+}
+.result{
+	font-size: 25rpx;
+}
+.nearshop,.othershop{
+	width: 80%;
+	background-color: #ffffff;
+	border-radius: 10rpx;
+	padding: 25rpx;	
+	margin: 40rpx auto;
+	box-shadow: 0 1rpx 10rpx 5rpx #cccccc;
+}
+.nearshop>view:last-child>view:first-child,
+.othershop>view:last-child>view:first-child{
+	font-size: 25rpx;
+}
+.nearshop>view:first-child,
+.othershop>view:first-child{
+	font-size: 30rpx;
+	font-weight: 600;
+}
+.nearshop>view:first-child>view:last-child{
+	font-size: 20rpx;
+	width: 80rpx;
+	height: 30rpx;
+	margin-left: 20rpx;
+	background-color: #710000;
+}
+.othershop>view:first-child>view:last-child{
+	margin: auto 20rpx;
+	font-size: 20rpx;
+	color: #ff6769;
+}
+.nearshop>view:last-child,
+.othershop>view:last-child{
+	font-size: 10rpx;
+	color: #a6a6a6;
+}
+.nearshop>view>view:last-child,
+.othershop>view:last-child>view:last-child{
+	color: #ffffff;
+	background-color: #e82125;
+	width: 100rpx;
+	border-radius: 50rpx;
+	font-size: 20rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	margin-right: 20rpx;
+}
+.headtitle{
+	color: #d5d5d5;
+}
+

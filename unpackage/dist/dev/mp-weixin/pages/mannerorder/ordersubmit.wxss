@@ -1,0 +1,148 @@
+
+.read{
+	color: #88272E;
+	font-size: 28rpx;
+	font-weight: 600;
+	padding: 10rpx 20rpx;
+	box-shadow:0 0 10px #ebebeb;
+	width: 500rpx;
+	border-radius: 20rpx;
+}
+.tag{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex; 
+	margin: auto;
+	width: 90%;
+}
+.tel{
+	border-bottom: 1rpx solid #ebebeb;
+	padding-bottom: 20rpx;
+}
+.address{
+	color: #7c7c7c;
+	font-size: 25rpx;
+	line-height: 35rpx;
+	margin-bottom: 20rpx;
+}
+.allprice{
+	width: 100%;
+	border-bottom: 1rpx solid #ebebeb;
+}
+.allprice>view:last-child{
+	margin-right: 10rpx;
+}
+.allprice>view{
+	border-bottom: 1rpx solid #ebebeb;
+}
+.all{
+	background-color: #F3F3F3;
+	height: 100%;
+}
+.order{
+	color: #4A4A4A;
+}
+.order>view>view:last-child{
+	margin-left: 10rpx;
+}
+.orderdetail{
+	font-size: 30rpx;
+}
+.info,.orderinfo,.foot{
+	padding: 20rpx 50rpx 0 50rpx;
+	background-color: white;
+	margin-top: 30rpx;
+}
+.info>view:first-child{
+	margin-top: 40rpx;
+}
+.info1{
+	font-family: Microsoft YaHei;
+	font-size: 35rpx;
+	font-weight: 600;
+}
+.info2{
+	color: #89262C;
+	font-weight: 600;
+}
+.infoshop{
+	margin-top: 20rpx;
+	color: #4A4A4A;
+	font-weight: 600;
+}
+.infoguige{
+	font-size: 25rpx;
+	color: #b4b4b4;
+}
+.infonum{
+	margin-left: 10rpx;
+	font-size: 25rpx;
+}
+.infogoods{
+	margin-top: 20rpx;
+	font-weight: 600;
+	color: #4A4A4A;
+}
+.price{
+	margin-left: 40rpx;
+}
+.allprice>view:last-child{
+	font-size: 35rpx;
+	font-weight:600;	
+	padding-bottom: 40rpx;
+}
+.orderinfo>view>view{
+	font-size: 28rpx;
+	color: #8a8a8a;
+	margin-top: 10rpx;
+}
+.foot{
+	margin-top: 30rpx;
+	color: #4A4A4A;
+}
+.foot>view>view:first-child{
+	margin: 20rpx 0;
+}
+.foot image{
+	margin-top: 30rpx;
+}
+.again{
+	width: 646rpx;
+	height: 110rpx;
+	background-color: #88272E;
+	color: white;
+	border-radius: 80rpx;
+	margin: 0 auto;
+	font-size: 36rpx;
+	margin-bottom: 80rpx;
+}
+.bottom{
+	background-color: #ffffff;
+	margin-bottom: 0;
+	padding: 40rpx 40rpx;
+}
+.pay{
+	color: #ffffff;
+	background-color: #88272E;
+	font:36rpx;
+	width: 244rpx;
+	height: 80rpx;
+	font-size: 36rpx;
+	border-radius: 50rpx;
+}
+.infoguige{
+ -webkit-box-flex: 4;
+ -webkit-flex: 4;
+         flex: 4;
+}
+.infonum{
+ -webkit-box-flex: 1;
+ -webkit-flex: 1;
+         flex: 1;
+}
+.infoprice{
+ -webkit-box-flex: 1;
+ -webkit-flex: 1;
+         flex: 1;
+}
+

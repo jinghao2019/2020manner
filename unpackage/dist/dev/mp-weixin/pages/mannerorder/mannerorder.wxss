@@ -1,0 +1,20 @@
+
+.swiper-tab-list{
+	color: #bfbfbf;
+	font-weight: bold;
+	width: 25%;
+}
+.uni-tab-bar .active{
+	color: #000000;
+}
+.active .swiper-tab-line{
+	width: 70rpx;
+	margin: auto;
+	border-bottom: 6rpx solid #950000;
+	border-radius: 50rpx;
+}
+.swiper-box{
+height: 100%;
+}
+
+

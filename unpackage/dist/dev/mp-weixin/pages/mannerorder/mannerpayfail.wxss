@@ -1,0 +1,13 @@
+
+.button{
+	font-size:36rpx;
+	width:670rpx;
+	height:100rpx;
+	border-radius: 10rpx;
+	background: -webkit-linear-gradient(left,#DB2C24,#79041C);
+	margin: 0 auto;
+	margin-top: 95%;
+	text-align: center;
+	color: #FFFFFF;
+}
+

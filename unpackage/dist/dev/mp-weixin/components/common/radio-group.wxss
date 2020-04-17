@@ -1,0 +1,12 @@
+
+.border1.data-v-7677ae6c{
+	border: 2rpx solid #6d0000;
+	color: #6d0000;
+}
+.radio-active.data-v-7677ae6c{
+	border-radius: 50rpx;
+	background: #6d0000!important;
+	color: #ffffff!important;
+	border-color: #6d0000!important;
+}
+

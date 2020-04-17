@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///X:/vue/manner/main.js"],"names":["createPage","Page"],"mappings":";;;;;;;;;;kDAAA,wCAAmB;;AAEnB;AACA,8M;AACAA,UAAU,CAACC,cAAD,CAAV,C","file":"pages/index1/index1.js","sourcesContent":["import 'uni-pages';import '@dcloudio/uni-stat';\n\nimport Vue from 'vue'\nimport Page from './pages/index1/index1.vue'\ncreatePage(Page)"],"sourceRoot":""}

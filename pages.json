@@ -1,0 +1,153 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+		    "path" : "pages/mannershop/mannershop",
+		    "style" : {}
+		},
+		{
+		    "path" : "pages/mannerlist/mannerlist",
+		    "style" : {}
+		},
+		{
+		    "path" : "pages/mannerorder/mannerorder",
+		    "style" : {
+				"enablePullDownRefresh": true
+			}
+		},
+		// {
+		// 	"path" : "pages/detail/detail",
+		// 	"style" : {}
+		// },
+		// {
+		// 	"path" : "pages/shop/shop",
+		// 	"style" : {}
+		// },
+		{
+			"path" : "pages/mannercart/mannercart",
+			"style" : {}
+		},
+		
+        {
+            "path" : "pages/mannerhome/mannerhome",
+            "style" : {}
+        },		
+		{
+		    "path" : "pages/mannerorder/mannerpayok",
+		    "style" : {}
+		},
+		{
+			"path" : "pages/mannerorder/mannerpayfail",
+			"style" : {}
+		},	
+		// {
+  //           "path" : "pages/order/orderdeatil",
+  //           "style" : {}
+  //       },
+		{
+		    "path" : "pages/mannerlogin/login",
+		    "style" : {}
+		},
+		{
+		    "path" : "pages/mannerlogin/mannerlogin",
+		    "style" : {
+			}
+		},
+		{
+		    "path" : "pages/addressList/addressList",
+		    "style" : {
+				"navigationBarBackgroundColor":"#ffffff",
+				"navigationBarTitleText":"地址管理",
+				"backgroundColorTop":"#ffffff",
+				"backgroundColorBottom":"#ffffff"
+			}
+		},
+		{
+		    "path" : "pages/addressList/edit/edit",
+		    "style" : {
+				"navigationBarBackgroundColor":"#ffffff",
+				"navigationBarTitleText":"编辑收件人地址",
+				"backgroundColorTop":"#ffffff",
+				"backgroundColorBottom":"#ffffff"
+			}
+		},
+		{
+            "path" : "pages/mannershop/listshop",
+            "style" : {
+				"enablePullDownRefresh": true
+			}
+        },
+		{
+			"path":"pages/discounts/discounts",
+			"style" : {}
+		},
+	   {
+			"path" : "pages/mannerorder/ordersubmit",
+			"style" : {}
+	   },
+		{
+			
+			"path" : "pages/mannerorder/mannerdetail",
+			"style" : {}
+		},
+		{ 
+			
+			"path" : "pages/mannerorder/ordertoday",
+			"style" : {}
+		},
+		{
+			
+			"path" : "pages/mannerorder/allorder",
+			"style" : {}
+		}   
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "Manner",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#FFFFFF"
+		
+	},
+	//底部导航
+	"tabBar":{
+		"color":"#ADADAD",
+		"selectedColor":"#000000",
+		"backgroundColor":"#FFFFFF",
+		"borderStyle":"white",
+		"list" : [
+			{
+				"pagePath":"pages/mannershop/mannershop",
+				"text":"首页",
+				"iconPath":"/static/tabbar/首页1.png",
+				"selectedIconPath":"/static/tabbar/首页2.png"
+			},
+		    {
+				"pagePath":"pages/mannerlist/mannerlist",
+				"text":"点单",
+				"iconPath":"/static/tabbar/点单1.png",
+				"selectedIconPath":"/static/tabbar/点单2.png",
+				
+				"style":{
+					"transparentTitle":"always",
+					"navigationStyle": "custom"
+				}
+		    },
+			{
+				"pagePath":"pages/mannerorder/ordertoday",
+				"text":"发现",
+				"iconPath":"/static/tabbar/发现1.png",
+				"selectedIconPath":"/static/tabbar/发现2.png"
+			},
+			{
+				"pagePath":"pages/mannerhome/mannerhome",
+				"text":"我的",
+				"iconPath":"/static/tabbar/我的1.png",
+				"selectedIconPath":"/static/tabbar/我的2.png"
+			}			
+		]
+	}
+	// "permission": {
+	// "scope.userLocation": {
+	// "desc": "你的位置信息将用于小程序位置判断远近的显示。"
+	// }
+	// }
+}

@@ -1,0 +1,1 @@
+<view class="pop data-v-4f44c63e"><button open-type="getUserInfo" data-event-opts="{{[['tap',[['wxlogin',['$event']]]]]}}" bindtap="__e" class="data-v-4f44c63e">微信一键登录</button><button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" data-event-opts="{{[['tap',[['login',['$event']]]]]}}" bindtap="__e" class="data-v-4f44c63e">手机号登录</button></view>

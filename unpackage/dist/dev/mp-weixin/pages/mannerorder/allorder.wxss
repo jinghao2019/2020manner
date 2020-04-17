@@ -1,0 +1,24 @@
+
+.time{
+	padding: 20rpx 40rpx;
+	background-color: #F5F5F5;
+}
+.time view{
+	color: #4A4A4A;
+	font-size: 28rpx;
+}
+.order>view{
+	height: 125rpx;
+	border-bottom: 1rpx solid #eeeeee;
+}
+.order>view>view{
+	margin-top: 20rpx;
+}
+.order>view>view>view{
+	font-size: 24rpx;
+	color: #4A4A4A;
+}
+.order>view>view>view:last-child{
+	color: #89262C;
+}
+
