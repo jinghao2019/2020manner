@@ -10,12 +10,12 @@
 			<image src="../../static/img/img3.png" mode="widthFix" @click="info()"></image>
 		</view>
 		
-		<view class="banner" @click="showAgree()">
+		<view class="banner">
 			<image src="../../static/img/banner.png" mode="widthFix"></image>
 			
 		</view>
 		
-		<view class="element">
+		<view class="element" @click="showTemp()">
 			<image src="../../static/img/element.png" mode="widthFix"></image>
 		</view>
 		
@@ -24,7 +24,7 @@
 				<view>最近店铺</view>
 			</view>
 					
-			<view class="nearshop" @click="showshop">
+			<view class="nearshop" @click="showshop()">
 				<view>{{nearshop.shopname}}</view>
 				<view class="u-f u-f-jsb">
 					<view>{{nearshop.shopaddress}}</view>
@@ -36,11 +36,11 @@
 				<view>其他店铺</view>
 			</view>
 					
-			<view class="othershop  animated fadeInUp" v-for="(item,index) in list" :key="index">
+			<view class="othershop" v-for="(item,index) in list" :key="index">
 				<view>{{item.name}}</view>
 				<view class="u-f u-f-jsb">
 					<view>{{item.address}}</view>
-					<view  @click="setCurrentShop(index)">去点单</view>
+					<view @click="toList()">去点单</view>
 				</view>
 			</view>		
 			 
@@ -74,24 +74,10 @@
 			</view>
 		</scroll-view>
 			
-			<!-- 蒙版1 -->
-			<view class="shopmask" @click="hidedeatil()" v-show="show"></view>
-			<!-- 蒙版2 -->
-			<view class="accreditmask"  v-show="show2"></view>
-					
-			
-			<view class="allbottom" v-show="agree">
-				<view class="close" @click="closeagree()">
-					<image src="../../static/icon/叉.png" mode="widthFix" style="width: 30upx;float:right;padding: 28upx 28upx 0 0;"></image>
-				</view>
-					<view class="bottom">						
-						<view>欢迎来到Manner咖啡</view>
-						<view style="font-size: 24upx;color: #9B9B9B;">Manner申请获取您的地址与微信账号信息</view>
-						<view class="agree u-f-ajc">同意授权</view>
-					</view>
-			</view>
-				
-	</view>	
+			<!-- 蒙版 -->
+			<view class="mask" @click="hidedeatil()" v-show="show"></view>
+	</view>
+	
 </template>
 
 <script>
@@ -103,7 +89,6 @@
 			},
 		data(){
 			return {
-				agree:false,
 				// 最近的店铺信息
 				nearshop:{ 
 					"shopname":"" ,
@@ -115,9 +100,10 @@
 				// boolShow:false 
 				// 点击店铺的遮罩
 				show:false,
-				show2:false,
 			}
-		},				
+		},
+		
+		
 		methods:{
 			onReachBottom:function(){
 				 // 这里向后台请求触底刷新数据
@@ -125,21 +111,12 @@
 			 },
 			//点击显示店铺的事件
 			showshop(){
+				console.log('66')
 				this.show=true;				
 			},
 			//点击隐藏店铺的事件
 			hidedeatil(){
 				this.show=false;
-			},
-			//点击授权弹框
-			showAgree(){
-				this.agree = true;
-				this.show2 = true
-			},
-			//点击关闭授权弹框
-			closeagree(){
-				this.agree = false;
-				this.show2 = false
 			},
 			// 跳订单页
 			toList(){
@@ -167,18 +144,6 @@
 				setTimeout(function () {
 				    uni.hideLoading();
 				}, 1000);
-			},
-			/**
-			 * 去店铺下单
-			 */
-			setCurrentShop(index){
-			  //1 设置当前店铺到缓存
-			  this.$Util.setCache("current_shop",this.list[index]);
-			  //2 跳转到菜单页面
-			  //跳转导选择店铺的页面
-			  uni.switchTab({
-			  	url:"../../pages/mannerlist/mannerlist"
-			  })
 			},
 			/**
 			 * 
@@ -211,8 +176,24 @@
 					//执行回调 如果有的话
 					cb && cb(res)
 				})				
-			},			
-			onLoad(){												
+			},	
+			showTemp: function() {  
+				
+				wx.requestSubscribeMessage({  
+				  tmplIds: ['nxyyDOAqE29fWEbvEM96ic-lv7W3LRuTJtO34zihDBk','FwqdpQ5V9rqfOM8vanxGHoxnaMHeyciPDenZssgwj7c'],  
+				  success (res) {  
+					  console.log("success:"+res.errMsg + "---" + res.errCode);  
+				  },  
+				  fail (res) {  
+					  console.log("fail:"+res.errMsg + "---" + res.errCode);  
+				  },  
+				  complete (res) {  
+					  console.log("complete:"+res.errMsg + "---" + res.errCode);  
+				  }  
+				})  
+			},
+			onLoad(){
+				
 				//这时候that指的是全局，在内部函数想用全局的时候就得用that
 				var that = this;
 				// 获取当前坐标
@@ -319,7 +300,7 @@
 		bottom: 0;
 		background-color: #F8F8F8;
 		box-shadow: 0 0 20upx 1upx;
-		z-index: 8888;
+		z-index: 9999;
 	}
 	.around{
 		padding: 40upx;
@@ -358,7 +339,7 @@
 		margin-left: 50upx;
 	}
 	/* 蒙版 */
-	.shopmask,.accreditmask{
+	.mask{
 		position: fixed;
 		z-index: 2000;
 		right: 0;
@@ -367,29 +348,5 @@
 		bottom: 0;
 		z-index: 2021;
 		background-color:  #00000082;
-	}
-	.allbottom{
-		position: fixed;
-		bottom: 0;
-		background-color: #FFFFFF;
-		z-index: 9998;
-	}
-	.bottom{
-		padding: 20upx 76upx 30upx 76upx;		
-		z-index: 9996;		
-		
-	}
-	.agree{
-		width: 610upx;
-		height: 88upx;
-		color: #FFFFFF;
-		font-size: 36upx;
-		font-weight: 600;
-		border-radius: 10upx;
-		margin-top: 40upx;
-		background: -webkit-linear-gradient(left,#DB2C24,#79041C);
-	}
-	.close{
-		z-index: 9997;
 	}
 </style>

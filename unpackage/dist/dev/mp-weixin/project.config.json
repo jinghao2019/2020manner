@@ -4,10 +4,26 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": false
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"coverView": true,
+		"autoAudits": false,
+		"showShadowRootInWxmlPanel": true,
+		"scopeDataCheck": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.9.2",
+	"libVersion": "2.10.4",
 	"appid": "wx2fa7a4f0a97fcedc",
 	"projectname": "manner",
 	"simulatorType": "wechat",
@@ -38,8 +54,29 @@
 			"list": [
 				{
 					"id": -1,
-					"name": "list",
-					"pathName": "pages/mannerlist/mannerlist",
+					"name": "餐品",
+					"pathName": "pages/mannerlist/mannerlist1",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "主页",
+					"pathName": "pages/mannershop/mannershop1",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "detail",
+					"pathName": "pages/mannerorder/mannerdetail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "detail",
+					"pathName": "pages/mannerorder/ordersubmit",
 					"scene": null
 				}
 			]

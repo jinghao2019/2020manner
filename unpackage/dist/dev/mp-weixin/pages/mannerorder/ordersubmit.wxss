@@ -24,6 +24,7 @@
 	font-size: 25rpx;
 	line-height: 35rpx;
 	margin-bottom: 20rpx;
+	padding: 0 0 20rpx 0;
 }
 .allprice{
 	width: 100%;

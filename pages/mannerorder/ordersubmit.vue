@@ -22,9 +22,9 @@
 			<block v-for="(item,index) in orderInfo" :key="index">
 				<view class="infogoods">{{item.title}}</view>
 				<view class="u-f">
-					<view class="infoguige">{{item.checkedSku}}</view>
-					<view class="infonum">x{{item.num}}</view>
-					<view class="price">￥{{item.num * item.showPrice}}</view>
+					<view class="infoguige" style="flex: 3;">{{item.checkedSku}}</view>
+					<view class="infonum" style="flex: 1;">x{{item.num}}</view>
+					<view class="price" style="flex: 1;">￥{{item.num * item.showPrice}}</view>
 				</view>
 			</block>
 			
@@ -39,18 +39,27 @@
 		
 		<view class="foot">
 			<view class="u-f u-f-jsb">
-				<view>优惠券</view>
-				<view>暂无可用优惠券<image src="../../static/右箭头1.png" style="width: 40upx;margin: 25upx 0 0 0;" mode="widthFix"></image></view>
+				<view style="margin: 20upx 0upx;">优惠券</view>
+				<view class="u-f">
+					<view style="margin: 20upx 0upx;">暂无可用优惠券</view>
+					<image src="../../static/右箭头1.png" style="width: 40upx;margin: 24upx 0 0 0;" mode="widthFix"></image>
+				</view>
 			</view>
 			<view class="u-f u-f-jsb">
 				<view>支付方式</view>
-				<view>微信支付<image src="../../static/右箭头1.png" style="width: 40upx;margin: 25upx 0 0 0;" mode="widthFix"></image></view>
+				<view class="u-f">
+					<view style="margin: 20upx 0upx;">微信支付</view>
+					<image src="../../static/右箭头1.png" style="width: 40upx;margin: 25upx 0 0 0;" mode="widthFix"></image>
+				</view>
 			</view>
 		</view>		
 		<view class="foot">
 			<view class="u-f u-f-jsb">
 				<view>打包</view>
-				<view>是<image src="../../static/右箭头1.png" style="width: 40upx;margin: 25upx 0 0 0;" mode="widthFix"></image></view>
+				<view class="u-f">
+					<view style="width: 40upx;margin: 16upx 0 0 0;">是</view>
+					<image src="../../static/右箭头1.png" style="width: 40upx;margin: 20upx 0 0 0;" mode="widthFix"></image>
+				</view>
 			</view>
 			<view class="u-f u-f-jsb">
 				<view>特殊备注</view>
@@ -127,7 +136,7 @@
 						       paySign: paymentData.paySign,
 						       success: (res) => {
 						           // 重定向/防止重复支付
-						           uni.redirectTo({
+						           uni.switchTab({
 						           	// url: '../mannerorder/ordertoday?order_id='+that.$data.order_id
 									url: '/pages/mannerorder/ordertoday'
 						           });
@@ -147,11 +156,18 @@
 						   })
 						})
 						.catch(err=>{ //支付失败
-							this.loading = false
+							this.loading = false  
 							uni.showToast({
 								title: '支付失败',
 								icon: 'none'
 							});
+							
+							//跳转到订单页面
+							uni.switchTab({
+								// url: '../mannerorder/ordertoday?order_id='+that.$data.order_id
+								url: '/pages/mannerorder/ordertoday'
+							});
+						
 						})
 					},
 					fail: (e) => {
@@ -172,6 +188,11 @@
 				var that = this;
 				// 防止重复下单
 				if(this.loading) return;
+				uni.showLoading({
+					title:"加载中"
+				})
+				
+				uni.show
 				let options = {
 					hashKey:this.hashKey.join(','),
 					flag:'cartPay', //表示从购物车进行支付
@@ -242,11 +263,11 @@
 				let price = 0;
 				for(let i = 0;i<this.orderInfo.length;i++)
 				{
-				    price += parseFloat(this.orderInfo[i].num * this.orderInfo[i].showPrice)
+				    price += this.orderInfo[i].num * this.orderInfo[i].showPrice*100
 				}
 				
 				//规格价格
-				return price;
+				return price/100;
 				//下面可能会加上浓缩份数的价格
 			},
 		},
@@ -299,6 +320,7 @@
 	font-size: 25upx;
 	line-height: 35upx;
 	margin-bottom: 20upx;
+	padding: 0 0 20upx 0;
 }
 .allprice{
 	width: 100%;

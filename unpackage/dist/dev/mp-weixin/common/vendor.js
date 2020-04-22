@@ -757,7 +757,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -1685,9 +1685,9 @@ function normalizeComponent (
 /***/ }),
 
 /***/ 15:
-/*!************************************!*\
-  !*** X:/vue/manner/store/index.js ***!
-  \************************************/
+/*!***************************************!*\
+  !*** X:/vue/manner422/store/index.js ***!
+  \***************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2661,9 +2661,9 @@ var index_esm = {
 /***/ }),
 
 /***/ 17:
-/*!*******************************************!*\
-  !*** X:/vue/manner/store/modules/cart.js ***!
-  \*******************************************/
+/*!**********************************************!*\
+  !*** X:/vue/manner422/store/modules/cart.js ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2691,7 +2691,18 @@ var _util = _interopRequireDefault(__webpack_require__(/*! @/common/lib/util.js 
       var total = 0;
       state.list.forEach(function (v) {
         if (state.selectedList.indexOf(v.hashKey) > -1) {
-          total += v.showPrice * v.num;
+          total += v.showPrice * 100 * v.num;
+        }
+      });
+      return total / 100;
+    },
+
+    // 合计数目
+    totalNum: function totalNum(state) {
+      var total = 0;
+      state.list.forEach(function (v) {
+        if (state.selectedList.indexOf(v.hashKey) > -1) {
+          total += parseInt(v.num);
         }
       });
       return total;
@@ -2762,7 +2773,7 @@ var _util = _interopRequireDefault(__webpack_require__(/*! @/common/lib/util.js 
 
   actions: {
     // 更新购物车列表
-    updateCartList: function updateCartList(_ref) {var state = _ref.state,commit = _ref.commit;
+    updateCartList: function updateCartList(_ref, cb) {var state = _ref.state,commit = _ref.commit;
       return new Promise(function (res, rej) {
         uni.showLoading({
           title: '加载中' });
@@ -2776,6 +2787,8 @@ var _util = _interopRequireDefault(__webpack_require__(/*! @/common/lib/util.js 
           // 赋值
           commit('initCartList', result);
           res(result);
+          //加一个回调
+          cb && cb(result);
           //隐藏加载框
           setTimeout(function () {
             uni.hideLoading();
@@ -2819,6 +2832,7 @@ var _util = _interopRequireDefault(__webpack_require__(/*! @/common/lib/util.js 
           }, 1000);
           // 赋值
           res(result);
+
         }).catch(function (err) {
           rej(err);
 
@@ -2864,9 +2878,9 @@ var _util = _interopRequireDefault(__webpack_require__(/*! @/common/lib/util.js 
 /***/ }),
 
 /***/ 18:
-/*!*******************************************!*\
-  !*** X:/vue/manner/common/lib/request.js ***!
-  \*******************************************/
+/*!**********************************************!*\
+  !*** X:/vue/manner422/common/lib/request.js ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2902,18 +2916,30 @@ var _util = _interopRequireDefault(__webpack_require__(/*! @/common/lib/util.js 
       if (!options.header.token) {
         console.log('二次登录验证');
         uni.showToast({
-
           title: '请先登录',
           icon: 'none' });
 
 
-        //获取当前页面
+        // //获取当前页面
         var pages = getCurrentPages();
         var curPage = pages[pages.length - 1];
 
-        return uni.navigateTo({
-          url: '/pages/mannerlogin/login?referer=/' + curPage.__route__ });
+        // return uni.navigateTo({
+        // 	url: '/pages/mannerlogin/login?referer=/'+curPage.__route__,
+        // });
 
+        //这里进行页面 数据绑定改变
+        // console.log(curPage.data)
+        // curPage.data.agree = true;
+        // curPage.data.accreditshow = true;
+
+        // curPage.setData({
+        // 	agree:true,
+        // 	accreditshow:true
+        // })
+
+        //如果有回调就执行回调 这个回调主要是 改变上一个页面 授权窗口
+        options.cb && options.cb();
       }
     }
 
@@ -3000,9 +3026,9 @@ var _util = _interopRequireDefault(__webpack_require__(/*! @/common/lib/util.js 
 /***/ }),
 
 /***/ 182:
-/*!****************************************!*\
-  !*** X:/vue/manner/common/lib/time.js ***!
-  \****************************************/
+/*!*******************************************!*\
+  !*** X:/vue/manner422/common/lib/time.js ***!
+  \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3118,9 +3144,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ }),
 
 /***/ 188:
-/*!********************************************************************!*\
-  !*** X:/vue/manner/components/uni-ui/uParse/src/libs/html2json.js ***!
-  \********************************************************************/
+/*!***********************************************************************!*\
+  !*** X:/vue/manner422/components/uni-ui/uParse/src/libs/html2json.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3390,9 +3416,9 @@ html2json;exports.default = _default;
 /***/ }),
 
 /***/ 189:
-/*!********************************************************************!*\
-  !*** X:/vue/manner/components/uni-ui/uParse/src/libs/wxDiscode.js ***!
-  \********************************************************************/
+/*!***********************************************************************!*\
+  !*** X:/vue/manner422/components/uni-ui/uParse/src/libs/wxDiscode.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3595,9 +3621,9 @@ function urlToHttpUrl(url, domain) {
 /***/ }),
 
 /***/ 19:
-/*!****************************************!*\
-  !*** X:/vue/manner/common/lib/util.js ***!
-  \****************************************/
+/*!*******************************************!*\
+  !*** X:/vue/manner422/common/lib/util.js ***!
+  \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3699,15 +3725,36 @@ function urlToHttpUrl(url, domain) {
       t = !1;
     }
     return t;
+  },
+
+  //删除数组里面的undefined元素
+  removeEmptyArrayEle: function removeEmptyArrayEle(arr) {
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i] == undefined || arr[i] == 'undefined' || arr[i] == false) {
+        arr.splice(i, 1);
+        i = i - 1; // i - 1 ,因为空元素在数组下标 2 位置，删除空之后，后面的元素要向前补位，
+        // 这样才能真正去掉空元素,觉得这句可以删掉的连续为空试试，然后思考其中逻辑
+      }
+    }
+
+    // console.log(arr)
+    return arr;
+  },
+
+  //深拷贝方法
+  deepClone: function deepClone(obj) {
+    var _obj = JSON.stringify(obj),
+    objClone = JSON.parse(_obj);
+    return objClone;
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
 /***/ 190:
-/*!*********************************************************************!*\
-  !*** X:/vue/manner/components/uni-ui/uParse/src/libs/htmlparser.js ***!
-  \*********************************************************************/
+/*!************************************************************************!*\
+  !*** X:/vue/manner422/components/uni-ui/uParse/src/libs/htmlparser.js ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9403,7 +9450,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -9424,14 +9471,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -9507,7 +9554,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -9902,9 +9949,9 @@ internalMixin(Vue);
 /***/ }),
 
 /***/ 20:
-/*!*******************************************!*\
-  !*** X:/vue/manner/store/modules/path.js ***!
-  \*******************************************/
+/*!**********************************************!*\
+  !*** X:/vue/manner422/store/modules/path.js ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9966,9 +10013,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ }),
 
 /***/ 21:
-/*!*******************************************!*\
-  !*** X:/vue/manner/store/modules/user.js ***!
-  \*******************************************/
+/*!**********************************************!*\
+  !*** X:/vue/manner422/store/modules/user.js ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10015,9 +10062,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ }),
 
 /***/ 265:
-/*!***********************************************************************!*\
-  !*** X:/vue/manner/components/mpvue-citypicker/city-data/province.js ***!
-  \***********************************************************************/
+/*!**************************************************************************!*\
+  !*** X:/vue/manner422/components/mpvue-citypicker/city-data/province.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10165,9 +10212,9 @@ provinceData;exports.default = _default;
 /***/ }),
 
 /***/ 266:
-/*!*******************************************************************!*\
-  !*** X:/vue/manner/components/mpvue-citypicker/city-data/city.js ***!
-  \*******************************************************************/
+/*!**********************************************************************!*\
+  !*** X:/vue/manner422/components/mpvue-citypicker/city-data/city.js ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11679,9 +11726,9 @@ cityData;exports.default = _default;
 /***/ }),
 
 /***/ 267:
-/*!*******************************************************************!*\
-  !*** X:/vue/manner/components/mpvue-citypicker/city-data/area.js ***!
-  \*******************************************************************/
+/*!**********************************************************************!*\
+  !*** X:/vue/manner422/components/mpvue-citypicker/city-data/area.js ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25054,9 +25101,9 @@ module.exports = g;
 /***/ }),
 
 /***/ 4:
-/*!********************************!*\
-  !*** X:/vue/manner/pages.json ***!
-  \********************************/
+/*!***********************************!*\
+  !*** X:/vue/manner422/pages.json ***!
+  \***********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -25963,21 +26010,21 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ }),
 
 /***/ 7:
-/*!*************************************************!*\
-  !*** X:/vue/manner/pages.json?{"type":"style"} ***!
-  \*************************************************/
+/*!****************************************************!*\
+  !*** X:/vue/manner422/pages.json?{"type":"style"} ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/mannershop/mannershop": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerlist/mannerlist": { "usingComponents": { "base-info": "/components/detail/base-info", "scroll-attrs": "/components/detail/scroll-attrs", "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item", "scroll-comments": "/components/detail/scroll-comments", "u-parse": "/components/uni-ui/uParse/src/wxParse", "card": "/components/common/card", "common-list": "/components/common/common-list", "bottom-btn": "/components/detail/bottom-btn", "common-popup": "/components/common/common-popup", "price": "/components/common/price", "zcm-radio-group": "/components/common/radio-group", "uni-number-box": "/components/uni-ui/uni-number-box/uni-number-box" }, "usingAutoImportComponents": {} }, "pages/mannerorder/mannerorder": { "enablePullDownRefresh": true, "usingComponents": { "no-thing": "/components/common/no-thing", "all-order": "/components/order/all-order" }, "usingAutoImportComponents": {} }, "pages/mannercart/mannercart": { "usingComponents": { "uni-nav-bar": "/components/uni-ui/uni-nav-bar/uni-nav-bar", "price": "/components/common/price", "uni-number-box": "/components/uni-ui/uni-number-box/uni-number-box", "card": "/components/common/card", "zcm-radio-group": "/components/common/radio-group", "common-popup": "/components/common/common-popup" }, "usingAutoImportComponents": {} }, "pages/mannerhome/mannerhome": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerorder/mannerpayok": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerorder/mannerpayfail": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerlogin/login": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerlogin/mannerlogin": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/addressList/addressList": { "navigationBarBackgroundColor": "#ffffff", "navigationBarTitleText": "地址管理", "backgroundColorTop": "#ffffff", "backgroundColorBottom": "#ffffff", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/addressList/edit/edit": { "navigationBarBackgroundColor": "#ffffff", "navigationBarTitleText": "编辑收件人地址", "backgroundColorTop": "#ffffff", "backgroundColorBottom": "#ffffff", "usingComponents": { "mpvue-city-picker": "/components/mpvue-citypicker/mpvueCityPicker" }, "usingAutoImportComponents": {} }, "pages/mannershop/listshop": { "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/discounts/discounts": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerorder/ordersubmit": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerorder/mannerdetail": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerorder/ordertoday": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerorder/allorder": { "usingComponents": {}, "usingAutoImportComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "Manner", "navigationBarBackgroundColor": "#FFFFFF", "backgroundColor": "#FFFFFF" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/mannershop/mannershop1": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerlist/mannerlist1": { "usingComponents": { "base-info": "/components/detail/base-info", "scroll-attrs": "/components/detail/scroll-attrs", "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item", "scroll-comments": "/components/detail/scroll-comments", "u-parse": "/components/uni-ui/uParse/src/wxParse", "card": "/components/common/card", "common-list": "/components/common/common-list", "bottom-btn": "/components/detail/bottom-btn", "common-popup": "/components/common/common-popup", "price": "/components/common/price", "zcm-radio-group": "/components/common/radio-group", "uni-number-box": "/components/uni-ui/uni-number-box/uni-number-box" }, "usingAutoImportComponents": {} }, "pages/mannerorder/mannerorder": { "enablePullDownRefresh": true, "usingComponents": { "no-thing": "/components/common/no-thing", "all-order": "/components/order/all-order" }, "usingAutoImportComponents": {} }, "pages/mannercart/mannercart": { "usingComponents": { "uni-nav-bar": "/components/uni-ui/uni-nav-bar/uni-nav-bar", "price": "/components/common/price", "uni-number-box": "/components/uni-ui/uni-number-box/uni-number-box", "card": "/components/common/card", "zcm-radio-group": "/components/common/radio-group", "common-popup": "/components/common/common-popup" }, "usingAutoImportComponents": {} }, "pages/mannerhome/mannerhome": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerorder/mannerpayok": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerorder/mannerpayfail": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerlogin/login": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerlogin/mannerlogin": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/addressList/addressList": { "navigationBarBackgroundColor": "#ffffff", "navigationBarTitleText": "地址管理", "backgroundColorTop": "#ffffff", "backgroundColorBottom": "#ffffff", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/addressList/edit/edit": { "navigationBarBackgroundColor": "#ffffff", "navigationBarTitleText": "编辑收件人地址", "backgroundColorTop": "#ffffff", "backgroundColorBottom": "#ffffff", "usingComponents": { "mpvue-city-picker": "/components/mpvue-citypicker/mpvueCityPicker" }, "usingAutoImportComponents": {} }, "pages/mannershop/listshop": { "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/discounts/discounts": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerorder/ordersubmit": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerorder/mannerdetail": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerorder/ordertoday": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerorder/allorder": { "usingComponents": {}, "usingAutoImportComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "Manner", "navigationBarBackgroundColor": "#FFFFFF", "backgroundColor": "#FFFFFF" } };exports.default = _default;
 
 /***/ }),
 
 /***/ 8:
-/*!************************************************!*\
-  !*** X:/vue/manner/pages.json?{"type":"stat"} ***!
-  \************************************************/
+/*!***************************************************!*\
+  !*** X:/vue/manner422/pages.json?{"type":"stat"} ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

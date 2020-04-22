@@ -15,7 +15,7 @@
 			</scroll-view>
 		</view> 
 				
-		<view class="uni-tab-bar">
+		<view class="uni-tab-bar animated bounceInRight">
 			<swiper class="swiper-box" 
 			:style="{height:swiperheight+'px'}" 
 			:current="tabIndex"

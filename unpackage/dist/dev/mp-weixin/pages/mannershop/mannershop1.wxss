@@ -1,0 +1,173 @@
+
+.shops-wrapper{
+	/* height: 540upx; */
+	position: absolute;
+}
+.all{
+	background-color: #f2f2f2;
+}
+.title>image{
+	width: 100%;
+}
+.list{
+	width: 90%;
+	margin: auto;
+}
+.list>image{
+	width: 25%;
+	margin: auto;
+}
+.banner{
+	width: 85%;
+	margin: 20rpx auto;
+}
+.banner>image{
+	width: 100%;
+	border-radius: 20rpx;
+	box-shadow: 0 1rpx 10rpx 5rpx #cccccc;
+}
+.element{
+	width: 85%;
+	margin: 0 auto;
+}
+.near,.other{
+	width: 85%;
+	margin: auto ;
+}
+.near>view:first-child,
+.other>view:first-child{
+	font-size: 30rpx;
+	font-weight: 600;
+}
+.nearshop,.othershop{
+	width: 80%;
+	background-color: #ffffff;
+	border-radius: 10rpx;
+	padding: 25rpx;	
+	margin: 20rpx auto;
+	box-shadow: 0 1rpx 10rpx 5rpx #cccccc;
+}
+.nearshop>view>view:first-child,
+.othershop>view>view:first-child{
+	font-size: 25rpx;
+}
+.nearshop>view:first-child,
+.othershop>view:first-child{
+	font-size: 30rpx;
+	font-weight: 600;
+}
+.nearshop>view:last-child,
+.othershop>view:last-child{
+	font-size: 10rpx;
+	color: #a6a6a6;
+}
+.nearshop>view>view:last-child,
+.othershop>view>view:last-child{
+	color: #ffffff;
+	background-color: #e80000;
+	width: 100rpx;
+	border-radius: 50rpx;
+	font-size: 20rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	margin-right: 20rpx;
+}
+.shopdetail{	
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+	background-color: #F8F8F8;
+	box-shadow: 0 0 20rpx 1rpx;
+	z-index: 9000;
+}
+.around{
+	padding: 40rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-justify-content: space-around;
+	        justify-content: space-around;
+}
+.shopleft{
+	-webkit-box-flex: 4;
+	-webkit-flex: 4;
+	        flex: 4;
+}
+.shopright{
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+}
+.shopright>view{
+	margin-left: 25rpx;
+}
+.ok{
+	width: 200rpx;
+	height: 80rpx;
+	border-radius: 50rpx;
+	background-color: #d10003;
+	color: #ffffff;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	margin: 0 30rpx 60rpx 0;
+	font-weight: 600;
+	z-index: 9001;
+}
+.shopname{
+	font-size: 35rpx;
+	font-weight: 600;
+	color: #5b5b5b;
+}
+.shopinfo1,.shopinfo{
+	font-size: 25rpx;
+	color: #888888;
+	margin-left: 50rpx;
+}
+/* 蒙版 */
+.shopmask,.accreditmask,.phonenummask,.templatemsgmask{
+	position: fixed;
+	right: 0;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	z-index: 2021;
+	background-color:  #00000082;
+}
+.allbottom{
+	position: fixed;
+	bottom: 0;
+	background-color: #FFFFFF;
+	z-index: 8998;
+}
+.bottom{
+	padding: 20rpx 76rpx 30rpx 76rpx;		
+	z-index: 8996;
+}
+.agree{
+	width: 610rpx;
+	height: 88rpx;
+	color: #FFFFFF;
+	font-size: 36rpx;
+	font-weight: 600;
+	border-radius: 10rpx;
+	margin-top: 40rpx;
+	background: -webkit-linear-gradient(left,#DB2C24,#79041C);
+}
+.close{
+	z-index: 8997;
+}
+
