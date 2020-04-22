@@ -1,404 +1,111 @@
 <template>
-	<view class="all" style="height: 100%;box-sizing: border-box;">			
-				<image src="../../static/img/列表title1.png" 
-				mode="widthFix" 
-				style="width: 100%;"
-				@click="showCart()"
-				>
-				</image>
-				<view class="card1 animated flipInX">
-					<view class="u-f cardname u-f-jsb">
+	<view class="all" style="height: 100%;box-sizing: border-box;">
+			<view>
+				<view>
+					<image src="../../static/img/列表title1.png" 
+					mode="widthFix" 
+					style="width: 100%;">
+					</image>
+				</view>
+				<!-- 最近店铺 -->
+				<view class="card1">
+					<view class="u-f cardname">
 						<view>{{currentShop.name}}</view>
-						<view>离我最近</view>
+						<view>最近</view>
 					</view>
 					<view class="u-f u-f-jsb cardaddress">
 						<view class="u-f">
-							<view style="font-size: 24upx;">{{currentShop.address}}</view>
+							<view>{{currentShop.address}}</view>
 							<image @tap="openMap()" src="../../static/img/地图.png" 
 							mode="widthFix" 
 							style="width: 50upx;margin-left: 10upx;">
 							</image>
 						</view>
-						<view style="font-size: 20upx;" @tap="selectShop()">更换地址</view>
+						<view @tap="selectShop()">更换地址</view>
 					</view>
 				</view>				
-				<view style="padding: 40upx 40upx 20upx 45upx;background-color: #F7F7F7;">
-					<view class="u-f">
-						<view style="width: 6upx;height: 30upx;background-color: #B0B0BD;border-radius: 10upx;margin: 12upx 8upx;"></view>
-						<view style="font-size: 32upx;font-weight: 600;" @click="showAttr()">Manner咖啡厅</view>
-					</view>
-					
-					<view style="font-size: 20upx;color: #4A4A4A;">根据所选门店库存状况,菜单可能不同,你可以多走两步,换一家门店试试。</view>
+				<view>
+					<image src="../../static/img/咖啡大厅.png" mode="widthFix" style="width: 100%;"></image>
 				</view>
-			
+			</view>
 			<!-- 列表部分 -->
-			<view class="content"  :style="{height:height+'px'}" >						
+			<view class="content"  style="height: 100%;box-sizing: border-box;">						
+			<!-- 左侧类别列表 -->
 				<scroll-view id="leftScroll" scroll-y 
-				style="flex: 1;height: 100%;background-color: #F7F7F7;" 
-				class="border-right border-light-secondary " 
+				style="flex: 1;height: 100%;" 
+				class="border-right border-light-secondary" 
 				:scroll-top="leftScrollTop">
-					<view :class="activeIndex === index ? 'class-active':''"
+					<view class="border-bottom border-light-secondary py-1 left-scroll-item"
 					hover-class="bg-light-secondary"
 					v-for="(item,index) in cate" :key = "index"
-					@tap="changeCate(index)"
-					style="height: 88upx;align-items: center;">
-						<view class="py-1 font-md left-text text-center "
+					@tap="changeCate(index)">
+						<view class="py-1 font-md text-muted text-center "
 						:class="activeIndex === index ? 'class-active':''">
 						{{item.name}}	
 						</view>
 					</view>
 				</scroll-view> 						
-				<scroll-view scroll-y style="flex: 3.5;height: 100%;;"
+				<!-- 右侧商品列表 -->
+				<scroll-view scroll-y style="flex: 3.5;height: 100%;"
 				:scroll-top="rightScrollTop"
 				:scroll-with-animation="true"
 				@scroll="onRightScroll">					
-					<view class="row right-scroll-item " v-for="(item,index) in list" :key="index">
-						<view class="u-f span24-24  py-2 animated bounceInRight" v-for="(item2,index2) in item.goods" :key="index2" @click="show('attr',index,index2)">
+					<view class="row right-scroll-item" v-for="(item,index) in list" :key="index">
+						<view class="span24-24  py-2 u-f" v-for="(item2,index2) in item.goods" :key="index2" @click="show('attr',index,index2)">
 							<view class="px-2">
 								<image wx:if="url + item2.thumb"  :src="url + item2.thumb" 
-								style="width: 120upx;height: 120upx;border-radius: 10upx;">
+								style="width: 120upx;height: 120upx;border-radius: 10upx;flex:4;">
 								</image>
 							</view>
-							<view class="" >
-								<view style="font-size: 28upx;font-weight: 600;color: #4A4A4A;">{{item2.title}}</view>
-								<view style="font-size: 24upx;color: #4A4A4A;">默认:大杯/加冰</view>
-								
+							<view class="" style="flex:4">
+								<view>{{item2.title}}</view>
+								<view class="font-sm" style="color: #c3c3c3;">默认:大杯/加冰</view>
+								<view class="font-md">￥{{item2.market_price}}</view>
 							</view>
-							<view class="u-f" >
-								<view class="font-md" style="margin: 36upx 40upx;">￥{{item2.market_price}}</view>
+							<view class="" style="flex:1">
 								<image src="../../static/icon/加号.png" 
 								mode="widthFix" 
-								style="width: 44upx;margin-top: 42upx;margin-right: 60upx;">
+								style="width: 50upx;margin-top: 60upx;">
 								</image>
 							</view>
-							
-						</view>
+						</view>						
 					</view>
-					<view style="height: 55upx;"></view>
 				</scroll-view>				
 			</view>			
 			<!-- 属性筛选框 -->
-					
-			
-			<!-- 新购物车筛选框 -->
-			<view class="goodscard" v-show="showattr">
-				<view class="banner  animated fadeInDown"></view>
-				<view  :class="specialcard? 'specialcardtop animated fadeInUp':'attr animated fadeInUp'">
-					<!-- <view v-show="specialcard" style="height: 130upx;"><image src="../../static/icon/叉.png" mode="widthFix" style="width: 30upx;margin: 70upx 70upx;" @click="attrOff"></view> -->
-					<view v-show="showattr" style="height: 130upx;"><image src="../../static/icon/叉.png" mode="widthFix" style="width: 30upx;margin: 70upx 70upx;" @click="attrOff"></view>
-					<view class="'attrtop">
-						<view :class="specialcard? 'goodstitle':'attrtop1'">冰拿铁咖啡</view>
-						<view v-show="!specialcard">丰富奶泡与浓缩结合，牛奶咖啡经典之作</view>
-					</view>
-					<scroll-view scroll-y style="height: 500upx;"  :class="specialcard? 'specialcardtop1':''">
-						<view class="check">
-							<!-- 杯型 -->	
-													
-							<view class="size u-f" style="flex-wrap:wrap">
-								<view>杯型</view>
-								<view class="u-f" style="flex-wrap:wrap;width: 500upx;">
-									<view class="ischecked" style="margin:0 30upx 10upx 0;">大杯</view>
-									<view class="checked" style="margin:0 30upx 10upx 0;">小杯</view>
-								</view>							
-							</view>
-							<view class="size u-f" style="flex-wrap:wrap">
-								<view>加冰</view>
-								<view class="u-f" style="flex-wrap:wrap;width: 500upx;">
-									<view class="ischecked" style="margin:0 30upx 10upx 0;">少冰</view>
-									<view class="checked" style="margin:0 30upx 10upx 0;">正常</view>
-									<view class="checked" style="margin:0 30upx 10upx 0;">多冰</view>
-								</view>							
-							</view>
-							<!-- 温度 -->
-							<view>
-								<view class="size u-f">
-									<view>温度</view>
-									<view class="checked">热</view>
-									<view class="ischecked">冷</view>
-								</view>
-								<view class=" u-f" style="margin:40upx 0 0 120upx;">
-									<view class="u-f">
-										<view class="iscircle"></view>
-										<view>标准</view>
-									</view>
-									<view class="u-f">
-										<view class="circle"></view>
-										<view>去冰</view>
-									</view>
-									<view class="u-f">
-										<view class="circle"></view>
-										<view>少冰</view>
-									</view>
-									<view class="u-f">
-										<view class="circle"></view>
-										<view>加冰</view>
-									</view>
-							</view>					
-							</view>
-							<!-- 奶品 -->
-							<view class="size u-f" style="flex-wrap:wrap">
-								<view>奶品</view>
-								<view class="u-f" style="flex-wrap:wrap;width: 500upx;">
-									<view class="checked" style="margin:0 30upx 10upx 0;">鲜牛奶</view>
-									<view class="ischecked" style="margin:0 30upx 10upx 0;">燕麦奶+￥5</view>
-									<view class="checked" style="margin:0 30upx 10upx 0;">豆奶</view>
-									<view class="checked" style="margin:0 30upx 10upx 0;">鲜牛奶</view>
-									<view class="ischecked" style="margin:0 30upx 10upx 0;">燕麦奶+￥5</view>
-									<view class="checked" style="margin:0 30upx 10upx 0;">豆奶</view>
-								</view>								
-							</view>
-							<!-- 浓缩 -->
-							<view class="size u-f">
-								<view>浓缩</view>	
-								<view style="margin: 16upx 0 0 40upx;">					
-									<uni-number-box :min="1" :max="9"></uni-number-box>					
-								</view>
-								<view>份浓度</view>
-							</view>
-							<view style="color: #9B9B9B;font-size: 20upx;text-align: center;margin: 10upx 0 20upx 0;">推荐咖啡浓度，MANNER咖啡师的灵魂配比</view>
-							
-						</view>
-						</scroll-view>
-						<!-- 打开特调详情的按钮 -->
-						<view class="u-f u-f-ajc button" @click="special()" v-show="!specialcard">
-							<view>Manner 特调选项</view>
-							<view><image src="../../static/icon/下箭头.png" mode="widthFix" style="width: 30upx;margin: 16upx 0 0 10upx;"></image></view>
-						</view>
-						<view class="u-f u-f-ajc button1" @click="special()" v-show="specialcard">
-							<view>Manner 特调选项</view>
-							<view><image src="../../static/icon/上箭头.png" mode="widthFix" style="width: 30upx;margin: 16upx 0 0 10upx;"></image></view>
-						</view>
-						<!-- 特调规格详情 -->
-						<view v-show="specialcard"class="animated fadeInUp" >
-							<view class="u-f taste">
-								<view>风味</view>
-								<view class="u-f">
-									<view class="iscircle"></view>
-									<view class="isselect">肉桂粉</view>
-								</view>
-							</view>
-							<view class="u-f taste">
-								<view>豆子</view>
-								<view class="u-f">
-									<view class="circle"></view>
-									<view>花魁浅烘 +￥5</view>
-								</view>
-							</view>
-							<view class="u-f taste">
-								<view>糖浆</view>
-								<view class="u-f" style="flex-wrap:wrap;width: 450upx;">
-									<view  class="u-f">
-										<view class="circle"></view>
-										<view class="select">原味糖浆</view>
-									</view>
-									<view  class="u-f">
-										<view class="iscircle"></view>
-										<view class="isselect">榛果糖浆</view>
-									</view>
-									<view  class="u-f">
-										<view class="circle"></view>
-										<view class="select">香草糖浆</view>
-									</view>
-									<view  class="u-f">
-										<view class="circle"></view>
-										<view class="select">桂花糖浆</view>
-									</view>	
-								</view>
-							</view>						
-						</view>
-						<view style="height: 170upx;"></view>
-					
-					<!-- 规格的底部信息模块 -->
-					<view class="foot">
-						<view style="font-size: 24upx;">小杯/去冰/鲜牛奶/4份浓缩</view>
-						<view class="u-f">						
-							<view style="flex: 1;" class="u-f">
-								<uni-number-box :min="1" :max="9"></uni-number-box>
-								<view style="margin:10upx 0 0 4upx;color: #9B9B9B;">杯</view>
-							</view>
-							<view style="flex: 1.5;text-align: center;" class="u-f">
-								<view style="margin:10upx 0 0 16upx;color: #9B9B9B;">总计:</view>
-								<view style="font-size: 35upx;margin-top: 5upx;">￥20</view>
-							</view>
-							<view class="ok u-f-ajc">确认</view>
-						</view>
-					</view>				
-				</view>			
-			</view>
-			
-			<!-- 底部小购物车 -->
-			<view class="u-f cart  animated slideInUp" v-show="showcart" @click="cart()">
-				<view class="cartone">
-					<image src="../../static/img/logo.png" mode="widthFix" style="width: 160upx;"></image>
-					<view class="cartnum u-f-ajc">3</view>
-				</view>
-				<view class="carttwo u-f-ajc">
-					<view style="font-size: 24upx;color: #9B9B9B;">总价:</view>
-					<view style="font-size: 38upx;color: #4A4A4A;font-weight: 600;">￥65</view>
-				</view>
-				<view style="flex:1;">
-					<view class="cartthree u-f-ajc">付款</view>
-				</view>				
-			</view>
-			
-			<!-- 全屏大购物车 -->
-			<view class="allcart  animated slideInUp" v-show="shopping">
-				<view style="height: 130upx;"><image src="../../static/icon/叉.png" mode="widthFix" style="width: 30upx;margin: 70upx 70upx;" @click="off"></image></view>
-				<view style="padding: 0upx 72upx 10upx 72upx;box-shadow: 0 2upx 0 0 #cccccc;">
-					<view style="font-size: 36upx;color: #131313;font-weight: 600;">购物车</view>
-					<view class="u-f u-f-jsb">
-						<view style="font-size: 26upx;color: #4A4A4A;">南阳店</view>
-						<view style="font-size: 24upx;color: #4A4A4A;">门店自提</view>
+			<common-popup :popupClass="popup.attr" @hide="hide('attr')">
+				<view class="d-flex a-center" style="height: 275rpx;">
+					<image v-if="url + currentGoods.thumb"  :src="url + currentGoods.thumb" mode="widthFix"
+					style="height: 180rpx;width: 180rpx;" class="border rounded"></image>
+					<view class="pl-2">
+						<price priceSize="font-lg" unitSize="font">{{showPrice}}</price>
+						<text class="d-block">
+							{{currentGoods.title}}
+						</text>
+						<text class="d-block" style="font-size:18upx;font-weight: 200;">
+							{{checkedSkus}}
+						</text>
 					</view>
 				</view>
-				
-				<!-- 这里循环数据 -->
-				<scroll-view scroll-y  :style="{height:height+'px'}">
-					<view class="u-f animated bounceInRight" style="padding: 10upx 54upx;border-bottom: 1upx solid #efefef;">
-						<view style="flex: 3;">
-							<view style="font-size: 28upx;color: #4A4A4A;font-weight: 600;margin: 16upx 0 0 0;">冰甜拿铁</view>
-							<view style="font-size: 20upx;color: #4A4A4A;">小杯/加冰/桂花糖浆/肉桂粉/4份浓缩</view>
-						</view>
-						<view class="u-f" style="flex: 2;">
-							<view style="font-size: 28upx;color: #4A4A4A;margin: 44upx 10upx 0 0;">￥20</view>
-							<view style="margin: 28upx 0 0 0;"><uni-number-box :min="1" :max="9"></uni-number-box></view>
-						</view>
-					</view>
-					<view class="u-f" style="padding: 10upx 54upx;border-bottom: 1upx solid #efefef;">
-						<view style="flex: 3;">
-							<view style="font-size: 28upx;color: #4A4A4A;font-weight: 600;margin: 16upx 0 0 0;">冰甜拿铁</view>
-							<view style="font-size: 20upx;color: #4A4A4A;">小杯/加冰/桂花糖浆/肉桂粉/4份浓缩</view>
-						</view>
-						<view class="u-f" style="flex: 2;">
-							<view style="font-size: 28upx;color: #4A4A4A;margin: 44upx 10upx 0 0;">￥20</view>
-							<view style="margin: 28upx 0 0 0;"><uni-number-box :min="1" :max="9"></uni-number-box></view>
-						</view>
-					</view>
-					<view class="u-f" style="padding: 10upx 54upx;border-bottom: 1upx solid #efefef;">
-						<view style="flex: 3;">
-							<view style="font-size: 28upx;color: #4A4A4A;font-weight: 600;margin: 16upx 0 0 0;">冰甜拿铁</view>
-							<view style="font-size: 20upx;color: #4A4A4A;">小杯/加冰/桂花糖浆/肉桂粉/4份浓缩</view>
-						</view>
-						<view class="u-f" style="flex: 2;">
-							<view style="font-size: 28upx;color: #4A4A4A;margin: 44upx 10upx 0 0;">￥20</view>
-							<view style="margin: 28upx 0 0 0;"><uni-number-box :min="1" :max="9"></uni-number-box></view>
-						</view>
-					</view>
-					<view class="u-f" style="padding: 10upx 54upx;border-bottom: 1upx solid #efefef;">
-						<view style="flex: 3;">
-							<view style="font-size: 28upx;color: #4A4A4A;font-weight: 600;margin: 16upx 0 0 0;">冰甜拿铁</view>
-							<view style="font-size: 20upx;color: #4A4A4A;">小杯/加冰/桂花糖浆/肉桂粉/4份浓缩</view>
-						</view>
-						<view class="u-f" style="flex: 2;">
-							<view style="font-size: 28upx;color: #4A4A4A;margin: 44upx 10upx 0 0;">￥20</view>
-							<view style="margin: 28upx 0 0 0;"><uni-number-box :min="1" :max="9"></uni-number-box></view>
-						</view>
-					</view>
-					<view class="u-f" style="padding: 10upx 54upx;border-bottom: 1upx solid #efefef;">
-						<view style="flex: 3;">
-							<view style="font-size: 28upx;color: #4A4A4A;font-weight: 600;margin: 16upx 0 0 0;">冰甜拿铁</view>
-							<view style="font-size: 20upx;color: #4A4A4A;">小杯/加冰/桂花糖浆/肉桂粉/4份浓缩</view>
-						</view>
-						<view class="u-f" style="flex: 2;">
-							<view style="font-size: 28upx;color: #4A4A4A;margin: 44upx 10upx 0 0;">￥20</view>
-							<view style="margin: 28upx 0 0 0;"><uni-number-box :min="1" :max="9"></uni-number-box></view>
-						</view>
-					</view>
-					<view class="u-f" style="padding: 10upx 54upx;border-bottom: 1upx solid #efefef;">
-						<view style="flex: 3;">
-							<view style="font-size: 28upx;color: #4A4A4A;font-weight: 600;margin: 16upx 0 0 0;">冰甜拿铁</view>
-							<view style="font-size: 20upx;color: #4A4A4A;">小杯/加冰/桂花糖浆/肉桂粉/4份浓缩</view>
-						</view>
-						<view class="u-f" style="flex: 2;">
-							<view style="font-size: 28upx;color: #4A4A4A;margin: 44upx 10upx 0 0;">￥20</view>
-							<view style="margin: 28upx 0 0 0;"><uni-number-box :min="1" :max="9"></uni-number-box></view>
-						</view>
-					</view>
-					<view class="u-f" style="padding: 10upx 54upx;border-bottom: 1upx solid #efefef;">
-						<view style="flex: 3;">
-							<view style="font-size: 28upx;color: #4A4A4A;font-weight: 600;margin: 16upx 0 0 0;">冰甜拿铁</view>
-							<view style="font-size: 20upx;color: #4A4A4A;">小杯/加冰/桂花糖浆/肉桂粉/4份浓缩</view>
-						</view>
-						<view class="u-f" style="flex: 2;">
-							<view style="font-size: 28upx;color: #4A4A4A;margin: 44upx 10upx 0 0;">￥20</view>
-							<view style="margin: 28upx 0 0 0;"><uni-number-box :min="1" :max="9"></uni-number-box></view>
-						</view>
-					</view>
-					<view class="u-f" style="padding: 10upx 54upx;border-bottom: 1upx solid #efefef;">
-						<view style="flex: 3;">
-							<view style="font-size: 28upx;color: #4A4A4A;font-weight: 600;margin: 16upx 0 0 0;">冰甜拿铁</view>
-							<view style="font-size: 20upx;color: #4A4A4A;">小杯/加冰/桂花糖浆/肉桂粉/4份浓缩</view>
-						</view>
-						<view class="u-f" style="flex: 2;">
-							<view style="font-size: 28upx;color: #4A4A4A;margin: 44upx 10upx 0 0;">￥20</view>
-							<view style="margin: 28upx 0 0 0;"><uni-number-box :min="1" :max="9"></uni-number-box></view>
-						</view>
-					</view>
-					<view class="u-f" style="padding: 10upx 54upx;border-bottom: 1upx solid #efefef;">
-						<view style="flex: 3;">
-							<view style="font-size: 28upx;color: #4A4A4A;font-weight: 600;margin: 16upx 0 0 0;">冰甜拿铁</view>
-							<view style="font-size: 20upx;color: #4A4A4A;">小杯/加冰/桂花糖浆/肉桂粉/4份浓缩</view>
-						</view>
-						<view class="u-f" style="flex: 2;">
-							<view style="font-size: 28upx;color: #4A4A4A;margin: 44upx 10upx 0 0;">￥20</view>
-							<view style="margin: 28upx 0 0 0;"><uni-number-box :min="1" :max="9"></uni-number-box></view>
-						</view>
-					</view>
-					<view class="u-f" style="padding: 10upx 54upx;border-bottom: 1upx solid #efefef;">
-						<view style="flex: 3;">
-							<view style="font-size: 28upx;color: #4A4A4A;font-weight: 600;margin: 16upx 0 0 0;">冰甜拿铁</view>
-							<view style="font-size: 20upx;color: #4A4A4A;">小杯/加冰/桂花糖浆/肉桂粉/4份浓缩</view>
-						</view>
-						<view class="u-f" style="flex: 2;">
-							<view style="font-size: 28upx;color: #4A4A4A;margin: 44upx 10upx 0 0;">￥20</view>
-							<view style="margin: 28upx 0 0 0;"><uni-number-box :min="1" :max="9"></uni-number-box></view>
-						</view>
-					</view>
-					<view class="u-f" style="padding: 10upx 54upx;border-bottom: 1upx solid #efefef;">
-						<view style="flex: 3;">
-							<view style="font-size: 28upx;color: #4A4A4A;font-weight: 600;margin: 16upx 0 0 0;">冰甜拿铁</view>
-							<view style="font-size: 20upx;color: #4A4A4A;">小杯/加冰/桂花糖浆/肉桂粉/4份浓缩</view>
-						</view>
-						<view class="u-f" style="flex: 2;">
-							<view style="font-size: 28upx;color: #4A4A4A;margin: 44upx 10upx 0 0;">￥20</view>
-							<view style="margin: 28upx 0 0 0;"><uni-number-box :min="1" :max="9"></uni-number-box></view>
-						</view>
-					</view>
-					<view class="u-f" style="padding: 10upx 54upx;border-bottom: 1upx solid #efefef;">
-						<view style="flex: 3;">
-							<view style="font-size: 28upx;color: #4A4A4A;font-weight: 600;margin: 16upx 0 0 0;">冰甜拿铁</view>
-							<view style="font-size: 20upx;color: #4A4A4A;">小杯/加冰/桂花糖浆/肉桂粉/4份浓缩</view>
-						</view>
-						<view class="u-f" style="flex: 2;">
-							<view style="font-size: 28upx;color: #4A4A4A;margin: 44upx 10upx 0 0;">￥20</view>
-							<view style="margin: 28upx 0 0 0;"><uni-number-box :min="1" :max="9"></uni-number-box></view>
-						</view>
-					</view>
-					<view class="u-f" style="padding: 10upx 54upx;border-bottom: 1upx solid #efefef;">
-						<view style="flex: 3;">
-							<view style="font-size: 28upx;color: #4A4A4A;font-weight: 600;margin: 16upx 0 0 0;">冰甜拿铁</view>
-							<view style="font-size: 20upx;color: #4A4A4A;">小杯/加冰/桂花糖浆/肉桂粉/4份浓缩</view>
-						</view>
-						<view class="u-f" style="flex: 2;">
-							<view style="font-size: 28upx;color: #4A4A4A;margin: 44upx 10upx 0 0;">￥20</view>
-							<view style="margin: 28upx 0 0 0;"><uni-number-box :min="1" :max="9"></uni-number-box></view>
-						</view>
+									
+				<scroll-view scroll-y class="w-100" style="height: 660rpx;">
+					<card :headTitle="item.name" :headTitleWeight="false" 
+					:headBorderBottom="false" :key="index"
+					v-for="(item,index) in newoptions">
+						<zcm-radio-group :label="item" 
+						:selected.sync="item.selected"></zcm-radio-group>
+					</card>
+					<view class="d-flex j-sb a-center p-1 border-top border-light-secondary">
+						<text>购买数量</text>
+						<uni-number-box :min="1" :value="goodsNum" @change="goodsNum = $event"></uni-number-box>
 					</view>
 				</scroll-view>
-				
-				<!-- 底部付款模块 -->
-				<view class="u-f pay" style="width: 100%;">
-					<view style="flex: 2;">						
-					</view>					
-					<view class="carttwo u-f-ajc" style="flex: 2;">
-						<view style="font-size: 24upx;color: #9B9B9B;">总价:</view>
-						<view style="font-size: 38upx;color: #4A4A4A;font-weight: 600;">￥65</view>
-					</view>					
-					<view style="flex:1;">
-						<view class="cartthree u-f-ajc">付款</view>
-					</view>	
-				</view>
-			</view>
+			
+				 <view class="main-bg-color text-white font-md d-flex a-center j-center" hover-class="main-bg-hover-color" style="height: 100rpx;margin-left: -30rpx;margin-right: -30rpx;" 
+				 @tap.stop="addCart">
+				 	加入购物车
+				 </view>
+			</common-popup>		
 	</view>
 </template>
 
@@ -415,11 +122,7 @@
 	import price from "@/components/common/price.vue"
 	import zcmRadioGroup from "@/components/common/radio-group.vue"
 	import uniNumberBox from "@/components/uni-ui/uni-number-box/uni-number-box.vue"
-	
-	// import uniNumberBoxx from "@/components/uni-number-boxx.vue"
 	import {mapMutations} from "vuex"
-	
-	
 	
 	export default {
 		components: {
@@ -434,8 +137,7 @@
 			commonPopup,
 			price,
 			zcmRadioGroup,
-			uniNumberBox,
-			// uniNumberBoxx
+			uniNumberBox
 		},
 		computed: {
 			// 显示价格
@@ -463,17 +165,7 @@
 		},
 		data () {
 			return{
-				//全屏大购物车
-				shopping:false,
-				//商品规格
-				showattr:false,
-				//底部小购物车
-				showcart:false,
-				//可视高度
-				height:0,
-				//商品规格的特殊选项
-				specialcard:false,				
-				//当前商品数量
+				// 当前商品数量
 				goodsNum:1,
 				detail:{
 					num:1
@@ -490,6 +182,7 @@
 				// 当前点击的商品数据
 				currentGoods:{},
 				goodsIndex:"",
+				height:50,
 				showLoading:true,
 				//当前选中分类
 				activeIndex:0,
@@ -526,8 +219,10 @@
 				}
 			}
 		},
-		onLoad(){	
-			//没用
+		onLoad () {
+			// this.__init()
+			this.height = Number(uni.getSystemInfoSync().windowHeight) - 55;
+			//可使用窗口高度减少55,可使用窗口高度是642
 			this.getData()
 		},
 		onReady() {
@@ -553,42 +248,12 @@
 		},
 		
 		methods: {
-			// 点击弹出规格按钮,测试用
-			showAttr(){
-				this.showattr = !this.showattr
-			},
-			//点击关闭所有商品规格
-			attrOff(){
-				this.showattr = false
-			},
-			// 点击弹出购物车按钮,测试用
-			showCart(){
-				this.showcart = !this.showcart
-			},
-			//点击购物车，隐藏小购物车，打开全屏购物车
-			cart(){
-				//关闭底部小购物车
-				this.showcart = false
-				//打开全屏购物车
-				this.shopping = true
-			},
-			//点击关闭全屏购物车
-			off(){
-				this.shopping = false
-			},
-			// 点击规格特调按钮,打开特调规格
-			special(){
-				this.specialcard = !this.specialcard;
-			},		
 			onShow(){
 				//取出已经选择的店铺
-				this.currentShop = this.$Util.getCache('current_shop');				
+				this.currentShop = this.$Util.getCache('current_shop');
+				
 			},
 			onLoad(){
-				// this.__init()
-				this.height = Number(uni.getSystemInfoSync().windowHeight) - 206;
-				console.log(this.height)
-				//可使用窗口高度减少55,可使用窗口高度是642
 				//后面加一个店铺商品判断
 				this.$H.post('/mannerdish/goods/goodslist',{},{
 					token:false,
@@ -750,45 +415,31 @@
 <style>
 	.uparse .p{ padding: 0!important; }
 	.uparse view,.uparse uni-view{ line-height: 0!important; }
-	.left-text{
-		font-size: 28upx;
-		color: #4A4A4A;
-		height: 88upx;
-		background-color: #F7F7F7;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
 	.class-active{
-		color: #000000!important;
-		font-weight: 600;
-		font-size: 32upx;
-		margin-right: 2upx;
-		background-color: white;
-		
+		border-left: 8upx solid #FD6801;color: #FD6801!important;
 	}
 	.all{
 		position: relative;
 		width: 100%;
 	}
-	.card1{	
+	.card1{
 		position: absolute;
 		background-color: #ffffff;
 		box-shadow: 0 1upx 10upx 5upx #cccccc;
-		padding: 10upx 30upx 0 30upx;
+		padding: 30upx;
 		border-radius: 10upx;
 		width: 80%;
 		margin-left: 6%;
-		top: 294upx;
-		z-index: 1999;		
-	}
-	.cardname>view:first-child{
-		font-size: 32upx;
+		top: 220upx;
+		z-index: 1999;
+		
 	}
 	.cardname>view:last-child{
 		width: 80upx;
-		font-size: 20upx;
-		color: #B51C21;
+		font-size: 25upx;
+		background-color: #6b0000;
+		border-radius: 50upx;
+		color: #ffffff;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -796,7 +447,7 @@
 		margin: 6upx 0 0 8upx;
 	}
 	.cardaddress{
-		margin-top: 5upx;
+		margin-top: 20upx;
 		color: #c7c7c7;
 	}
 	.top>view>view:first-child{
@@ -970,230 +621,15 @@
 		font-size: 25upx;
 		color: #9a9a9a;
 	}
-	/* 
-	 新版规格
-	 */
-	.goodscard{
-		box-shadow: 5upx 0 0 0 #cccccc;
-		height: 100%;
-	}
-	.specialcardtop{
-		width: 100%;
-		height: 100%;
-		background-color: #ffffff;
-		position: fixed;
-		z-index: 2002;		
-		top: 0;	
-		
-	}
-	.banner{
-		height: 40%;
-		width: 100%;
-		background-color: #E5E5E5;
-		position: fixed;
-		z-index: 2000;
-		top: 0;
-	}
-	.attr{
-		width: 100%;
-		background-color: #ffffff;
-		border-radius: 25upx 25upx 0 0;
-		box-shadow: 10upx 0 0 0 #cccccc;
-		position: fixed;
-		z-index: 2001;		
-		bottom: 0;	
-	}
-	.specialcardtop1{
-		background-color: #F7F7F7;
-	}
-	.attrtop{
-		text-align: center;
-	}	
-	.goodstitle{
-		border: 1upx solid #f7f7f7;
-		width: 100%;
-		text-align: center;
-		/* box-shadow: 2upx 10upx 10upx 10upx #efefef; */
-		font-size: 36upx;
-		z-index: 2020;
-	}
-	.attrtop1{
-		font-size: 36upx;
-		color: #131313;
-		margin: -30upx 0 0 50upx;
-	}
-	.attrtop>view:last-child{
-		font-size: 24upx;
-		color: #4A4A4A;
-	}
-	.size>view:first-child
-	,.ice>view:first-child
-	,.milk>view:first-child
-	,.espresso>view:first-child{
-		font-size: 28upx;
-		color: #4A4A4A;
-	}
-	.size>view
-	,.ice>view
-	,.milk>view
-	,.espresso>view{
-		margin-left: 40upx;
-		margin-top: 20upx;
-	}
-	.check{
-		margin: 20upx 40upx 20upx 40upx;
-	}
-	.checked{
-		text-align: center;
-		padding: 6upx 40upx;
-		border-radius: 10upx;
-		background-color: #EFF2F3;
-	}
-	.ischecked{
-		text-align: center;
-		padding: 6upx 40upx;
-		border-radius: 10upx;
-		background-color: #fffaea;
-		color: #960F1E;
-		border: 1upx solid #960F1E;
-	}
-	.ice1{
-		border-radius: 50%;
-		width: 28upx;
-		height: 28upx;
-		background-color: #EFF2F3;
-		margin: 10upx 10upx 0 20upx;
-	}
-	.ice2{
-		border-radius: 50%;
-		width: 16upx;
-		height: 16upx;
-		background-color: #9C121E;
-		margin: 20upx 10upx 0 20upx;
-	}
-	.circle{
-		width: 28upx;
-		height: 28upx;
-		background-color: #EFF2F3;
-		border-radius: 50%;
-		margin: 11upx 2upx  0 40upx;
-	}
-	.iscircle{
-		border-radius: 50%;
-		width: 16upx;
-		height: 16upx;
-		background-color: #9C121E;
-		margin: 19upx 10upx 0 46upx;
-	}
-	.isselect{
-		color: #9C121E;
-	}
-	.button{
-		height: 90upx;
-		background-color: #FAF9F4;
-	}
-	.button1{
-		
-		color: #9D121E;
-		height: 90upx;
-		background-color: #FAF9F4;
-	}
-	.foot{
-		padding: 0 0 10upx 0;
-		position: fixed;
-		bottom: 0;
-		z-index:2021;		
-		box-shadow: 0upx -1upx 0upx 0upx #0f0f0f,
-	}
-	.foot>view:first-child{
-		color: #4A4A4A;
-		font-size: 24upx;
-		margin:20upx 0 0 38upx;
-		padding-top: 10upx;
-	}
-	.taste>view:first-child{
-		margin-left: 80upx;
-	}
-	.taste{
-		margin-top: 20upx;
-	}
-	.foot>view:last-child{
-		margin-top: 30upx;
-	}
-	.foot>view>view:first-child{
-		margin-left: 20upx;
-	}
-	.ok{
-		flex: 1.5;
-		text-align: center;
-		color: white;
-		background: -webkit-linear-gradient(left,#DB2C24,#79041C);
-		width: 266upx;
-		height: 80upx;
-		border-radius: 10upx;
-	}
+	/* /////////////////////// */
 	
-	/* 
-	 购物车
-	 */
-	.cart{
-		bottom: 0;
-		width: 100%;
-		z-index:2090;
-		position: fixed;
-		height: 100upx;
-		background-color: white;
-		box-shadow: 2rpx 0rpx 8rpx 2rpx #d4d4d4;
-	}
-	/* 购物车logo子绝父相	 */
-	.cartone{
-		flex:1;
-		position: relative;
-	}
-	.cartone>image{				
-		left: 38upx;
-		bottom: 24upx;
-		position: absolute;
-		border-radius: 50%;
-	}
-	.cartnum{
-		bottom: 108upx;
-		left: 150upx;
-		color: white;		
-		width: 50upx;
-		height: 50upx;
-		z-index: 2091;
-		border-radius: 50%;
-		position: absolute;
-		background-color: #DB2C24;
-	}
-	.carttwo{
-		flex:1;
+	/* 商品详情 */
+
+
 		
-	}
-	.cartthree{
+	/* 复选框样式修改(原生基础上修改) */
 	
-		color: white;
-		height: 80upx;
-		width: 200upx;		
-		font-size: 36upx;
-		text-align: center;
-		border-radius: 10upx;
-		margin: 14upx 32upx;
-		background: -webkit-linear-gradient(left,#DB3B33,#B1353E);		
-	}
-	.allcart{
-		position: fixed;
-		top: 0;
-		height: 100%;
-		width: 100%;
-		z-index: 9000;
-		background-color: #FFFFFF;
-	}
-	.pay{		
-		bottom: 0;
-		z-index: 9001;
-		position: fixed;
-		border-top: 1upx solid #e8e8e8;
-	}
+		
+	/* 冰量样式 */
+	
 </style>

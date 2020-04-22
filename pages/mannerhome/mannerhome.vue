@@ -1,5 +1,5 @@
 <template>
-	<view class="all">
+	<view class="all animated bounceInRight">
 		<view class="title">
 			<image src="../../static/img/我的1.png" mode="widthFix" style="width: 100%;"></image>
 		</view>

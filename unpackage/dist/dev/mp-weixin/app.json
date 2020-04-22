@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/mannershop/mannershop",
-    "pages/mannerlist/mannerlist",
+    "pages/mannershop/mannershop1",
+    "pages/mannerlist/mannerlist1",
     "pages/mannerorder/mannerorder",
     "pages/mannercart/mannercart",
     "pages/mannerhome/mannerhome",
@@ -29,16 +29,20 @@
     "color": "#ADADAD",
     "selectedColor": "#000000",
     "backgroundColor": "#FFFFFF",
-    "borderStyle": "white",
+    "borderStyle": "black",
     "list": [
       {
-        "pagePath": "pages/mannershop/mannershop",
+        "pagePath": "pages/mannershop/mannershop1",
         "text": "首页",
         "iconPath": "/static/tabbar/首页1.png",
-        "selectedIconPath": "/static/tabbar/首页2.png"
+        "selectedIconPath": "/static/tabbar/首页2.png",
+        "style": {
+          "transparentTitle": "always",
+          "navigationStyle": "custom"
+        }
       },
       {
-        "pagePath": "pages/mannerlist/mannerlist",
+        "pagePath": "pages/mannerlist/mannerlist1",
         "text": "点单",
         "iconPath": "/static/tabbar/点单1.png",
         "selectedIconPath": "/static/tabbar/点单2.png",
@@ -68,6 +72,5 @@
   },
   "usingComponents": {
     "loading": "/components/common/loading"
-  },
-  "sitemapLocation": "sitemap48.json"
+  }
 }

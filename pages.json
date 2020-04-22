@@ -1,11 +1,11 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-		    "path" : "pages/mannershop/mannershop",
+		    "path" : "pages/mannershop/mannershop1",
 		    "style" : {}
 		},
 		{
-		    "path" : "pages/mannerlist/mannerlist",
+		    "path" : "pages/mannerlist/mannerlist1",
 		    "style" : {}
 		},
 		{
@@ -105,27 +105,29 @@
 		"navigationBarTitleText": "Manner",
 		"navigationBarBackgroundColor": "#FFFFFF",
 		"backgroundColor": "#FFFFFF"
-		
 	},
 	//底部导航
 	"tabBar":{
 		"color":"#ADADAD",
 		"selectedColor":"#000000",
 		"backgroundColor":"#FFFFFF",
-		"borderStyle":"white",
+		"borderStyle":"black",
 		"list" : [
 			{
-				"pagePath":"pages/mannershop/mannershop",
+				"pagePath":"pages/mannershop/mannershop1",
 				"text":"首页",
 				"iconPath":"/static/tabbar/首页1.png",
-				"selectedIconPath":"/static/tabbar/首页2.png"
+				"selectedIconPath":"/static/tabbar/首页2.png",
+				"style":{
+					"transparentTitle":"always",
+					"navigationStyle": "custom"
+				}
 			},
 		    {
-				"pagePath":"pages/mannerlist/mannerlist",
+				"pagePath":"pages/mannerlist/mannerlist1",
 				"text":"点单",
 				"iconPath":"/static/tabbar/点单1.png",
 				"selectedIconPath":"/static/tabbar/点单2.png",
-				
 				"style":{
 					"transparentTitle":"always",
 					"navigationStyle": "custom"
@@ -142,7 +144,8 @@
 				"text":"我的",
 				"iconPath":"/static/tabbar/我的1.png",
 				"selectedIconPath":"/static/tabbar/我的2.png"
-			}			
+			}
+			
 		]
 	}
 	// "permission": {

@@ -24,8 +24,10 @@
 							<view>{{items.orderstore.name}}自提</view>
 							<view style="margin: 0 20upx;">周{{item.datatime|dateFormat}}</view>
 						</view>
-						<view v-if="items.status === 2">已完成</view>
-						<view v-if="items.status === -1" style="color: #000000;">已取消</view>
+						<view v-if="items.status == 1">已支付</view>
+						<view v-if="items.status == 2">已完成</view>
+						<view v-if="items.status == 0">未支付</view>
+						<view v-if="items.status == 3" style="color: #000000;">已取消</view>
 					</view>
 					<view class="u-f u-f-jsb">
 						<view>{{items.orderproduct[0].goods_name}}等{{items.total_num}}件商品</view>

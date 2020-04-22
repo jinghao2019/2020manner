@@ -29,18 +29,30 @@ export default {
 			if (!options.header.token) {
 				console.log('二次登录验证')
 				uni.showToast({
-					
 					title: '请先登录',
 					icon: 'none'
 				});
 				
-				//获取当前页面
+				// //获取当前页面
 				let pages = getCurrentPages();
 				let curPage = pages[pages.length-1];
 				
-				return uni.navigateTo({
-					url: '/pages/mannerlogin/login?referer=/'+curPage.__route__,
-				});
+				// return uni.navigateTo({
+				// 	url: '/pages/mannerlogin/login?referer=/'+curPage.__route__,
+				// });
+				
+				//这里进行页面 数据绑定改变
+				// console.log(curPage.data)
+				// curPage.data.agree = true;
+				// curPage.data.accreditshow = true;
+				
+				// curPage.setData({
+				// 	agree:true,
+				// 	accreditshow:true
+				// })
+				
+				//如果有回调就执行回调 这个回调主要是 改变上一个页面 授权窗口
+				options.cb && options.cb()
 			}
 		}
 		

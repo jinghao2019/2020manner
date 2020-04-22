@@ -21,7 +21,18 @@ export default {
 			var total = 0
 			state.list.forEach(v=>{
 				if (state.selectedList.indexOf(v.hashKey) > -1) {
-					total += v.showPrice*v.num
+					total += v.showPrice*100*v.num
+				}
+			})
+			return total/100
+		},
+		
+		// 合计数目
+		totalNum:(state)=>{
+			var total = 0
+			state.list.forEach(v=>{
+				if (state.selectedList.indexOf(v.hashKey) > -1) {
+					total += parseInt(v.num)
 				}
 			})
 			return total
@@ -92,7 +103,7 @@ export default {
 	},
 	actions:{
 		// 更新购物车列表
-		updateCartList({state,commit}){
+		updateCartList({state,commit},cb){
 			return new Promise((res,rej)=>{
 				uni.showLoading({
 				    title: '加载中'
@@ -106,6 +117,8 @@ export default {
 					// 赋值
 					commit('initCartList',result)
 					res(result)
+					//加一个回调
+					cb && cb(result)
 					//隐藏加载框
 					setTimeout(function () {
 					    uni.hideLoading();
@@ -149,6 +162,7 @@ export default {
 					}, 1000);
 					// 赋值
 					res(result)
+					
 				}).catch(err=>{
 					rej(err)
 					

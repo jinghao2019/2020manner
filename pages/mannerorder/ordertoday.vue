@@ -1,5 +1,5 @@
 <template>
-	<view style="height: 100%;">
+	<view style="height: 100%;background-color: #F0F2F5;">
 		<!-- 订单中心 -->
 		<view class="u-f u-f-jsb head">
 			<view class="u-f">
@@ -11,7 +11,8 @@
 				<image src="../../static/icon/right.png" mode="widthFix" style="width: 15upx;margin-top: 18upx;margin-left: 10upx;"></image>
 			</view>
 		</view>
-		<view class="allorder">
+		<scroll-view scroll-y style="height: 100%;background-color: #F0F2F5;padding: 0 0 10px 0;">
+			<view class="allorder  animated bounceInRight">
 			<block v-for="(item,index) in listorder" :key="index">
 				<view class="order">
 					<view class="u-f u-f-jsb">
@@ -63,6 +64,7 @@
 				</view>
 			</block>				
 		</view>
+		</scroll-view>
 	</view>
 </template>
 
@@ -83,8 +85,7 @@
 			},
 			toallorder(){
 				uni.navigateTo({
-					    url: '../../pages/mannerorder/allorder',
-				
+					    url: '../../pages/mannerorder/allorder',			
 				});
 			},
 			getData(){
