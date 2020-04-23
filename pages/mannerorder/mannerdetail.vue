@@ -92,9 +92,10 @@
 				去支付
 			</view>
 		</view>
+		<!-- 取餐码弹框 -->
 		<view v-show="show">
 			<view class="numbershow">
-			<image src="../../static/img/numbershow.png" mode="widthFix" style="width: 600upx;border-radius: 20upx;"></image>
+				<image src="../../static/img/numbershow.png" mode="widthFix" style="width: 600upx;border-radius: 20upx;"></image>
 			</view>			
 			<view class="bignumber">{{orderdetail.dish_code}}</view>
 		</view>
@@ -341,7 +342,7 @@
 	height: 100%;
 	z-index: 2002;
 	position: fixed;
-	background-color: rgba(229, 229, 229, 0.9);
+	background-color: rgba(222, 222, 222, 0.6);
 	top: 0;
 }
 .bignumber{
@@ -359,13 +360,13 @@
             filter: blur(5px);
 
 }
-.mask{
+/* .mask{
 	 position:fixed;
 	 top     : 0;
 	 left    : 0;
 	 bottom  : 0;
 	 right   : 0;
 	 background:rgba(0,0,0,0.8);
-}
+} */
 
 </style>

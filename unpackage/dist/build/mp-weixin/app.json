@@ -1,0 +1,77 @@
+{
+  "pages": [
+    "pages/mannershop/mannershop1",
+    "pages/mannerlist/mannerlist1",
+    "pages/mannerorder/mannerorder",
+    "pages/mannercart/mannercart",
+    "pages/mannerhome/mannerhome",
+    "pages/mannerorder/mannerpayok",
+    "pages/mannerorder/mannerpayfail",
+    "pages/mannerlogin/login",
+    "pages/mannerlogin/mannerlogin",
+    "pages/addressList/addressList",
+    "pages/addressList/edit/edit",
+    "pages/mannershop/listshop",
+    "pages/discounts/discounts",
+    "pages/mannerorder/ordersubmit",
+    "pages/mannerorder/mannerdetail",
+    "pages/mannerorder/ordertoday",
+    "pages/mannerorder/allorder"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "Manner",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#FFFFFF"
+  },
+  "tabBar": {
+    "color": "#ADADAD",
+    "selectedColor": "#000000",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/mannershop/mannershop1",
+        "text": "首页",
+        "iconPath": "/static/tabbar/首页1.png",
+        "selectedIconPath": "/static/tabbar/首页2.png",
+        "style": {
+          "transparentTitle": "always",
+          "navigationStyle": "custom"
+        }
+      },
+      {
+        "pagePath": "pages/mannerlist/mannerlist1",
+        "text": "点单",
+        "iconPath": "/static/tabbar/点单1.png",
+        "selectedIconPath": "/static/tabbar/点单2.png",
+        "style": {
+          "transparentTitle": "always",
+          "navigationStyle": "custom"
+        }
+      },
+      {
+        "pagePath": "pages/mannerorder/ordertoday",
+        "text": "发现",
+        "iconPath": "/static/tabbar/发现1.png",
+        "selectedIconPath": "/static/tabbar/发现2.png"
+      },
+      {
+        "pagePath": "pages/mannerhome/mannerhome",
+        "text": "我的",
+        "iconPath": "/static/tabbar/我的1.png",
+        "selectedIconPath": "/static/tabbar/我的2.png"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "最近店铺"
+    }
+  },
+  "usingComponents": {
+    "loading": "/components/common/loading"
+  },
+  "sitemapLocation": "sitemap.json"
+}

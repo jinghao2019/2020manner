@@ -23,7 +23,7 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.10.4",
+	"libVersion": "2.9.2",
 	"appid": "wx2fa7a4f0a97fcedc",
 	"projectname": "manner",
 	"simulatorType": "wechat",
@@ -54,29 +54,15 @@
 			"list": [
 				{
 					"id": -1,
-					"name": "餐品",
+					"name": "1",
 					"pathName": "pages/mannerlist/mannerlist1",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "主页",
-					"pathName": "pages/mannershop/mannershop1",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "detail",
-					"pathName": "pages/mannerorder/mannerdetail",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "detail",
-					"pathName": "pages/mannerorder/ordersubmit",
+					"name": "shop",
+					"pathName": "pages/mannershop/listshop",
 					"scene": null
 				}
 			]

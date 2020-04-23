@@ -1,0 +1,1 @@
+.time{padding:20rpx 40rpx;background-color:#f5f5f5}.time view{color:#4a4a4a;font-size:28rpx}.order>view{height:125rpx;border-bottom:1rpx solid #eee}.order>view>view{margin-top:20rpx}.order>view>view>view{font-size:24rpx;color:#4a4a4a}.order>view>view>view:last-child{color:#89262c}

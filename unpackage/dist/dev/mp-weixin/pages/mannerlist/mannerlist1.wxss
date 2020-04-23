@@ -257,19 +257,22 @@ color:#9a9a9a;
 	width: 100%;
 	height: 100%;
 	background-color: #ffffff;
-
-
 	position: fixed;
 	z-index: 2002;		
 	top: 0;
 }
 .banner{
-	height: 40%;
+	height: 100%;
 	width: 100%;
-	background-color: #E5E5E5;
+	background-color: rgba(90, 90, 90, 0.8);
 	position: fixed;
 	z-index: 2000;
 	top: 0;
+	
+		  -webkit-filter: blur(5px); /* Chrome, Opera */
+	       -moz-filter: blur(5px);
+	        -ms-filter: blur(5px);    
+	            filter: blur(5px);
 }
 .attr{
 	width: 100%;
@@ -473,5 +476,60 @@ color:#9a9a9a;
 	z-index: 9001;
 	position: fixed;
 	border-top: 1rpx solid #e8e8e8;
+}
+/* 加载地图弹框 */
+.map{
+	bottom: 0;
+	height: 600rpx;
+	width: 90%;
+	z-index: 9009;
+	position: fixed;
+	padding: 20rpx 60rpx 20rpx 60rpx;
+	background-color: #ffffff;
+}
+.switch{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	width: 190rpx;
+	height: 66rpx;
+	background-color: #ffffff;
+	color: #960F1E;
+	border-radius: 50rpx;
+	border: 1rpx solid #960F1E;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	font-size: 26rpx;
+}
+.sure{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	width: 190rpx;
+	height: 66rpx;
+	background-color: #960F1E;
+	color: #ffffff;
+	border-radius: 50rpx;
+	border: 1rpx solid #ffffff;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	font-size: 26rpx;
+	margin-right: 50rpx;
+}
+.mapmask{
+	top: 0;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(90, 90, 90, 0.8);
+	z-index: 9008;
+	position: fixed;
 }
 

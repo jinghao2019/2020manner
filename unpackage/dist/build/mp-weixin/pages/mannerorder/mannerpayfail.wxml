@@ -1,0 +1,1 @@
+<view><view style="width:100%;height:100%;display:flex;margin-top:40%;"><view style="margin:0 auto;"><view style="text-align:center;"><image style="width:120rpx;margin:0 auto;" src="../../static/icon/fail.png" mode="widthFix"></image></view><view style="font-size:40rpx;">支付失败</view></view></view><view class="button u-f-ajc">再次支付</view></view>

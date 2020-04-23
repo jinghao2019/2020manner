@@ -1,9 +1,9 @@
 <template>
-	<view class="all" style="height: 100%;box-sizing: border-box;">			
+	<view class="all" style="height: 100%;box-sizing: border-box;position: absolute;">			
 				<image src="../../static/img/列表title1.png" 
 				mode="widthFix" 
 				style="width: 100%;"
-				@click="showCart()"
+				@tap="showCart()"
 				>
 				</image>
 				<view class="card1  animated bounceInRight">
@@ -48,10 +48,10 @@
 						</view>
 					</view>
 				</scroll-view> 						
-				<scroll-view scroll-y style="flex: 3.5;height: 100%;;"
+				<scroll-view scroll-y style="flex: 3.5;height: 100%;"
 				:scroll-top="rightScrollTop"
 				:scroll-with-animation="true"
-				@scroll="onRightScroll">					
+				@scroll="onRightScroll" >					
 					<view class="row right-scroll-item" v-for="(item,index) in list" :key="index">
 						<view class="u-f span24-24  py-2  animated bounceInRight" v-for="(item2,index2) in item.goods" :key="index2" @click="show(index,index2)">
 							
@@ -72,8 +72,7 @@
 								mode="widthFix" 
 								style="width: 44upx;margin-top: 42upx;margin-right: 60upx;">
 								</image>
-							</view>
-							
+							</view>						
 						</view>
 					</view>
 					<view style="height: 55upx;"></view>
@@ -83,33 +82,39 @@
 					
 			<!-- 新购物车筛选框 -->
 			<view class="goodscard" v-show="showattr">
-				<view class="banner animated fadeInUp"></view>
-				<view  :class="specialcard? 'specialcardtop  animated fadeInUp':'attr  animated fadeInUp'">
+			<view class="banner animated fadeInUp">
+				<!-- <image src=""></image> -->
+			</view>
+				<view  :class="specialcard? 'specialcardtop  animated fadeInUp':'attr  animated fadeInUp'" >
 					<!-- <view v-show="specialcard" style="height: 130upx;"><image src="../../static/icon/叉.png" mode="widthFix" style="width: 30upx;margin: 70upx 70upx;" @click="attrOff"></view> -->
 					<view v-show="showattr" style="height: 100upx;"><image src="../../static/icon/叉.png" mode="widthFix" style="width: 30upx;margin: 40upx 70upx;" @click="attrOff"></view>
-					<view class="'attrtop">
-						<view :class="specialcard? 'goodstitle':'attrtop1'">冰拿铁咖啡</view>
-						<view v-show="!specialcard">丰富奶泡与浓缩结合，牛奶咖啡经典之作</view>
-					</view>
+
+						<view class="'attrtop" >
+							<view :class="specialcard? 'goodstitle':'attrtop1'">{{currentGoods.title}}</view>
+							<view v-show="!specialcard">丰富奶泡与浓缩结合，牛奶咖啡经典之作</view>
+						</view>
+					
+					
 					<scroll-view scroll-y style="height: 300upx;"  :class="specialcard? 'specialcardtop1':''">
 						<view class="check">
-							<!-- 杯型 -->
+							<!-- 遍历杯型 -->
 							<block v-for="(item,index) in newoptions" :key="index">			
 								<view class="size u-f" style="flex-wrap:wrap" v-if="item.isnum == 0 && item.isspecial == 0 && item.ismulti == 0">
 									<view>{{item.name}}</view>
 									<view class="u-f" style="flex-wrap:wrap;width: 500upx;">
+										<!-- 遍历子规格 -->
 										<block v-for="(item2,index2) in item.child" :key="index2">
 											<view @click="selectSimple(index,index2)" :class="item.selected == index2 ? 'ischecked' : 'checked'" style="margin:0 30upx 10upx 0;">{{item2.name}} {{ item2.addPrice == 0 ? '' : '+￥' + item2.addPrice }}</view>
 										</block>
 									</view>							
 								</view>
 							</block>
-							
+							<!-- 遍历浓缩分数 -->
 							<block v-for="(item,index) in newoptions" :key="index">
 								<view class="size u-f" style="flex-wrap:wrap" v-if="item.isnum != 0 && item.isspecial == 0 && item.ismulti == 0">
 									<view>{{item.name}}</view>
 									<view style="margin: 16upx 0 0 40upx;">
-										<uni-number-box :min="1" :max="9" :value="1" @change="coffeePiecesNumber($event,item,index)"></uni-number-box>					
+										<uni-number-box :min="1" :max="9" :value="1" @change="coffeePiecesNumber($event,item,index)"></uni-number-box>		
 									</view>
 									<view>份{{item.name}}</view>
 									<view style="color: #9B9B9B;font-size: 20upx;width:100%;text-align: center;margin: 10upx 0 20upx 0;">推荐咖啡浓度，MANNER咖啡师的灵魂配比</view>
@@ -118,7 +123,7 @@
 							
 						</view>
 						</scroll-view>
-						<view>
+						<view v-if="specialexist">
 							<!-- 打开特调详情的按钮 -->
 							<view class="u-f u-f-ajc button" @click="special()" v-show="!specialcard">
 								<view>Manner 特调选项</view>
@@ -133,7 +138,7 @@
 							<view v-show="specialcard" style="margin:30upx;" class="animated fadeInUp">
 								
 								<block v-for="(item,index) in newoptions" :key="index">
-									<view class="u-f taste" v-if="item.isnum == 0 && item.isspecial == 1 && item.ismulti == 1">
+									<view class="u-f taste" v-if="item.ismulti == 1 && item.isnum == 0 && item.isspecial == 1">
 										<view>{{item.name}}</view>
 										<view class="u-f" style="flex-wrap: wrap;width:550upx;"> 
 											<view v-for="(item2,index2) in item.child" :key="index2" class="u-f" @click="selectMulti(index,index2)">
@@ -142,7 +147,15 @@
 											</view>
 										</view>
 									</view>
+								
+								
 								</block>
+								<!-- <block v-for="(item,index) in newoptions" :key="index">
+									<view class="u-f taste" v-if="item.ismulti !== 1 && item.isnum !== 0 && item.isspecial !== 1">
+										没有
+									</view>
+								</block> -->
+								
 							
 							</view>
 						</view>
@@ -161,14 +174,14 @@
 								<view style="margin:10upx 0 0 16upx;color: #9B9B9B;">总计:</view>
 								<view style="font-size: 35upx;margin-top: 5upx;">￥{{showPrice*goodsNum}}</view> 
 							</view>
-							<view class="ok u-f-ajc" @click="addCart()">确认</view>
+							<view class="ok u-f-ajc" @tap="addCart()">确认</view>
 						</view>
 					</view>				
 				</view>			
 			</view>
 			
 			<!-- 底部小购物车 -->
-			<view class="u-f cart" v-show="showcart" @click="cart()">
+			<view class="u-f cart" v-show="showcart" @tap="cart()">
 				<view class="cartone">
 					<image src="../../static/img/logo.png" mode="widthFix" style="width: 160upx;"></image>
 					<view class="cartnum u-f-ajc">{{totalNum}}</view>
@@ -178,13 +191,13 @@
 					<view style="font-size: 38upx;color: #4A4A4A;font-weight: 600;">￥{{totalPrice}}</view>
 				</view>
 				<view style="flex:1;">
-					<view class="cartthree u-f-ajc" @click="submitOrder()">付款</view>
+					<view class="cartthree u-f-ajc" @tap="submitOrder()">付款</view>
 				</view>				
 			</view>
 			
 			<!-- 全屏大购物车 -->
 			<view class="allcart" v-show="shopping">
-				<view style="height: 130upx;"><image src="../../static/icon/叉.png" mode="widthFix" style="width: 30upx;margin: 70upx 70upx;" @click="off"></image></view>
+				<view style="height: 130upx;"><image src="../../static/icon/叉.png" mode="widthFix" style="width: 30upx;margin: 70upx 70upx;" @tap="off"></image></view>
 				<view style="padding: 0upx 72upx 10upx 72upx;box-shadow: 0 2upx 0 0 #cccccc;">
 					<view style="font-size: 36upx;color: #131313;font-weight: 600;">购物车</view>
 					<view class="u-f u-f-jsb">
@@ -212,7 +225,7 @@
 				</scroll-view>
 				
 				<!-- 底部付款模块 -->
-				<view class="u-f pay" style="width: 100%;">
+				<view class="u-f pay" style="width: 100%;" >
 					<view style="flex: 2;">						
 					</view>					
 					<view class="carttwo u-f-ajc" style="flex: 3;">
@@ -220,10 +233,44 @@
 						<view style="font-size: 38upx;color: #4A4A4A;font-weight: 600;">￥{{totalPrice}}</view>
 					</view>					
 					<view style="flex:1;">
-						<view class="cartthree u-f-ajc" @click="submitOrder()">付款</view>
+						<view class="cartthree u-f-ajc" @tap="submitOrder()">付款</view>
 					</view>	
 				</view>
 			</view>
+			<!-- 弹框地图 -->
+			<view class="map" v-show="mask">
+				<view class="u-f u-f-jsb">
+					<view style="font-size: 35upx;">{{currentShop.name}}</view>
+					<view class="u-f" style="margin-right: 50upx;">
+						<view><image src="../../static/img/地图.png" 
+							mode="widthFix" 
+							style="width: 50upx;margin-right: 10upx;"></image></view>
+						<view>5km</view>
+					</view>
+				</view>
+				<view class="u-f u-f-jsb" style="margin: 20upx 0;">
+					<view style="font-size: 25upx;">{{currentShop.address}}</view>
+					<view style="font-size: 25upx;color: #ff0000;margin-right: 50upx;">当前店铺</view>
+				</view>
+				<view>
+					<template>
+					    <view>
+					        <view class="page-body">
+					            <view class="page-section page-section-gap">
+					                <map style="width: 92%; height: 360upx;" :latitude="latitude" :longitude="longitude" :markers="covers">
+					                </map>
+					            </view>
+					        </view>
+					    </view>
+					</template>
+				</view>
+				<view class="u-f u-f-jsb" style="margin: 20upx 0;">
+					<view class="switch" @tap="selectShop()">切换店铺</view>
+					<view class="sure" @tap="iAmSure()">确认</view>
+				</view>
+			</view>
+			<!-- 弹框地图的蒙版 -->
+			<view class="mapmask" v-show="mask"></view>
 	</view>
 </template>
 
@@ -312,6 +359,27 @@
 		},
 		data () {
 			return{
+				// 弹框地图start
+				id:0, 
+				 // 使用 marker点击事件 需要填写id
+				title: 'map',
+				latitude: 39.909,
+				longitude: 116.39742,
+				covers: [{
+					latitude: 39.909,
+					longitude: 116.39742,
+					iconPath: '../../static/img/坐标.png'
+				}, {
+					latitude: 39.90,
+					longitude: 116.39,
+					iconPath: '../../static/img/坐标.png'
+				}],
+				// 弹框地图end
+				
+				//弹框地图的蒙版
+				mask:true,												
+				//有和没有这个特调选项
+				specialexist:false,
 				//咖啡浓缩数量
 				coffeePieces:1,
 				//咖啡浓度的数量变化造成的价格变化
@@ -407,6 +475,9 @@
 		},
 		
 		methods: {
+			iAmSure(){
+				this.mask = false
+			},
 			...mapMutations([
 				'addGoodsToCart',
 			]),
@@ -459,7 +530,7 @@
 				//改变商品数量
 				this.goodsNum = value
 			},
-			// 点击弹出规格按钮,测试用
+			// 点击弹出规格按钮
 			showAttr(){
 				this.showattr = !this.showattr
 			},
@@ -469,6 +540,7 @@
 				this.coffeePieces = 1;
 				this.changePrice = 0;
 				this.multiPrice = 0;
+				//当前点击的商品
 				this.currentGoods = [];
 				this.newoptions = [];
 				this.goodsNum = 1;
@@ -496,12 +568,13 @@
 			// 点击规格特调按钮,打开特调规格
 			special(){
 				this.specialcard = !this.specialcard;
+				//特调是否展示判断
 			},		
 			onShow(){
 				var that = this;
 				//取出已经选择的店铺
 				this.currentShop = this.$Util.getCache('current_shop');		
-						
+				// console.log(this.currentShop)
 				//更新购物车
 				this.updateCartList(res => {
 					if(res.length > 0 )
@@ -604,17 +677,28 @@
 			 * @param {Object} index2
 			 */
 			show(index,index2){
+				
 				//确认当前商品下标
 				this.goodsIndex = index2
-				//当前商品信息，把点击的信息传递到currentGoods{}内
+				//当前点击的商品信息，把点击的信息传递到currentGoods{}内
 				var currentGoods = this.$Util.deepClone(this.list[index]['goods'][this.goodsIndex]);
-				
 				this.currentGoods = currentGoods
+			
 				this.currentGoods.num = 1;
 				//设置当前的规格
 			    var newoptions =  this.$Util.deepClone(this.list[index]['goods'][this.goodsIndex]['option']['options']);
 				
+				this.specialexist = false
+				//看是否有特调
+				for(let i = 0;i<newoptions.length;i++){
+					console.log('进来了')
+					if(newoptions[i].isspecial == 1){
+						this.specialexist = true
+					}
+				}
+				
 				this.newoptions = newoptions;
+				console.log(this.newoptions)
 				//显示规格
 				this.showattr = true;
 				//关闭底部购物车的按钮
@@ -967,20 +1051,24 @@
 		width: 100%;
 		height: 100%;
 		background-color: #ffffff;
-
-
 		position: fixed;
 		z-index: 2002;		
-		top: 0;	
-		
+		top: 0;			
 	}
 	.banner{
-		height: 40%;
+		height: 100%;
 		width: 100%;
-		background-color: #E5E5E5;
+		background-color: rgba(90, 90, 90, 0.8);;
 		position: fixed;
 		z-index: 2000;
 		top: 0;
+		
+			  -webkit-filter: blur(5px); /* Chrome, Opera */
+		       -moz-filter: blur(5px);
+		        -ms-filter: blur(5px);    
+		            filter: blur(5px);
+		
+		
 	}
 	.attr{
 		width: 100%;
@@ -1186,5 +1274,48 @@
 		z-index: 9001;
 		position: fixed;
 		border-top: 1upx solid #e8e8e8;
+	}
+	/* 加载地图弹框 */
+	.map{
+		bottom: 0;
+		height: 600upx;
+		width: 90%;
+		z-index: 9009;
+		position: fixed;
+		padding: 20upx 60upx 20upx 60upx;
+		background-color: #ffffff;		
+	}
+	.switch{
+		display: flex;
+		width: 190upx;
+		height: 66upx;
+		background-color: #ffffff;
+		color: #960F1E;
+		border-radius: 50upx;
+		border: 1upx solid #960F1E;
+		align-items: center;
+		justify-content: center;
+		font-size: 26upx;
+	}
+	.sure{
+		display: flex;
+		width: 190upx;
+		height: 66upx;
+		background-color: #960F1E;
+		color: #ffffff;
+		border-radius: 50upx;
+		border: 1upx solid #ffffff;
+		align-items: center;
+		justify-content: center;
+		font-size: 26upx;
+		margin-right: 50upx;
+	}
+	.mapmask{
+		top: 0;
+		height: 100%;
+		width: 100%;
+		background-color: rgba(90, 90, 90, 0.8);;
+		z-index: 9008;
+		position: fixed;
 	}
 </style>

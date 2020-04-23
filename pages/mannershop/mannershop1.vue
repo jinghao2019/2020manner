@@ -5,9 +5,9 @@
 		</view>
 			
 		<view class="list u-f">
-			<image src="../../static/img/img1.png" mode="widthFix" @click="toList()"></image>
-			<image src="../../static/img/img2.png" mode="widthFix" @click="toOrder()"></image>
-			<image src="../../static/img/img3.png" mode="widthFix" @click="info()"></image>
+			<image src="../../static/img/img1.png" mode="widthFix" @tap="toList()"></image>
+			<image src="../../static/img/img2.png" mode="widthFix" @tap="toOrder()"></image>
+			<image src="../../static/img/img3.png" mode="widthFix" @tap="info()"></image>
 		</view>
 		
 		<!-- <view class="banner">
@@ -23,7 +23,7 @@
 				<view>最近店铺</view>
 			</view>
 					
-			<view class="nearshop" @click="showshop">
+			<view class="nearshop" @tap="showshop">
 				<view>{{nearshop.shopname}}</view>
 				<view class="u-f u-f-jsb">
 					<view>{{nearshop.shopaddress}}</view>
@@ -39,7 +39,7 @@
 				<view>{{item.name}}</view>
 				<view class="u-f u-f-jsb">
 					<view>{{item.address}}</view>
-					<view  @click="setCurrentShop(index)">去点单</view>
+					<view  @tap="setCurrentShop(index)">去点单</view>
 				</view>
 			</view>		
 			
@@ -50,7 +50,7 @@
 				<view class="u-f around">
 					<view class="shopleft">
 						<view class="u-f">
-							<image src="../../static/icon/zuojian.png" mode="aspectFit" style="width: 40upx;margin-top: 4upx;margin-right: 10upx;height: auto;"  @click="hidedeatil()"></image>
+							<image src="../../static/icon/zuojian.png" mode="aspectFit" style="width: 40upx;margin-top: 4upx;margin-right: 10upx;height: auto;"  @tap="hidedeatil()"></image>
 							<view class="shopname">{{nearshop.shopname}}</view>
 						</view>
 						
@@ -71,37 +71,37 @@
 				</view>
 				<view class="u-f u-f-jsb">
 					<view></view>
-					<view class="ok" @click="setCurrentShop(index)">去点单</view>
+					<view class="ok" @tap="setCurrentShop(index)" >去点单</view>
 				</view>
 			</view>
 			<!-- 蒙版1 -->
 			<view>
-				<view class="shopmask" @click="hidedeatil()" v-show="shopshow"></view>
+				<view class="shopmask" @tap="hidedeatil()" v-show="shopshow"></view>
 			</view>
 			
 			
 			
 			<!-- 蒙版2 -->
-			<!-- <view class="accreditmask"  v-show="accreditshow"></view> -->
+			<view class="accreditmask"  v-show="accreditshow"></view>
 			<!-- 蒙版3 -->
-			<!-- <view class="phonenummask"  v-show="phonenumshow"></view> -->
+			<view class="phonenummask"  v-show="phonenumshow"></view>
 			<!-- 蒙版4 -->
-			<!-- <view class="templatemsgmask"  v-show="templatemsgshow"></view> -->
+			<view class="templatemsgmask"  v-show="templatemsgshow"></view>
 					
 
 			<view class="allbottom" v-show="agreeUserInfo">
-				<view class="close" @click="closeagreeuserinfo()">
+				<view class="close" @tap="closeagreeuserinfo()">
 					<image src="../../static/icon/叉.png" mode="widthFix" style="width: 30upx;float:right;padding: 28upx 28upx 0 0;"></image>
 				</view>
 					<view class="bottom">						
 						<view>欢迎来到Manner咖啡</view>
 						<view style="font-size: 24upx;color: #9B9B9B;">Manner申请获取您用户信息</view>
-						<button class="agree u-f-ajc" open-type="getUserInfo" @click="wxlogin()">同意授权</button>
+						<button class="agree u-f-ajc" open-type="getUserInfo" @tap="wxlogin()">同意授权</button>
 					</view>
 			</view>
 			
 			<view class="allbottom" v-show="agreePhoneNum">
-				<view class="close" @click="closeagreephonenum()">
+				<view class="close" @tap="closeagreephonenum()">
 					<image src="../../static/icon/叉.png" mode="widthFix" style="width: 30upx;float:right;padding: 28upx 28upx 0 0;"></image>
 				</view>
 					<view class="bottom">						
@@ -112,13 +112,13 @@
 			</view>
 			
 			<view class="allbottom" v-show="agreeTemplateMsg">
-				<view class="close" @click="closetemplatemsg()">
+				<view class="close" @tap="closetemplatemsg()">
 					<image src="../../static/icon/叉.png" mode="widthFix" style="width: 30upx;float:right;padding: 28upx 28upx 0 0;"></image>
 				</view>
 					<view class="bottom">						
 						<view>欢迎来到Manner咖啡</view>
 						<view style="font-size: 24upx;color: #9B9B9B;">Manner申请您授权模板消息</view>
-						<button class="agree u-f-ajc" open-type="getUserInfo" @click="showTemp()">同意授权</button>
+						<button class="agree u-f-ajc" open-type="getUserInfo" @tap="showTemp()">同意授权</button>
 					</view>
 			</view>
 				

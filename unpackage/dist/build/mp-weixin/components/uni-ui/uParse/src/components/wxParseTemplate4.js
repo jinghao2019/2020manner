@@ -1,0 +1,10 @@
+(global["webpackJsonp"]=global["webpackJsonp"]||[]).push([["components/uni-ui/uParse/src/components/wxParseTemplate4"],{5538:function(n,e,t){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0;var r=function(){t.e("components/uni-ui/uParse/src/components/wxParseTemplate5").then(function(){return resolve(t("0277"))}.bind(null,t)).catch(t.oe)},u=function(){t.e("components/uni-ui/uParse/src/components/wxParseImg").then(function(){return resolve(t("b4b2"))}.bind(null,t)).catch(t.oe)},o=function(){t.e("components/uni-ui/uParse/src/components/wxParseVideo").then(function(){return resolve(t("7133"))}.bind(null,t)).catch(t.oe)},a=function(){t.e("components/uni-ui/uParse/src/components/wxParseAudio").then(function(){return resolve(t("c112"))}.bind(null,t)).catch(t.oe)},c={name:"wxParseTemplate4",props:{node:{}},components:{wxParseTemplate:r,wxParseImg:u,wxParseVideo:o,wxParseAudio:a},inject:["uparse"],methods:{wxParseATap:function(n){var e=n.currentTarget.dataset.href;e&&this.uparse.navigate(e,n)}}};e.default=c},"95ab":function(n,e,t){"use strict";t.r(e);var r=t("5538"),u=t.n(r);for(var o in r)"default"!==o&&function(n){t.d(e,n,(function(){return r[n]}))}(o);e["default"]=u.a},d2f3:function(n,e,t){"use strict";var r,u=function(){var n=this,e=n.$createElement;n._self._c},o=[];t.d(e,"b",(function(){return u})),t.d(e,"c",(function(){return o})),t.d(e,"a",(function(){return r}))},d4a1:function(n,e,t){"use strict";t.r(e);var r=t("d2f3"),u=t("95ab");for(var o in u)"default"!==o&&function(n){t.d(e,n,(function(){return u[n]}))}(o);var a,c=t("f0c5"),s=Object(c["a"])(u["default"],r["b"],r["c"],!1,null,null,null,!1,r["a"],a);e["default"]=s.exports}}]);
+;(global["webpackJsonp"] = global["webpackJsonp"] || []).push([
+    'components/uni-ui/uParse/src/components/wxParseTemplate4-create-component',
+    {
+        'components/uni-ui/uParse/src/components/wxParseTemplate4-create-component':(function(module, exports, __webpack_require__){
+            __webpack_require__('543d')['createComponent'](__webpack_require__("d4a1"))
+        })
+    },
+    [['components/uni-ui/uParse/src/components/wxParseTemplate4-create-component']]
+]);

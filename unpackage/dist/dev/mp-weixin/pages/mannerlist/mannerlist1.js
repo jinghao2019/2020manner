@@ -375,6 +375,53 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var baseInfo = function baseInfo() {__webpack_require__.e(/*! require.ensure | components/detail/base-info */ "components/detail/base-info").then((function () {return resolve(__webpack_require__(/*! @/components/detail/base-info.vue */ 160));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var scrollAttrs = function scrollAttrs() {__webpack_require__.e(/*! require.ensure | components/detail/scroll-attrs */ "components/detail/scroll-attrs").then((function () {return resolve(__webpack_require__(/*! @/components/detail/scroll-attrs.vue */ 165));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniListItem = function uniListItem() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-list-item/uni-list-item */ "components/uni-ui/uni-list-item/uni-list-item").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-list-item/uni-list-item.vue */ 170));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var scrollComments = function scrollComments() {Promise.all(/*! require.ensure | components/detail/scroll-comments */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/detail/scroll-comments")]).then((function () {return resolve(__webpack_require__(/*! @/components/detail/scroll-comments.vue */ 177));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uParse = function uParse() {Promise.all(/*! require.ensure | components/uni-ui/uParse/src/wxParse */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-ui/uParse/src/wxParse")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uParse/src/wxParse.vue */ 183));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var card = function card() {__webpack_require__.e(/*! require.ensure | components/common/card */ "components/common/card").then((function () {return resolve(__webpack_require__(/*! @/components/common/card.vue */ 191));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var commonList = function commonList() {__webpack_require__.e(/*! require.ensure | components/common/common-list */ "components/common/common-list").then((function () {return resolve(__webpack_require__(/*! @/components/common/common-list.vue */ 196));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var bottomBtn = function bottomBtn() {__webpack_require__.e(/*! require.ensure | components/detail/bottom-btn */ "components/detail/bottom-btn").then((function () {return resolve(__webpack_require__(/*! @/components/detail/bottom-btn.vue */ 201));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var commonPopup = function commonPopup() {__webpack_require__.e(/*! require.ensure | components/common/common-popup */ "components/common/common-popup").then((function () {return resolve(__webpack_require__(/*! @/components/common/common-popup.vue */ 213));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var price = function price() {__webpack_require__.e(/*! require.ensure | components/common/price */ "components/common/price").then((function () {return resolve(__webpack_require__(/*! @/components/common/price.vue */ 220));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var zcmRadioGroup = function zcmRadioGroup() {__webpack_require__.e(/*! require.ensure | components/common/radio-group */ "components/common/radio-group").then((function () {return resolve(__webpack_require__(/*! @/components/common/radio-group.vue */ 225));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniNumberBox = function uniNumberBox() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-number-box/uni-number-box */ "components/uni-ui/uni-number-box/uni-number-box").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-number-box/uni-number-box.vue */ 232));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 {
@@ -445,6 +492,27 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
 
   data: function data() {
     return {
+      // 弹框地图start
+      id: 0,
+      // 使用 marker点击事件 需要填写id
+      title: 'map',
+      latitude: 39.909,
+      longitude: 116.39742,
+      covers: [{
+        latitude: 39.909,
+        longitude: 116.39742,
+        iconPath: '../../static/img/坐标.png' },
+      {
+        latitude: 39.90,
+        longitude: 116.39,
+        iconPath: '../../static/img/坐标.png' }],
+
+      // 弹框地图end
+
+      //弹框地图的蒙版
+      mask: true,
+      //有和没有这个特调选项
+      specialexist: false,
       //咖啡浓缩数量
       coffeePieces: 1,
       //咖啡浓度的数量变化造成的价格变化
@@ -539,7 +607,10 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
     });
   },
 
-  methods: _objectSpread({},
+  methods: _objectSpread({
+    iAmSure: function iAmSure() {
+      this.mask = false;
+    } },
   (0, _vuex.mapMutations)([
   'addGoodsToCart']), {},
 
@@ -592,7 +663,7 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
       //改变商品数量
       this.goodsNum = value;
     },
-    // 点击弹出规格按钮,测试用
+    // 点击弹出规格按钮
     showAttr: function showAttr() {
       this.showattr = !this.showattr;
     },
@@ -602,6 +673,7 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
       this.coffeePieces = 1;
       this.changePrice = 0;
       this.multiPrice = 0;
+      //当前点击的商品
       this.currentGoods = [];
       this.newoptions = [];
       this.goodsNum = 1;
@@ -629,12 +701,13 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
     // 点击规格特调按钮,打开特调规格
     special: function special() {
       this.specialcard = !this.specialcard;
+      //特调是否展示判断
     },
     onShow: function onShow() {
       var that = this;
       //取出已经选择的店铺
       this.currentShop = this.$Util.getCache('current_shop');
-
+      // console.log(this.currentShop)
       //更新购物车
       this.updateCartList(function (res) {
         if (res.length > 0)
@@ -737,17 +810,28 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
         * @param {Object} index2
         */
     show: function show(index, index2) {
+
       //确认当前商品下标
       this.goodsIndex = index2;
-      //当前商品信息，把点击的信息传递到currentGoods{}内
+      //当前点击的商品信息，把点击的信息传递到currentGoods{}内
       var currentGoods = this.$Util.deepClone(this.list[index]['goods'][this.goodsIndex]);
-
       this.currentGoods = currentGoods;
+
       this.currentGoods.num = 1;
       //设置当前的规格
       var newoptions = this.$Util.deepClone(this.list[index]['goods'][this.goodsIndex]['option']['options']);
 
+      this.specialexist = false;
+      //看是否有特调
+      for (var i = 0; i < newoptions.length; i++) {
+        console.log('进来了');
+        if (newoptions[i].isspecial == 1) {
+          this.specialexist = true;
+        }
+      }
+
       this.newoptions = newoptions;
+      console.log(this.newoptions);
       //显示规格
       this.showattr = true;
       //关闭底部购物车的按钮

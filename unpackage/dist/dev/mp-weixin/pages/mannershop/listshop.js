@@ -228,12 +228,13 @@ var _default =
        * 去店铺下单
        */
     setCurrentShop: function setCurrentShop(index) {
+      console.log('66');
       //1 设置当前店铺到缓存
       this.$Util.setCache("current_shop", this.list[index]);
       //2 跳转到菜单页面
       //跳转导选择店铺的页面
       uni.switchTab({
-        url: "../../pages/mannerlist/mannerlist" });
+        url: "../../pages/mannerlist/mannerlist1" });
 
     },
     onLoad: function onLoad() {
