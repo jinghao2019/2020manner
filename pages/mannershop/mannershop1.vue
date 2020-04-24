@@ -384,11 +384,8 @@
 				//取出已经选择的店铺
 				this.currentShop = this.$Util.getCache('current_shop');	
 				// this.height = Number(uni.getSystemInfoSync().windowHeight) - 310;
-				// console.log(this.height)
 				//这时候that指的是全局，在内部函数想用全局的时候就得用that
 				var that = this;
-				// this.__init()
-				
 				// 获取当前坐标
 				wx.getLocation({
 				    type:'wgs84',

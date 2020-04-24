@@ -37,19 +37,7 @@ export default {
 				let pages = getCurrentPages();
 				let curPage = pages[pages.length-1];
 				
-				// return uni.navigateTo({
-				// 	url: '/pages/mannerlogin/login?referer=/'+curPage.__route__,
-				// });
-				
-				//这里进行页面 数据绑定改变
-				// console.log(curPage.data)
-				// curPage.data.agree = true;
-				// curPage.data.accreditshow = true;
-				
-				// curPage.setData({
-				// 	agree:true,
-				// 	accreditshow:true
-				// })
+				console.log("here it is\n")
 				
 				//如果有回调就执行回调 这个回调主要是 改变上一个页面 授权窗口
 				options.cb && options.cb()
@@ -88,13 +76,14 @@ export default {
 						});
 						//登录失败怎么办
 						if(result.data.code == 200002 || result.data.code == 200003 || result.data.code == 200004 || result.data.code== 100001){
-							//获取当前页面
-							let pages = getCurrentPages();
-							let curPage = pages[pages.length-1];
-							console.log("direct to login page\n")
-							return uni.navigateTo({
-								url: '/pages/mannerlogin/login?referer=/'+curPage.__route__,
-							});
+							// //获取当前页面
+							// let pages = getCurrentPages();
+							// let curPage = pages[pages.length-1];
+							// console.log("direct to login page\n")
+							// return uni.navigateTo({
+							// 	url: '/pages/mannerlogin/login?referer=/'+curPage.__route__,
+							// });
+							options.cb && options.cb()
 						}
 						//返回错误信息
 						return rej(result.data);

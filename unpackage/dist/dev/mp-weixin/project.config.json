@@ -37,35 +37,13 @@
 			"current": -1,
 			"list": []
 		},
-		"plugin": {
-			"current": -1,
-			"list": []
-		},
 		"game": {
-			"current": -1,
-			"list": []
-		},
-		"gamePlugin": {
 			"current": -1,
 			"list": []
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": [
-				{
-					"id": -1,
-					"name": "1",
-					"pathName": "pages/mannerlist/mannerlist1",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "shop",
-					"pathName": "pages/mannershop/listshop",
-					"scene": null
-				}
-			]
+			"list": []
 		}
 	}
 }

@@ -271,6 +271,21 @@
 			</view>
 			<!-- 弹框地图的蒙版 -->
 			<view class="mapmask" v-show="mask"></view>
+			
+			
+			<!-- 蒙版2 -->
+			<view class="accreditmask"  v-show="accreditshow"></view>
+			<view class="allbottom" v-show="agreeUserInfo">
+				<view class="close" @tap="closeagreeuserinfo()">
+					<image src="../../static/icon/叉.png" mode="widthFix" style="width: 30upx;float:right;padding: 28upx 28upx 0 0;"></image>
+				</view>
+					<view class="bottom">						
+						<view>欢迎来到Manner咖啡</view>
+						<view style="font-size: 24upx;color: #9B9B9B;">Manner申请获取您用户信息</view>
+						<button class="agree u-f-ajc" open-type="getUserInfo" @tap="wxlogin()">同意授权</button>
+					</view>
+			</view>
+			
 	</view>
 </template>
 
@@ -354,30 +369,24 @@
 				//加上特调规格
 				return (checkedSkus.join('/') + '/' + this.multiAttrStr.join('/')).trim('/')
 			},
-			
-			
 		},
 		data () {
 			return{
+				accreditshow:false,
+				agreeUserInfo:false,
 				// 弹框地图start
 				id:0, 
 				 // 使用 marker点击事件 需要填写id
 				title: 'map',
-				latitude: 39.909,
-				longitude: 116.39742,
+				latitude: 29.909,
+				longitude: 106.39742,
 				covers: [{
-					latitude: 39.909,
-					longitude: 116.39742,
-					iconPath: '../../static/img/坐标.png'
-				}, {
-					latitude: 39.90,
-					longitude: 116.39,
+					latitude: 29.909,
+					longitude: 106.39742,
 					iconPath: '../../static/img/坐标.png'
 				}],
-				// 弹框地图end
-				
-				//弹框地图的蒙版
-				mask:true,												
+				//弹框地图的蒙版+地图板块显示
+				mask:false,											
 				//有和没有这个特调选项
 				specialexist:false,
 				//咖啡浓缩数量
@@ -480,6 +489,7 @@
 			},
 			...mapMutations([
 				'addGoodsToCart',
+				'login'
 			]),
 			
 			...mapActions([
@@ -510,6 +520,120 @@
 					
 					this.specialcard = false;
 				}
+			},
+			//vuex 方法载入
+			wxlogin(){
+				var that = this;
+				console.log(that)
+				uni.login({
+				  provider: 'weixin',
+				  success: function (loginRes) {
+					  console.log("loginRes--"+loginRes)
+				    //获取code
+				    let code = loginRes.code;
+					uni.getUserInfo({
+						provider: "weixin",
+						success:function(infoRes){
+							console.log("infoRes--"+infoRes)
+							//拼接往后台发送的数据
+							var data = {
+								code: code,
+								user_info: infoRes.rawData,
+								encrypted_data:infoRes.encryptedData,
+								iv: infoRes.iv,
+								signature: infoRes.signature
+							}
+							 console.log(infoRes.rawData)
+							//发起登录请求
+							that.$H.post('/mannerdish/user/login',data,{
+								// 这里登录是没有token的情况不进行token检测
+								token:false,
+							}).then((res)=>{
+								console.log(res)
+								console.log(this)
+								//vuex登录方法 进行登录状态存储
+								that.login(res)
+								//跳转操作跳转到登录前的页面
+								//关闭弹窗
+								uni.showLoading({
+									title:"loading",
+									mask:true
+								})
+								that.agreeUserInfo = false;
+								that.accreditshow = false;
+								
+								// setTimeout(function(){
+								// 	uni.hideLoading()
+								// 	//打开消息模板授权
+								// 	that.agreeTemplateMsg = true;
+								// 	that.templatemsgshow = true;
+								// },1000)
+								
+								//登录后拿地址信息
+								// this.height = Number(uni.getSystemInfoSync().windowHeight) - 310;
+								//这时候that指的是全局，在内部函数想用全局的时候就得用that
+								// 获取当前坐标
+								wx.getLocation({
+								    type:'wgs84',
+								    success: function (res) {				
+										// 打印一下获取的经纬度
+								        // console.log('当前位置的经度：' + res.longitude);
+								        // console.log('当前位置的纬度：' + res.latitude);
+										uni.showLoading({
+										    title: '加载中'
+										});
+										// 请求后台数据
+										that.loadData( res.longitude, res.latitude,(res)=>{
+										    // 将获取的data数据存入上边的List[]中
+										    // that.List = res
+										});
+								    }
+								});
+								// that.showTemp()
+							})
+							
+						}
+					})
+					return				 
+				  }
+				});
+			},
+			
+			/**
+			 * 请求数据
+			 * @param {Object} cb
+			 */
+			async loadData(lng,lat,cb)
+			{
+				var that = this;
+				this.$H.get('/mannerdish/index/index?lng='+lng+'&lat='+lat,{},{
+					// 这里测试先不用token				
+					token:true,
+					cb:function(){
+						that.agreeUserInfo = true;
+						that.accreditshow = true;
+					}
+				}).then((res)=>{
+					// 最近店铺
+					this.data = res
+					//店铺列表存为缓存
+					this.$Util.setCache("shop_list",res,0);
+					this.nearshop.shopname = this.data[0].name
+					this.nearshop.shopaddress = this.data[0].address
+					this.nearshop.tel = this.data[0].tel
+					//删除下标为0，长度为1的一个数据
+					let current_shop = this.data.splice(0,1)
+					//其他店铺
+					this.list = this.data
+					//设置最近店铺为当前店铺 如果用户选择其他店铺 要做店铺改变
+					this.$Util.setCache("current_shop",current_shop[0],0);
+					// console.log(this.list)
+					setTimeout(function () {
+					    uni.hideLoading();
+					}, 1000);
+					//执行回调 如果有的话
+					cb && cb(res)
+				})				
 			},
 			clickBtn(){
 				//按钮
@@ -590,7 +714,12 @@
 				//可使用窗口高度减少55,可使用窗口高度是642
 				//后面加一个店铺商品判断
 				this.$H.post('/mannerdish/goods/goodslist',{},{
-					token:false,
+					token:true,
+					cb:function(){
+						console.log("here it is\n")
+						that.agreeUserInfo = true;
+						that.accreditshow = true;
+					}
 				}).then((res)=>{
 					//商品种类
 					this.cate = res
@@ -601,14 +730,6 @@
 				this.$nextTick(()=>{
 					this.showLoading = false
 				});
-				
-				// //更新购物车
-				// this.updateCartList(res => {
-				// 	if(res.length > 0 )
-				// 	{
-				// 		that.showcart = true;
-				// 	}	
-				// });
 				
 			},
 			
@@ -818,6 +939,40 @@
 	}
 </script>
 <style>
+	.allbottom{
+		position: fixed;
+		bottom: 0;
+		background-color: #FFFFFF;
+		z-index: 8998;
+	}
+	.bottom{
+		padding: 20upx 76upx 30upx 76upx;		
+		z-index: 8996;		
+		
+	}
+	.agree{
+		width: 610upx;
+		height: 88upx;
+		color: #FFFFFF;
+		font-size: 36upx;
+		font-weight: 600;
+		border-radius: 10upx;
+		margin-top: 40upx;
+		background: -webkit-linear-gradient(left,#DB2C24,#79041C);
+	}
+	.close{
+		z-index: 8997;
+	}
+	/* 蒙版 */
+	.shopmask,.accreditmask,.phonenummask,.templatemsgmask{
+		position: fixed;
+		right: 0;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		z-index: 2021;
+		background-color:  #00000082;
+	}
 	.uparse .p{ padding: 0!important; }
 	.uparse view,.uparse uni-view{ line-height: 0!important; }
 	.left-text{

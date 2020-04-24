@@ -1,4 +1,37 @@
 
+.allbottom{
+	position: fixed;
+	bottom: 0;
+	background-color: #FFFFFF;
+	z-index: 8998;
+}
+.bottom{
+	padding: 20rpx 76rpx 30rpx 76rpx;		
+	z-index: 8996;
+}
+.agree{
+	width: 610rpx;
+	height: 88rpx;
+	color: #FFFFFF;
+	font-size: 36rpx;
+	font-weight: 600;
+	border-radius: 10rpx;
+	margin-top: 40rpx;
+	background: -webkit-linear-gradient(left,#DB2C24,#79041C);
+}
+.close{
+	z-index: 8997;
+}
+/* 蒙版 */
+.shopmask,.accreditmask,.phonenummask,.templatemsgmask{
+	position: fixed;
+	right: 0;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	z-index: 2021;
+	background-color:  #00000082;
+}
 .uparse .p{ padding: 0!important;
 }
 .uparse view,.uparse uni-view{ line-height: 0!important;

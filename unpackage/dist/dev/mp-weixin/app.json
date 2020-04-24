@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/mannershop/mannershop1",
     "pages/mannerlist/mannerlist1",
+    "pages/mannershop/mannershop1",
     "pages/mannerorder/mannerorder",
     "pages/mannercart/mannercart",
     "pages/mannerhome/mannerhome",
@@ -73,5 +73,5 @@
   "usingComponents": {
     "loading": "/components/common/loading"
   },
-  "sitemapLocation": "sitemap24.json"
+  "sitemapLocation": "sitemap92.json"
 }
