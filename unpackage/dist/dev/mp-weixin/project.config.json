@@ -4,23 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": false,
-		"es6": true,
-		"postcss": true,
-		"minified": true,
-		"newFeature": true,
-		"coverView": true,
-		"autoAudits": false,
-		"showShadowRootInWxmlPanel": true,
-		"scopeDataCheck": false,
-		"checkInvalidKey": true,
-		"checkSiteMap": true,
-		"uploadWithSourceMap": true,
-		"babelSetting": {
-			"ignore": [],
-			"disablePlugins": [],
-			"outputPath": ""
-		}
+		"urlCheck": true
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.9.2",
@@ -37,13 +21,35 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
+			"current": -1,
+			"list": []
+		},
+		"gamePlugin": {
 			"current": -1,
 			"list": []
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": []
+			"list": [
+				{
+					"id": -1,
+					"name": "submit",
+					"pathName": "pages/mannerorder/ordersubmit",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "CART",
+					"pathName": "pages/mannerlist/mannerlist1",
+					"scene": null
+				}
+			]
 		}
 	}
 }

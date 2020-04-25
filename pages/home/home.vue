@@ -14,7 +14,7 @@
 					<view>
 						<view>我的订单</view>
 					</view>
-					<image class="photo" src="../../static/微信用户头像.jpg" mode="widthFix" style="width: 150upx;"></image>
+					<image class="photo" src="../../static/微信userhead.jpg" mode="widthFix" style="width: 150upx;"></image>
 				</view>
 				<view class="order u-f">
 					<view>						
@@ -41,7 +41,7 @@
 						<image src="../../static/发票.png" style="width: 50upx;" mode="widthFix"></image>
 						<view>发票管理</view>
 					</view>
-					<image src="../../static/右箭头1.png" style="width: 40upx;" mode="widthFix"></image>
+					<image src="../../static/letright1.png" style="width: 40upx;" mode="widthFix"></image>
 				</view>
 				
 				<view class="u-f u-f-jsb">
@@ -49,7 +49,7 @@
 						<image src="../../static/铃铛.png" style="width: 50upx;" mode="widthFix"></image>
 						<view>关于我们</view>
 					</view>
-					<image src="../../static/右箭头1.png" style="width: 40upx;" mode="widthFix"></image>
+					<image src="../../static/letright1.png" style="width: 40upx;" mode="widthFix"></image>
 				</view>
 				
 				<view class="u-f u-f-jsb">
@@ -57,7 +57,7 @@
 						<image src="../../static/问号.png" style="width: 50upx;" mode="widthFix"></image>
 						<view>帮助中心</view>
 					</view>
-					<image src="../../static/右箭头1.png" style="width: 40upx;" mode="widthFix"></image>
+					<image src="../../static/letright1.png" style="width: 40upx;" mode="widthFix"></image>
 				</view>
 			</view>
 		</view>

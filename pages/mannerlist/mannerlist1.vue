@@ -1,9 +1,10 @@
 <template>
-	<view class="all" style="height: 100%;box-sizing: border-box;position: absolute;">			
-				<image src="../../static/img/列表title1.png" 
+	<view class="all" :style="{height:height+'px'}">			
+			<view>
+				<image src="../../static/img/listtitle1.png"
 				mode="widthFix" 
 				style="width: 100%;"
-				@tap="showCart()"
+				
 				>
 				</image>
 				<view class="card1  animated bounceInRight">
@@ -14,7 +15,7 @@
 					<view class="u-f u-f-jsb cardaddress">
 						<view class="u-f">
 							<view style="font-size: 24upx;">{{currentShop.address}}</view>
-							<image @tap="openMap()" src="../../static/img/地图.png" 
+							<image @tap="openMap()" src="../../static/img/blackmap.png" 
 							mode="widthFix" 
 							style="width: 50upx;margin-left: 10upx;">
 							</image>
@@ -30,9 +31,10 @@
 					
 					<view style="font-size: 20upx;color: #4A4A4A;">根据所选门店库存状况,菜单可能不同,你可以多走两步,换一家门店试试。</view>
 				</view>
+			</view>	
 			
 			<!-- 列表部分 -->
-			<view class="content"  :style="{height:height+'px'}" >						
+			<view class="content"  style="height: 60%" >						
 				<scroll-view id="leftScroll" scroll-y 
 				style="flex: 1;height: 100%;background-color: #F7F7F7;" 
 				class="border-right border-light-secondary" 
@@ -68,7 +70,7 @@
 							
 							<view class="u-f" >
 								<view class="font-md" style="margin: 36upx 40upx;">￥{{item2.market_price}}</view>
-								<image src="../../static/icon/加号.png" 
+								<image src="../../static/icon/letadd.png" 
 								mode="widthFix" 
 								style="width: 44upx;margin-top: 42upx;margin-right: 60upx;">
 								</image>
@@ -86,8 +88,8 @@
 				<!-- <image src=""></image> -->
 			</view>
 				<view  :class="specialcard? 'specialcardtop  animated fadeInUp':'attr  animated fadeInUp'" >
-					<!-- <view v-show="specialcard" style="height: 130upx;"><image src="../../static/icon/叉.png" mode="widthFix" style="width: 30upx;margin: 70upx 70upx;" @click="attrOff"></view> -->
-					<view v-show="showattr" style="height: 100upx;"><image src="../../static/icon/叉.png" mode="widthFix" style="width: 30upx;margin: 40upx 70upx;" @click="attrOff"></view>
+					<!-- <view v-show="specialcard" style="height: 130upx;"><image src="../../static/icon/close.png" mode="widthFix" style="width: 30upx;margin: 70upx 70upx;" @click="attrOff"></view> -->
+					<view v-show="showattr" style="height: 100upx;"><image src="../../static/icon/close.png" mode="widthFix" style="width: 30upx;margin: 40upx 70upx;" @click="attrOff"></view>
 
 						<view class="'attrtop" >
 							<view :class="specialcard? 'goodstitle':'attrtop1'">{{currentGoods.title}}</view>
@@ -127,11 +129,11 @@
 							<!-- 打开特调详情的按钮 -->
 							<view class="u-f u-f-ajc button" @click="special()" v-show="!specialcard">
 								<view>Manner 特调选项</view>
-								<view><image src="../../static/icon/下箭头.png" mode="widthFix" style="width: 30upx;margin: 16upx 0 0 10upx;"></image></view>
+								<view><image src="../../static/icon/down.png" mode="widthFix" style="width: 30upx;margin: 16upx 0 0 10upx;"></image></view>
 							</view>
 							<view class="u-f u-f-ajc button1" @click="special()" v-show="specialcard">
 								<view>Manner 特调选项</view>
-								<view><image src="../../static/icon/上箭头.png" mode="widthFix" style="width: 30upx;margin: 16upx 0 0 10upx;"></image></view>
+								<view><image src="../../static/icon/up.png" mode="widthFix" style="width: 30upx;margin: 16upx 0 0 10upx;"></image></view>
 							</view>
 							
 							<!--特调规格详情 -->
@@ -164,7 +166,9 @@
 					
 					<!-- 规格的底部信息模块 -->
 					<view class="foot" style="margin-top:30upx;">
-						<view style="font-size: 24upx;flex-wrap:wrap;width: 74%;padding: 0 40upx;">{{checkedSkus}}</view> 
+						<view style="font-size: 24upx;flex-wrap:wrap;width: 74%;padding: 0 40upx;">
+						{{checkedSkus}}
+						</view> 
 						<view class="u-f">						
 							<view style="flex: 1;" class="u-f">
 								<uni-number-box :min="1" :max="9" :value="1" @change="changeGoodsNumber($event,item,index)"></uni-number-box>
@@ -197,7 +201,7 @@
 			
 			<!-- 全屏大购物车 -->
 			<view class="allcart" v-show="shopping">
-				<view style="height: 130upx;"><image src="../../static/icon/叉.png" mode="widthFix" style="width: 30upx;margin: 70upx 70upx;" @tap="off"></image></view>
+				<view style="height: 130upx;"><image src="../../static/icon/close.png" mode="widthFix" style="width: 30upx;margin: 70upx 70upx;" @tap="off"></image></view>
 				<view style="padding: 0upx 72upx 10upx 72upx;box-shadow: 0 2upx 0 0 #cccccc;">
 					<view style="font-size: 36upx;color: #131313;font-weight: 600;">购物车</view>
 					<view class="u-f u-f-jsb">
@@ -277,7 +281,7 @@
 			<view class="accreditmask"  v-show="accreditshow"></view>
 			<view class="allbottom" v-show="agreeUserInfo">
 				<view class="close" @tap="closeagreeuserinfo()">
-					<image src="../../static/icon/叉.png" mode="widthFix" style="width: 30upx;float:right;padding: 28upx 28upx 0 0;"></image>
+					<image src="../../static/icon/close.png" mode="widthFix" style="width: 30upx;float:right;padding: 28upx 28upx 0 0;"></image>
 				</view>
 					<view class="bottom">						
 						<view>欢迎来到Manner咖啡</view>
@@ -372,6 +376,8 @@
 		},
 		data () {
 			return{
+				//屏幕高度
+				height:0,
 				accreditshow:false,
 				agreeUserInfo:false,
 				// 弹框地图start
@@ -708,9 +714,9 @@
 				});
 			},
 			onLoad(){
-				var that = this;
-				// this.__init()
-				this.height = Number(uni.getSystemInfoSync().windowHeight) - 206;
+				// 获取可用屏幕高度
+				this.height = Number(uni.getSystemInfoSync().windowHeight);
+				var that = this;			
 				//可使用窗口高度减少55,可使用窗口高度是642
 				//后面加一个店铺商品判断
 				this.$H.post('/mannerdish/goods/goodslist',{},{

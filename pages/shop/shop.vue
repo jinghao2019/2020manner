@@ -31,7 +31,7 @@
 						</view>
 						<view class="u-f-ajc">						
 							<view style="color: #ff557f;">查看详情</view>
-							<image class="" src="../../static/右箭头.png" mode="widthFix" style="width: 35upx;margin-left: 6upx;"></image>
+							<image class="" src="../../static/letright.png" mode="widthFix" style="width: 35upx;margin-left: 6upx;"></image>
 						</view>					
 					</view>
 					<view class="state u-f u-f-jsb">

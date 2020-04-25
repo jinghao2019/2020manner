@@ -1,4 +1,8 @@
 export default {
+	checkMobile(mobile){
+		return RegExp(/^1[34578]\d{9}$/).test(mobile);
+	},
+	
 	// 更新tabbar角标
 	updateCartBadge(count){
 		if(count > 0){

@@ -15,6 +15,10 @@ function formatTime(time) {
 	}).join(':')
 }
 
+function checkMobile(mobile){
+	return RegExp(/^1[34578]\d{9}$/).test(mobile);
+}
+
 function formatLocation(longitude, latitude) {
 	if (typeof longitude === 'string' && typeof latitude === 'string') {
 		longitude = parseFloat(longitude)

@@ -1,51 +1,56 @@
 <template>
-	<view class="all  animated fadeIn" style="height: 100%;">
-		<view class="title">
-			<image src="../../static/img/title.png" mode="widthFix"></image>
-		</view>
+	<view class="all  animated fadeIn" :style="{height:height+'px'}">
+		<view style="height: 50%;">
+			<view class="title">
+				<image src="../../static/img/title.png" mode="widthFix"></image>
+			</view>
+				
+			<view class="list u-f">
+				<image src="../../static/img/img1.png" mode="widthFix" @tap="toList()"></image>
+				<image src="../../static/img/img2.png" mode="widthFix" @tap="toOrder()"></image>
+				<image src="../../static/img/img3.png" mode="widthFix" @tap="info()"></image>
+			</view>
 			
-		<view class="list u-f">
-			<image src="../../static/img/img1.png" mode="widthFix" @tap="toList()"></image>
-			<image src="../../static/img/img2.png" mode="widthFix" @tap="toOrder()"></image>
-			<image src="../../static/img/img3.png" mode="widthFix" @tap="info()"></image>
+			<!-- <view class="banner">
+				<image src="../../static/img/banner.png" mode="widthFix"></image>	
+			</view> -->
+			
+			<view class="element">
+				<image src="../../static/img/element.png" mode="widthFix"></image>
+			</view>
 		</view>
 		
-		<!-- <view class="banner">
-			<image src="../../static/img/banner.png" mode="widthFix"></image>	
-		</view> -->
-		
-		<view class="element">
-			<image src="../../static/img/element.png" mode="widthFix"></image>
+		<view style="height: 50%">
+			<scroll-view scroll-y class="shops-wrapper  animated bounceInRight"  style="height: 100%;">
+				<view class="near">
+					<view>最近店铺</view>
+				</view>
+						
+				<view class="nearshop" @tap="showshop">
+					<view>{{nearshop.shopname}}</view>
+					<view class="u-f u-f-jsb">
+						<view>{{nearshop.shopaddress}}</view>
+						<view @click.stop="toList()">去点单</view>
+					</view>
+				</view>
+						
+				<view class="other">
+					<view>其他店铺</view>
+				</view>
+						
+				<view class="othershop" v-for="(item,index) in list" :key="index">
+					<view>{{item.name}}</view>
+					<view class="u-f u-f-jsb">
+						<view>{{item.address}}</view>
+						<view  @tap="setCurrentShop(index)">去点单</view>
+					</view>
+				</view>		
+				
+				 <!-- 店铺详情 -->
+				
+			</scroll-view>
 		</view>
-	
-		<scroll-view scroll-y class="shops-wrapper  animated bounceInRight"  style="height: 57%;">
-			<view class="near">
-				<view>最近店铺</view>
-			</view>
-					
-			<view class="nearshop" @tap="showshop">
-				<view>{{nearshop.shopname}}</view>
-				<view class="u-f u-f-jsb">
-					<view>{{nearshop.shopaddress}}</view>
-					<view @click.stop="toList()">去点单</view>
-				</view>
-			</view>
-					
-			<view class="other">
-				<view>其他店铺</view>
-			</view>
-					
-			<view class="othershop" v-for="(item,index) in list" :key="index">
-				<view>{{item.name}}</view>
-				<view class="u-f u-f-jsb">
-					<view>{{item.address}}</view>
-					<view  @tap="setCurrentShop(index)">去点单</view>
-				</view>
-			</view>		
 			
-			 <!-- 店铺详情 -->
-			
-		</scroll-view>
 			<view class="shopdetail animated bounceInRight" v-show="show">
 				<view class="u-f around">
 					<view class="shopleft">
@@ -62,10 +67,10 @@
 					</view>
 					<view class="shopright u-f">
 						<view>
-							<image src="../../static/img/定位.png" mode="widthFix" style="width: 45upx;" @tap="openMap()"></image>
+							<image src="../../static/img/dingwei.png" mode="widthFix" style="width: 45upx;height: auto;" @tap="openMap()"></image>
 						</view>
 						<view>
-							<image src="../../static/img/电话.png"  mode="widthFix" style="width: 45upx;" @click="tel()"></image>
+							<image src="../../static/img/tel.png"  mode="widthFix" style="width: 45upx;height: auto;" @click="tel()"></image>
 						</view>
 					</view>
 				</view>
@@ -91,7 +96,7 @@
 
 			<view class="allbottom" v-show="agreeUserInfo">
 				<view class="close" @tap="closeagreeuserinfo()">
-					<image src="../../static/icon/叉.png" mode="widthFix" style="width: 30upx;float:right;padding: 28upx 28upx 0 0;"></image>
+					<image src="../../static/icon/close.png" mode="widthFix" style="width: 30upx;float:right;padding: 28upx 28upx 0 0;height: auto;"></image>
 				</view>
 					<view class="bottom">						
 						<view>欢迎来到Manner咖啡</view>
@@ -102,7 +107,7 @@
 			
 			<view class="allbottom" v-show="agreePhoneNum">
 				<view class="close" @tap="closeagreephonenum()">
-					<image src="../../static/icon/叉.png" mode="widthFix" style="width: 30upx;float:right;padding: 28upx 28upx 0 0;"></image>
+					<image src="../../static/icon/close.png" mode="widthFix" style="width: 30upx;float:right;padding: 28upx 28upx 0 0;"></image>
 				</view>
 					<view class="bottom">						
 						<view>欢迎来到Manner咖啡</view>
@@ -113,7 +118,7 @@
 			
 			<view class="allbottom" v-show="agreeTemplateMsg">
 				<view class="close" @tap="closetemplatemsg()">
-					<image src="../../static/icon/叉.png" mode="widthFix" style="width: 30upx;float:right;padding: 28upx 28upx 0 0;"></image>
+					<image src="../../static/icon/close.png" mode="widthFix" style="width: 30upx;float:right;padding: 28upx 28upx 0 0;"></image>
 				</view>
 					<view class="bottom">						
 						<view>欢迎来到Manner咖啡</view>
@@ -133,6 +138,8 @@
 			},
 		data(){
 			return {
+				//屏幕高度
+				height:0,
 				agreeUserInfo:false,
 				agreePhoneNum:false,
 				agreeTemplateMsg:false,
@@ -380,7 +387,9 @@
 					cb && cb(res)
 				})				
 			},			
-			onLoad(){		
+			onLoad(){
+				// 获取可用屏幕高度
+				this.height = Number(uni.getSystemInfoSync().windowHeight);
 				//取出已经选择的店铺
 				this.currentShop = this.$Util.getCache('current_shop');	
 				// this.height = Number(uni.getSystemInfoSync().windowHeight) - 310;
@@ -413,7 +422,6 @@
 <style>
 	.shops-wrapper{
 		/* height: 540upx; */
-		position: absolute;
 	}
 	.all{
 		background-color: #f2f2f2;

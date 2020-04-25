@@ -35,7 +35,7 @@
 									<view class="price">￥15</view>
 								</view>
 								<view class="goodsadd">
-									<image src="../../static/icon/加号.png" mode="widthFix" @click="showdeatil"></image>
+									<image src="../../static/icon/letadd.png" mode="widthFix" @click="showdeatil"></image>
 								</view>
 							</view>
 						

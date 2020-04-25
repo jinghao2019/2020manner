@@ -215,6 +215,20 @@ __webpack_require__.r(__webpack_exports__);
 var _default =
 {
   methods: {
+    //实时获取手机号value值
+    onKeyInput: function onKeyInput(event) {
+      this.phoneNum = event.target.value;
+    },
+    // 点击获取手机号方法
+    getPhoneNumber: function getPhoneNumber(e) {
+      var that = this;
+      if (e.detail.errMsg != 'getPhoneNumber:ok') {
+      } else {
+        console.log(e);
+        //如果成功的话 先如数据库 然后更新本地缓存			 		
+        //然后激活模板消息授权
+      }
+    },
     onLoad: function onLoad() {var _this = this;
       var that = this;
       //1 取出订单缓存数据 放到data里面
@@ -318,53 +332,66 @@ var _default =
 
     // 下单，支付
     openPayMethods: function openPayMethods() {var _this3 = this;
-      var that = this;
-      // 防止重复下单
-      if (this.loading) return;
-      uni.showLoading({
-        title: "加载中" });
+      //在这里判断当前输入手机号是否符合正则							
+      var check = this.$Util.checkMobile(this.phoneNum);
+      if (check) {
+        //输入的手机号正确，在这里进行判定
+        var that = this;
+        // 防止重复下单
+        if (this.loading) return;
+        uni.showLoading({
+          title: "加载中" });
 
 
-      uni.show;
-      var options = {
-        hashKey: this.hashKey.join(','),
-        flag: 'cartPay', //表示从购物车进行支付
-        currentShopName: this.currentShop.name,
-        currentShopId: this.currentShop.id };
+        uni.show;
+        var options = {
+          hashKey: this.hashKey.join(','),
+          flag: 'cartPay', //表示从购物车进行支付
+          currentShopName: this.currentShop.name,
+          currentShopId: this.currentShop.id };
 
-      // 是否选择优惠券
-      if (this.coupon.id > 0) {
-        options.coupon_user_id = this.coupon.id;
-      }
-      //在这里加一把锁
-      this.loading = true;
-      //如果是第一次支付
-      if (!this.order_id || !this.order_sn)
-      {
-        this.$H.post('/mannerdish/order/orderSubmit', options, {
-          token: true }).
-        then(function (res) {
-          that.$data.order_id = res.order_id;
-          that.$data.order_sn = res.order_id;
-          that.$data.order_result = res;
-          _this3.loading = false;
-          // // 通知购物车更新数据
-          // uni.$emit('updateCart')
-          return res;
-        }).then(function (res) {//创建订单后拉取支付
-          _this3.pullWeiXinPay(res);
-        }).catch(function (err) {
-          _this3.loading = false;
-          console.log(err);
-          uni.showToast({
-            title: '创建订单失败',
-            icon: 'none' });
+        // 是否选择优惠券
+        if (this.coupon.id > 0) {
+          options.coupon_user_id = this.coupon.id;
+        }
+        //在这里加一把锁
+        this.loading = true;
+        //如果是第一次支付
+        if (!this.order_id || !this.order_sn)
+        {
+          this.$H.post('/mannerdish/order/orderSubmit', options, {
+            token: true }).
+          then(function (res) {
+            that.$data.order_id = res.order_id;
+            that.$data.order_sn = res.order_id;
+            that.$data.order_result = res;
+            _this3.loading = false;
+            // // 通知购物车更新数据
+            // uni.$emit('updateCart')
+            return res;
+          }).then(function (res) {//创建订单后拉取支付
+            _this3.pullWeiXinPay(res);
+          }).catch(function (err) {
+            _this3.loading = false;
+            console.log(err);
+            uni.showToast({
+              title: '创建订单失败',
+              icon: 'none' });
 
-        });
-      } else {//如果已经生成订单直接拉取支付
-        this.pullWeiXinPay(this.$data.order_result);
-      }
+          });
+        } else {//如果已经生成订单直接拉取支付
+          this.pullWeiXinPay(this.$data.order_result);
+        }
 
+      } else {
+        //输入号码有误，弹框提示一下
+        uni.showLoading({
+          title: "请输入正确手机号" });
+
+        setTimeout(function () {
+          uni.hideLoading();
+        }, 1000);
+      };
     },
 
     //请求后台进行订单延迟取消
@@ -406,6 +433,8 @@ var _default =
 
   data: function data() {
     return {
+      //当前输入的手机号
+      phoneNum: "",
       loading: false,
       //订单缓存数据
       orderInfo: [],

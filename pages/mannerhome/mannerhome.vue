@@ -1,7 +1,7 @@
 <template>
 	<view class="all animated bounceInRight">
 		<view class="title">
-			<image src="../../static/img/我的1.png" mode="widthFix" style="width: 100%;"></image>
+			<image src="../../static/img/mine1.png" mode="widthFix" style="width: 100%;"></image>
 		</view>
 		
 		<view class="card">
@@ -10,7 +10,7 @@
 				<view class="u-f">
 					<view>
 						<!-- 头像 -->
-						<image src="../../static/img/用户头像.png" mode="widthFix" style="width: 100upx;margin-right: 20upx;height: auto;"></image>
+						<image src="../../static/img/userhead.png" mode="widthFix" style="width: 100upx;margin-right: 20upx;height: auto;"></image>
 					</view>
 					<view>
 						<!-- 用户名 -->
@@ -21,7 +21,7 @@
 				</view>
 				<view>
 					<!-- 二维码缩略图 -->
-					<!-- <image src="../../static/img/缩略二维码.png" mode="widthFix" style="width: 60upx;"></image> -->
+					<image src="../../static/img/zhanshi.png" mode="widthFix" style="width: 60upx;"></image>
 				</view>
 			</view>
 			<!-- 卡片下部 -->
@@ -43,29 +43,29 @@
 		
 		<view class="u-f u-f-jsb list order" @click="order">
 			<view>订单管理</view>
-			<view><image src="../../static/右箭头1.png" mode="widthFix" style="width: 40upx;"></image></view>
+			<view><image src="../../static/letright1.png" mode="widthFix" style="width: 40upx;"></image></view>
 		</view>
 		
 		<view class="u-f u-f-jsb list middle">
 			<view>会员资料</view>
-			<view><image src="../../static/右箭头1.png" mode="widthFix" style="width: 40upx;"></image></view>
+			<view><image src="../../static/letright1.png" mode="widthFix" style="width: 40upx;"></image></view>
 		</view>
 		<view class="u-f u-f-jsb list middle" @click="address">
 			<view>地址簿</view>
-			<view><image src="../../static/右箭头1.png" mode="widthFix" style="width: 40upx;"></image></view>
+			<view><image src="../../static/letright1.png" mode="widthFix" style="width: 40upx;"></image></view>
 		</view>
 		<view class="u-f u-f-jsb list">
 			<view>自定义菜单</view>
-			<view><image src="../../static/右箭头1.png" mode="widthFix" style="width: 40upx;"></image></view>
+			<view><image src="../../static/letright1.png" mode="widthFix" style="width: 40upx;"></image></view>
 		</view>
 		
 		<view class="u-f u-f-jsb list manner">
 			<view>客服与反馈</view>
-			<view><image src="../../static/右箭头1.png" mode="widthFix" style="width: 40upx;"></image></view>
+			<view><image src="../../static/letright1.png" mode="widthFix" style="width: 40upx;"></image></view>
 		</view>
 		<view class="u-f u-f-jsb list">
 			<view>关于manner</view>
-			<view><image src="../../static/右箭头1.png" mode="widthFix" style="width: 40upx;"></image></view>
+			<view><image src="../../static/letright1.png" mode="widthFix" style="width: 40upx;"></image></view>
 		</view>
 	</view>
 </template>

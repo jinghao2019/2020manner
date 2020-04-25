@@ -72,6 +72,5 @@
   },
   "usingComponents": {
     "loading": "/components/common/loading"
-  },
-  "sitemapLocation": "sitemap9.json"
+  }
 }

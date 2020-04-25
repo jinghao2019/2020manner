@@ -51,7 +51,7 @@
 		<view class="info1">
 			<view class="u-f">
 				<view>大洋百货店</view>
-				<image src="../../static/右箭头1.png" mode="widthFix" style="width: 45upx;"></image>
+				<image src="../../static/letright1.png" mode="widthFix" style="width: 45upx;"></image>
 			</view>
 			<block v-for="(item,index) in goodslist" :key="index">
 				<view class="goods u-f u-f-jsb">

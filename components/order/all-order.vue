@@ -5,7 +5,7 @@
 			<view class="u-f-ajc u-f-jsb">
 				<view class="name u-f-ajc">
 					<view>{{item.shopname}}</view>
-					<image class="" src="../../static/右箭头.png" mode="widthFix" style="width: 40upx;margin-left: 6upx;"></image>
+					<image class="" src="../../static/letright.png" mode="widthFix" style="width: 40upx;margin-left: 6upx;"></image>
 				</view>									
 
 				<view v-if="item.status==1">待取餐</view>

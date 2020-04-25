@@ -9,7 +9,7 @@
 			<text style="padding: 0 4px;" v-show="food.count>0">{{food.count}}</text>
 			<!-- 加号 -->
 			<view style="flex: 1;margin-top: 2px;z-index: 2004; " class="cont" @click.stop="addCart(food)">
-				<image src="/static/加号.png" style="width: 20px;height: 20px;color: #CCCCCC;" mode=""></image>
+				<image src="/static/letadd.png" style="width: 20px;height: 20px;color: #CCCCCC;" mode=""></image>
 			</view>
 		</view>					
 	</view>

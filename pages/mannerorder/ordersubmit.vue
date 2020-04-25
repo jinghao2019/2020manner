@@ -1,5 +1,6 @@
 <template>
-	<view class="all">	
+	<view class="all">
+		<!-- 订单信息模块 -->
 		<view class="info">			
 			<view class="u-f u-f-jsb">
 				<view class="info1">订单结算</view>
@@ -8,17 +9,13 @@
 			<view class="read">请仔细确认下单门店,下单后无法更改</view>
 			<view class="infoshop u-f">
 				<view>{{currentShop.name}}</view>
-				<view><image src="../../static/右箭头1.png" style="width: 40upx;margin: 8upx 0 0 0;" mode="widthFix"></image></view>
-			</view>
-			
-			<view class="address">{{currentShop.address}}</view>	
-			
-						
+				<view><image src="../../static/letright1.png" style="width: 40upx;margin: 8upx 0 0 0;" mode="widthFix"></image></view>
+			</view>			
+			<view class="address">{{currentShop.address}}</view>									
 		</view>	
-		
+		<!-- 订单详情模块 -->
 		<view class="info">
-			<view class="orderdetail" style="margin-top: 20upx;font-size: 32upx;font-weight: 600;">订单详情</view>
-			
+			<view class="orderdetail" style="margin-top: 20upx;font-size: 32upx;font-weight: 600;">订单详情</view>		
 			<block v-for="(item,index) in orderInfo" :key="index">
 				<view class="infogoods">{{item.title}}</view>
 				<view class="u-f">
@@ -27,45 +24,48 @@
 					<view class="price" style="flex: 1;">￥{{item.num * item.showPrice}}</view>
 				</view>
 			</block>
-			
-			
-		
 			<view class="allprice u-f u-f-jsb">
 				<view></view>
 				<view>总价:￥{{totalPrice}}</view>
 			</view>
-		</view>
-		
-		
+		</view>		
+		<!-- 优惠券模块 -->
 		<view class="foot">
 			<view class="u-f u-f-jsb">
 				<view style="margin: 20upx 0upx;">优惠券</view>
 				<view class="u-f">
 					<view style="margin: 20upx 0upx;">暂无可用优惠券</view>
-					<image src="../../static/右箭头1.png" style="width: 40upx;margin: 24upx 0 0 0;" mode="widthFix"></image>
+					<image src="../../static/letright1.png" style="width: 40upx;margin: 24upx 0 0 0;" mode="widthFix"></image>
 				</view>
 			</view>
 			<view class="u-f u-f-jsb">
 				<view>支付方式</view>
 				<view class="u-f">
 					<view style="margin: 20upx 0upx;">微信支付</view>
-					<image src="../../static/右箭头1.png" style="width: 40upx;margin: 25upx 0 0 0;" mode="widthFix"></image>
+					<image src="../../static/letright1.png" style="width: 40upx;margin: 25upx 0 0 0;" mode="widthFix"></image>
 				</view>
 			</view>
+			<!-- 手机号模块 -->
+			<view class="u-f u-f-jsb">
+				<input class="uni-input" type="number" placeholder="请输入手机号" :value="phoneNum" placeholder-style="color:#F76260" style="padding: 0;" @input="onKeyInput" />		
+				<button style="font-size: 24upx;" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">点击获取</button> 
+			</view>	
+			<!-- <view class="title">实时获取输入值，可注释：{{phoneNum}}</view> -->			
 		</view>		
+				
+		<!-- 打包模块 -->
 		<view class="foot">
 			<view class="u-f u-f-jsb">
 				<view>打包</view>
 				<view class="u-f">
 					<view style="width: 40upx;margin: 16upx 0 0 0;">是</view>
-					<image src="../../static/右箭头1.png" style="width: 40upx;margin: 20upx 0 0 0;" mode="widthFix"></image>
+					<image src="../../static/letright1.png" style="width: 40upx;margin: 20upx 0 0 0;" mode="widthFix"></image>
 				</view>
 			</view>
 			<view class="u-f u-f-jsb">
 				<view>特殊备注</view>
-				<view><image src="../../static/右箭头1.png" style="width: 40upx;margin: 25upx 0 0 0;" mode="widthFix"></image></view>
-			</view>
-			
+				<view><image src="../../static/letright1.png" style="width: 40upx;margin: 25upx 0 0 0;" mode="widthFix"></image></view>
+			</view>			
 		</view>
 		<view style="background-color: #EBEBEB;padding: 10upx 40upx;font-size: 20upx;color: #4A4A4A;">我已阅读并同意我已阅读并同意我已阅读并同意我已阅读并同意我已阅读并同意我已阅读并同意我已阅读并同意</view>
 		<view class="bottom u-f u-f-jsb">
@@ -82,6 +82,20 @@
 <script>
 	export default{
 		methods:{
+			//实时获取手机号value值
+			onKeyInput: function(event) {
+			            this.phoneNum = event.target.value
+			        },
+			// 点击获取手机号方法
+			getPhoneNumber:function(e){
+				var that = this;
+			 	if (e.detail.errMsg != 'getPhoneNumber:ok') {  			 
+			 	} else {  
+					console.log(e)
+			 		//如果成功的话 先如数据库 然后更新本地缓存			 		
+			 		//然后激活模板消息授权
+			 	}  
+			 },
 			onLoad(){
 				var that = this;
 				//1 取出订单缓存数据 放到data里面
@@ -185,6 +199,10 @@
 			
 			// 下单，支付
 			openPayMethods(){
+				//在这里判断当前输入手机号是否符合正则							
+				var check = this.$Util.checkMobile(this.phoneNum)
+				if(check){
+				//输入的手机号正确，在这里进行判定
 				var that = this;
 				// 防止重复下单
 				if(this.loading) return;
@@ -231,7 +249,16 @@
 				}else{ //如果已经生成订单直接拉取支付
 					this.pullWeiXinPay(this.$data.order_result)
 				}
-				
+					
+				}else{
+					//输入号码有误，弹框提示一下
+					uni.showLoading({
+						title:"请输入正确手机号"
+					});
+					setTimeout(function(){
+						uni.hideLoading();
+					},1000)
+				};			
 			},
 		
 		    //请求后台进行订单延迟取消
@@ -273,6 +300,8 @@
 		},
 		data(){
 			return{
+				//当前输入的手机号
+				phoneNum:"",
 				loading:false,
 				//订单缓存数据
 				orderInfo:[],

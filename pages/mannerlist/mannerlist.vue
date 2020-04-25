@@ -2,7 +2,7 @@
 	<view class="all" style="height: 100%;box-sizing: border-box;">
 			<view>
 				<view>
-					<image src="../../static/img/列表title1.png" 
+					<image src="../../static/img/listtite1.png" 
 					mode="widthFix" 
 					style="width: 100%;">
 					</image>
@@ -16,7 +16,7 @@
 					<view class="u-f u-f-jsb cardaddress">
 						<view class="u-f">
 							<view>{{currentShop.address}}</view>
-							<image @tap="openMap()" src="../../static/img/地图.png" 
+							<image @tap="openMap()" src="../../static/img/blackmap.png" 
 							mode="widthFix" 
 							style="width: 50upx;margin-left: 10upx;">
 							</image>
@@ -25,7 +25,7 @@
 					</view>
 				</view>				
 				<view>
-					<image src="../../static/img/咖啡大厅.png" mode="widthFix" style="width: 100%;"></image>
+					<image src="../../static/img/coffeedating.png" mode="widthFix" style="width: 100%;"></image>
 				</view>
 			</view>
 			<!-- 列表部分 -->
@@ -63,7 +63,7 @@
 								<view class="font-md">￥{{item2.market_price}}</view>
 							</view>
 							<view class="" style="flex:1">
-								<image src="../../static/icon/加号.png" 
+								<image src="../../static/icon/letadd.png" 
 								mode="widthFix" 
 								style="width: 50upx;margin-top: 60upx;">
 								</image>

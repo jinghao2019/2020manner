@@ -1,7 +1,6 @@
 
 .shops-wrapper{
 	/* height: 540upx; */
-	position: absolute;
 }
 .all{
 	background-color: #f2f2f2;
