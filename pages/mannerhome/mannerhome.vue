@@ -10,7 +10,7 @@
 				<view class="u-f">
 					<view>
 						<!-- 头像 -->
-						<image src="../../static/img/用户头像.png" mode="widthFix" style="width: 100upx;margin-right: 20upx;"></image>
+						<image src="../../static/img/用户头像.png" mode="widthFix" style="width: 100upx;margin-right: 20upx;height: auto;"></image>
 					</view>
 					<view>
 						<!-- 用户名 -->
@@ -21,7 +21,7 @@
 				</view>
 				<view>
 					<!-- 二维码缩略图 -->
-					<image src="../../static/img/缩略二维码.png" mode="widthFix" style="width: 60upx;"></image>
+					<!-- <image src="../../static/img/缩略二维码.png" mode="widthFix" style="width: 60upx;"></image> -->
 				</view>
 			</view>
 			<!-- 卡片下部 -->

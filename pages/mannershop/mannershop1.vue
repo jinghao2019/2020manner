@@ -17,8 +17,8 @@
 		<view class="element">
 			<image src="../../static/img/element.png" mode="widthFix"></image>
 		</view>
-		
-		<scroll-view scroll-y class="shops-wrapper  animated bounceInRight"  style="height: 49%;">
+	
+		<scroll-view scroll-y class="shops-wrapper  animated bounceInRight"  style="height: 57%;">
 			<view class="near">
 				<view>最近店铺</view>
 			</view>
