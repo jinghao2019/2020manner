@@ -3,11 +3,10 @@
 			<view>
 				<image src="../../static/img/listtitle1.png"
 				mode="widthFix" 
-				style="width: 100%;"
-				
+				style="width: 100%;"				
 				>
 				</image>
-				<view class="card1  animated bounceInRight">
+				<view class="card1">
 					<view class="u-f cardname u-f-jsb">
 						<view>{{currentShop.name}}</view>
 						<view>当前店铺</view>
@@ -31,265 +30,291 @@
 					
 					<view style="font-size: 20upx;color: #4A4A4A;">根据所选门店库存状况,菜单可能不同,你可以多走两步,换一家门店试试。</view>
 				</view>
-			</view>	
-			
+			</view>				
 			<!-- 列表部分 -->
-			<view class="content"  style="height: 60%" >						
-				<scroll-view id="leftScroll" scroll-y 
-				style="flex: 1;height: 100%;background-color: #F7F7F7;" 
-				class="border-right border-light-secondary" 
-				:scroll-top="leftScrollTop">
-					<view :class="activeIndex === index ? 'class-active':''"
-					hover-class="bg-light-secondary"
-					v-for="(item,index) in cate" :key = "index"
-					@tap="changeCate(index)"
-					style="height: 88upx;align-items: center;">
-						<view class="py-1 font-md left-text text-center "
-						:class="activeIndex === index ? 'class-active':''">
-						{{item.name}}	
-						</view>
-					</view>
-				</scroll-view> 						
-				<scroll-view scroll-y style="flex: 3.5;height: 100%;"
-				:scroll-top="rightScrollTop"
-				:scroll-with-animation="true"
-				@scroll="onRightScroll" >					
-					<view class="row right-scroll-item" v-for="(item,index) in list" :key="index">
-						<view class="u-f span24-24  py-2  animated bounceInRight" v-for="(item2,index2) in item.goods" :key="index2" @click="show(index,index2)">
-							
-							<view class="px-2">
-								<image wx:if="url + item2.thumb"  :src="url + item2.thumb" 
-								style="width: 120upx;height: 120upx;border-radius: 10upx;">
-								</image>
+			<view style="height: 60%;">
+				<view class="content"  style="height: 100%" >
+					<scroll-view id="leftScroll" scroll-y 
+					style="flex: 1;height: 100%;background-color: #F7F7F7;" 
+					class="border-right border-light-secondary" 
+					:scroll-top="leftScrollTop">
+						<view :class="activeIndex === index ? 'class-active':''" class="left-scroll-item"
+						hover-class="bg-light-secondary"
+						v-for="(item,index) in cate" :key = "index"
+						@tap="changeCate(index)"
+						style="height: 88upx;align-items: center;">
+							<view class="py-1 font-md left-text text-center "
+							:class="activeIndex === index ? 'class-active':''">
+							{{item[1]}}	
 							</view>
-							
-							<view class="" >
-								<view style="font-size: 28upx;font-weight: 600;color: #4A4A4A;">{{item2.title}}</view>
-								<view style="font-size: 24upx;color: #4A4A4A;">默认:大杯/加冰</view>
-							</view>
-							
-							<view class="u-f" >
-								<view class="font-md" style="margin: 36upx 40upx;">￥{{item2.market_price}}</view>
-								<image src="../../static/icon/letadd.png" 
-								mode="widthFix" 
-								style="width: 44upx;margin-top: 42upx;margin-right: 60upx;">
-								</image>
-							</view>						
 						</view>
-					</view>
-					<view style="height: 55upx;"></view>
-				</scroll-view>				
-			</view>			
-			<!-- 属性筛选框 -->
-					
-			<!-- 新购物车筛选框 -->
-			<view class="goodscard" v-show="showattr">
-			<view class="banner animated fadeInUp">
-				<!-- <image src=""></image> -->
-			</view>
-				<view  :class="specialcard? 'specialcardtop  animated fadeInUp':'attr  animated fadeInUp'" >
-					<!-- <view v-show="specialcard" style="height: 130upx;"><image src="../../static/icon/close.png" mode="widthFix" style="width: 30upx;margin: 70upx 70upx;" @click="attrOff"></view> -->
-					<view v-show="showattr" style="height: 100upx;"><image src="../../static/icon/close.png" mode="widthFix" style="width: 30upx;margin: 40upx 70upx;" @click="attrOff"></view>
-
-						<view class="'attrtop" >
-							<view :class="specialcard? 'goodstitle':'attrtop1'">{{currentGoods.title}}</view>
-							<view v-show="!specialcard">丰富奶泡与浓缩结合，牛奶咖啡经典之作</view>
-						</view>
-					
-					
-					<scroll-view scroll-y style="height: 300upx;"  :class="specialcard? 'specialcardtop1':''">
-						<view class="check">
-							<!-- 遍历杯型 -->
-							<block v-for="(item,index) in newoptions" :key="index">			
-								<view class="size u-f" style="flex-wrap:wrap" v-if="item.isnum == 0 && item.isspecial == 0 && item.ismulti == 0">
-									<view>{{item.name}}</view>
-									<view class="u-f" style="flex-wrap:wrap;width: 500upx;">
-										<!-- 遍历子规格 -->
-										<block v-for="(item2,index2) in item.child" :key="index2">
-											<view @click="selectSimple(index,index2)" :class="item.selected == index2 ? 'ischecked' : 'checked'" style="margin:0 30upx 10upx 0;">{{item2.name}} {{ item2.addPrice == 0 ? '' : '+￥' + item2.addPrice }}</view>
-										</block>
-									</view>							
-								</view>
-							</block>
-							<!-- 遍历浓缩分数 -->
-							<block v-for="(item,index) in newoptions" :key="index">
-								<view class="size u-f" style="flex-wrap:wrap" v-if="item.isnum != 0 && item.isspecial == 0 && item.ismulti == 0">
-									<view>{{item.name}}</view>
-									<view style="margin: 16upx 0 0 40upx;">
-										<uni-number-box :min="1" :max="9" :value="1" @change="coffeePiecesNumber($event,item,index)"></uni-number-box>		
-									</view>
-									<view>份{{item.name}}</view>
-									<view style="color: #9B9B9B;font-size: 20upx;width:100%;text-align: center;margin: 10upx 0 20upx 0;">推荐咖啡浓度，MANNER咖啡师的灵魂配比</view>
-								</view>
-							</block>
-							
-						</view>
-						</scroll-view>
-						<view v-if="specialexist">
-							<!-- 打开特调详情的按钮 -->
-							<view class="u-f u-f-ajc button" @click="special()" v-show="!specialcard">
-								<view>Manner 特调选项</view>
-								<view><image src="../../static/icon/down.png" mode="widthFix" style="width: 30upx;margin: 16upx 0 0 10upx;"></image></view>
-							</view>
-							<view class="u-f u-f-ajc button1" @click="special()" v-show="specialcard">
-								<view>Manner 特调选项</view>
-								<view><image src="../../static/icon/up.png" mode="widthFix" style="width: 30upx;margin: 16upx 0 0 10upx;"></image></view>
-							</view>
-							
-							<!--特调规格详情 -->
-							<view v-show="specialcard" style="margin:30upx;" class="animated fadeInUp">
+					</scroll-view> 						
+					<scroll-view scroll-y style="flex: 3.5;height: 100%;"
+					:scroll-top="rightScrollTop"
+					:scroll-with-animation="true"
+					@scroll="onRightScroll" >					
+						<view class="row right-scroll-item" v-for="(item,index) in list" :key="index">
+							<view class="u-f span24-24  py-2  animated fadeInUpBig" v-for="(item2,index2) in item.goods" :key="index2" @click="show(index,index2)">
 								
-								<block v-for="(item,index) in newoptions" :key="index">
-									<view class="u-f taste" v-if="item.ismulti == 1 && item.isnum == 0 && item.isspecial == 1">
+								<view class="px-2" style="flex: 1;">
+									<image wx:if="url + item2.thumb"  :src="url + item2.thumb" 
+									style="width: 120upx;height: 120upx;border-radius: 10upx;">
+									</image>
+								</view>
+								
+								<view class="" style="flex: 2;">
+									<view style="font-size: 28upx;font-weight: 600;color: #4A4A4A;">{{item2.title}}</view>
+									<view style="font-size: 24upx;color: #4A4A4A;">大杯/加冰</view>
+								</view>
+								
+								<view class="u-f" style="flex: 2;">
+									<view class="font-md" style="margin: 36upx 40upx;">￥{{item2.market_price}}</view>
+									<image src="../../static/icon/letadd.png" 
+									mode="widthFix" 
+									style="width: 60upx;margin-top: 42upx;margin-right: 60upx;">
+									</image>
+								</view>						
+							</view>
+						</view>
+						<view style="height: 180upx;"></view>
+					</scroll-view>				
+				</view>
+			</view>
+						
+		
+				
+			<!-- 新购物车筛选框 -->
+			<view>
+				<view class="goodscard" v-show="showattr">
+				<view class="banner animated fadeInUp">
+					<view style="width: 100%;height: 100%;background-color: #ffffff;text-align: center;" @click="attrOff"> 
+						<image :src="url + currentGoods.thumb" mode="widthFix" style="width: 400upx;height: 400upx;"></image>
+					</view>
+					
+				</view>
+					<view  :class="specialcard? 'specialcardtop  animated fadeInUp':'attr  animated fadeInUp'" >
+						<!-- <view v-show="specialcard" style="height: 130upx;"><image src="../../static/icon/close.png" mode="widthFix" style="width: 30upx;margin: 70upx 70upx;" @click="attrOff"></view> -->
+						<view v-show="showattr" style="height: 100upx;"><image src="../../static/icon/close.png" mode="widthFix" style="width: 30upx;margin: 40upx 70upx;" @click="attrOff"></view>
+				
+							<view class="'attrtop" >
+								<view :class="specialcard? 'goodstitle':'attrtop1'">{{currentGoods.title}}</view>
+								
+								<view v-show="!specialcard">丰富奶泡与浓缩结合，牛奶咖啡经典之作</view>
+							</view>
+						
+						
+						<scroll-view scroll-y style="height: 31%;"  :class="specialcard? 'specialcardtop1':''">
+							<view class="check">
+								<!-- 遍历杯型 -->
+								<block v-for="(item,index) in newoptions" :key="index">			
+									<view class="size u-f" style="flex-wrap:wrap" v-if="item.isnum == 0 && item.isspecial == 0 && item.ismulti == 0">
 										<view>{{item.name}}</view>
-										<view class="u-f" style="flex-wrap: wrap;width:550upx;"> 
-											<view v-for="(item2,index2) in item.child" :key="index2" class="u-f" @click="selectMulti(index,index2)">
-												<view :class="item2.selected == 1  ? 'iscircle' : 'circle'"></view>
-												<view :class="item2.selected == 1  ? 'isselect' : 'select'">{{item2.name}} {{ item2.addPrice == 0 ? '' : '+￥' + item2.addPrice }}</view>
+										<view class="u-f" style="flex-wrap:wrap;width: 500upx;">
+											<!-- 遍历子规格 -->
+											<block v-for="(item2,index2) in item.child" :key="index2">
+												<view @click="selectSimple(index,index2)" :class="item.selected == index2 ? 'ischecked' : 'checked'" style="margin:0 30upx 10upx 0;">{{item2.name}} {{ item2.addPrice == 0 ? '' : '+￥' + item2.addPrice }}</view>
+											</block>
+										</view>							
+									</view>
+								</block>
+								<!-- 遍历浓缩分数 -->
+								<block v-for="(item,index) in newoptions" :key="index">
+									<view class="size u-f" style="flex-wrap:wrap" v-if="item.isnum != 0 && item.isspecial == 0 && item.ismulti == 0">
+										<view>{{item.name}}</view>
+										<view style="margin: 16upx 0 0 40upx;">
+											<uni-number-box :min="1" :max="9" :value="1" @change="coffeePiecesNumber($event,item,index)"></uni-number-box>		
+										</view>
+										<view>份{{item.name}}</view>
+										<view style="color: #9B9B9B;font-size: 20upx;width:100%;text-align: center;margin: 10upx 0 20upx 0;">推荐咖啡浓度，MANNER咖啡师的灵魂配比</view>
+									</view>
+								</block>
+								
+							</view>
+							</scroll-view>
+							<view class="u-f u-f-ajc button"  v-show="!specialexist">
+								<view>该商品不可特调哦</view>
+							
+							</view>
+							<view v-if="specialexist">
+								<!-- 打开特调详情的按钮 -->
+								<view class="u-f u-f-ajc button" @click="special()" v-show="!specialcard">
+									<view>Manner 特调选项</view>
+									<view><image src="../../static/icon/down.png" mode="widthFix" style="width: 30upx;margin: 16upx 0 0 10upx;"></image></view>
+								</view>
+								
+								<view class="u-f u-f-ajc button1" @click="special()" v-show="specialcard">
+									<view>Manner 特调选项</view>
+									<view><image src="../../static/icon/up.png" mode="widthFix" style="width: 30upx;margin: 16upx 0 0 10upx;"></image></view>
+								</view>
+								
+								<!--特调规格详情 -->
+								<view v-show="specialcard" style="margin:30upx;" class="animated fadeInUp">
+									
+									<block v-for="(item,index) in newoptions" :key="index">
+										<view class="u-f taste" v-if="item.ismulti == 1 && item.isnum == 0 && item.isspecial == 1">
+											<view>{{item.name}}</view>
+											<view class="u-f" style="flex-wrap: wrap;width:550upx;"> 
+												<view v-for="(item2,index2) in item.child" :key="index2" class="u-f" @click="selectMulti(index,index2)">
+													<view :class="item2.selected == 1  ? 'iscircle' : 'circle'"></view>
+													<view :class="item2.selected == 1  ? 'isselect' : 'select'">{{item2.name}} {{ item2.addPrice == 0 ? '' : '+￥' + item2.addPrice }}</view>
+												</view>
 											</view>
 										</view>
-									</view>
+									
+									
+									</block>
+									<!-- <block v-for="(item,index) in newoptions" :key="index">
+										<view class="u-f taste" v-if="item.ismulti !== 1 && item.isnum !== 0 && item.isspecial !== 1">
+											没有
+										</view>
+									</block> -->
+									
 								
-								
-								</block>
-								<!-- <block v-for="(item,index) in newoptions" :key="index">
-									<view class="u-f taste" v-if="item.ismulti !== 1 && item.isnum !== 0 && item.isspecial !== 1">
-										没有
-									</view>
-								</block> -->
-								
-							
-							</view>
-						</view>
-					
-						<view style="height: 170upx;"></view>
-					
-					<!-- 规格的底部信息模块 -->
-					<view class="foot" style="margin-top:30upx;">
-						<view style="font-size: 24upx;flex-wrap:wrap;width: 74%;padding: 0 40upx;">
-						{{checkedSkus}}
-						</view> 
-						<view class="u-f">						
-							<view style="flex: 1;" class="u-f">
-								<uni-number-box :min="1" :max="9" :value="1" @change="changeGoodsNumber($event,item,index)"></uni-number-box>
-								<view style="margin:10upx 0 0 4upx;color: #9B9B9B;">杯</view>
-							</view>
-							<view style="flex: 1.5;text-align: center;" class="u-f">
-								<view style="margin:10upx 0 0 16upx;color: #9B9B9B;">总计:</view>
-								<view style="font-size: 35upx;margin-top: 5upx;">￥{{showPrice*goodsNum}}</view> 
-							</view>
-							<view class="ok u-f-ajc" @tap="addCart()">确认</view>
-						</view>
-					</view>				
-				</view>			
-			</view>
-			
-			<!-- 底部小购物车 -->
-			<view class="u-f cart" v-show="showcart" @tap="cart()">
-				<view class="cartone">
-					<image src="../../static/img/logo.png" mode="widthFix" style="width: 160upx;"></image>
-					<view class="cartnum u-f-ajc">{{totalNum}}</view>
-				</view>
-				<view class="carttwo u-f-ajc">
-					<view style="font-size: 24upx;color: #9B9B9B;">总价:</view>
-					<view style="font-size: 38upx;color: #4A4A4A;font-weight: 600;">￥{{totalPrice}}</view>
-				</view>
-				<view style="flex:1;">
-					<view class="cartthree u-f-ajc" @tap="submitOrder()">付款</view>
-				</view>				
-			</view>
-			
-			<!-- 全屏大购物车 -->
-			<view class="allcart" v-show="shopping">
-				<view style="height: 130upx;"><image src="../../static/icon/close.png" mode="widthFix" style="width: 30upx;margin: 70upx 70upx;" @tap="off"></image></view>
-				<view style="padding: 0upx 72upx 10upx 72upx;box-shadow: 0 2upx 0 0 #cccccc;">
-					<view style="font-size: 36upx;color: #131313;font-weight: 600;">购物车</view>
-					<view class="u-f u-f-jsb">
-						<view style="font-size: 26upx;color: #4A4A4A;">{{currentShop.name}}</view>
-						<view style="font-size: 24upx;color: #4A4A4A;">门店自提</view>
-					</view>
-				</view>
-				
-				<!-- 这里循环数据 -->
-				<scroll-view scroll-y  :style="{height:height+'px'}">
-					<block v-for="(item,index) in cartlist" :key="index">
-						<view class="u-f" style="padding: 10upx 54upx;border-bottom: 1upx solid #efefef;">
-							<view style="flex: 3;">
-								<view style="font-size: 28upx;color: #4A4A4A;font-weight: 600;margin: 16upx 0 0 0;">{{item.title}}</view>
-								<view style="font-size: 20upx;color: #4A4A4A;">{{item.checkedSku}}</view>
-							</view>
-							<view class="u-f" style="flex: 2;">
-								<view style="font-size: 28upx;color: #4A4A4A;margin: 44upx 10upx 0 0;">￥{{item.showPrice}}</view>
-								<view style="margin: 28upx 0 0 0;">
-									<uni-number-box :value="item.num" @change="changeCartNum($event,item,index)" @fun="clickBtn" :disabled="changenumBtn"></uni-number-box>
 								</view>
 							</view>
-						</view>
-					</block>
-				</scroll-view>
-				
-				<!-- 底部付款模块 -->
-				<view class="u-f pay" style="width: 100%;" >
-					<view style="flex: 2;">						
-					</view>					
-					<view class="carttwo u-f-ajc" style="flex: 3;">
+						
+							<view style="height: 170upx;"></view>
+						
+						<!-- 规格的底部信息模块 -->
+						<view class="foot" style="margin-top:30upx;">
+							<view style="font-size: 24upx;flex-wrap:wrap;width: 74%;padding: 0 40upx;">
+							{{checkedSkus}}
+							</view> 
+							<view class="u-f">						
+								<view style="flex: 1;" class="u-f">
+									<uni-number-box :min="1" :max="9" :value="1" @change="changeGoodsNumber($event,item,index)"></uni-number-box>
+									<view style="margin:10upx 0 0 4upx;color: #9B9B9B;">杯</view>
+								</view>
+								<view style="flex: 2;text-align: center;width: 220upx;" class="u-f">
+									<view style="margin:10upx 0 0 16upx;color: #9B9B9B;">总计:</view>
+									<view style="font-size: 35upx;margin-top: 5upx;">￥{{showPrice*goodsNum}}</view> 
+								</view>
+								<view class="ok u-f-ajc" @tap="addCart()" style="flex: 2;">确认</view>
+							</view>
+						</view>				
+					</view>			
+				</view>
+				<!-- 底部小购物车 -->
+				<view class="u-f cart" v-show="showcart" @tap="cart()">
+					<view class="cartone">
+						<image src="../../static/img/logo.png" mode="widthFix" style="width: 160upx;"></image>
+						<view class="cartnum u-f-ajc">{{totalNum}}</view>
+					</view>
+					<view class="carttwo u-f-ajc">
 						<view style="font-size: 24upx;color: #9B9B9B;">总价:</view>
 						<view style="font-size: 38upx;color: #4A4A4A;font-weight: 600;">￥{{totalPrice}}</view>
-					</view>					
+					</view>
 					<view style="flex:1;">
 						<view class="cartthree u-f-ajc" @tap="submitOrder()">付款</view>
-					</view>	
+					</view>				
 				</view>
-			</view>
-			<!-- 弹框地图 -->
-			<view class="map" v-show="mask">
-				<view class="u-f u-f-jsb">
-					<view style="font-size: 35upx;">{{currentShop.name}}</view>
-					<view class="u-f" style="margin-right: 50upx;">
-						<view><image src="../../static/img/地图.png" 
-							mode="widthFix" 
-							style="width: 50upx;margin-right: 10upx;"></image></view>
-						<view>5km</view>
+				<!-- 全屏大购物车 -->
+				<view class="allcart animated fadeInUpBig" v-show="shopping">
+					<view style="height: 130upx;"><image src="../../static/icon/close.png" mode="widthFix" style="width: 30upx;margin: 70upx 70upx;" @tap="off"></image></view>
+					<view style="padding: 0upx 72upx 10upx 72upx;box-shadow: 0 2upx 0 0 #cccccc;">
+						<view style="font-size: 36upx;color: #131313;font-weight: 600;">购物车</view>
+						<view class="u-f u-f-jsb">
+							<view style="font-size: 26upx;color: #4A4A4A;">{{currentShop.name}}</view>
+							<view style="font-size: 24upx;color: #4A4A4A;">门店自提</view>
+						</view>
+					</view>
+					
+					<!-- 这里循环数据 -->
+					<scroll-view scroll-y  :style="{height:height+'px'}">
+						<block v-for="(item,index) in cartlist" :key="index">
+							<view class="u-f" style="padding: 10upx 54upx;border-bottom: 1upx solid #efefef;">
+								<view style="flex: 3;argin-bottom: 10upx;" >
+									<view style="font-size: 28upx;color: #4A4A4A;font-weight: 600;margin-top: 20upx;">{{item.title}}</view>
+									<view style="font-size: 20upx;color: #4A4A4A;align-items: center">{{item.checkedSku}}</view>
+								</view>
+								<view class="u-f" style="flex: 2;">
+									<view style="font-size: 28upx;color: #4A4A4A;margin-top: auto;margin-right: 40upx;">￥{{item.showPrice}}</view>
+									<view style="margin-top: auto;">
+										<uni-number-box :value="item.num" @change="changeCartNum($event,item,index)" @fun="clickBtn" :disabled="changenumBtn"></uni-number-box>
+									</view>
+								</view>
+							</view>
+						</block>
+					</scroll-view>
+					
+					
+					
+					<!-- 底部付款模块 -->
+					<view class="u-f pay" style="width: 100%;" >
+						<view style="flex: 1;">						
+						</view>					
+						<view class="carttwo u-f-ajc" style="flex: 1;">
+							<view style="font-size: 24upx;color: #9B9B9B;">总价:</view>
+							<view style="font-size: 38upx;color: #4A4A4A;font-weight: 600;">￥{{totalPrice}}</view>
+						</view>					
+						<view style="flex:1;">
+							<view class="cartthree u-f-ajc" @tap="submitOrder()">付款</view>
+						</view>	
 					</view>
 				</view>
-				<view class="u-f u-f-jsb" style="margin: 20upx 0;">
-					<view style="font-size: 25upx;">{{currentShop.address}}</view>
-					<view style="font-size: 25upx;color: #ff0000;margin-right: 50upx;">当前店铺</view>
-				</view>
-				<view>
-					<template>
-					    <view>
-					        <view class="page-body">
-					            <view class="page-section page-section-gap">
-					                <map style="width: 92%; height: 360upx;" :latitude="latitude" :longitude="longitude" :markers="covers">
-					                </map>
-					            </view>
-					        </view>
-					    </view>
-					</template>
-				</view>
-				<view class="u-f u-f-jsb" style="margin: 20upx 0;">
-					<view class="switch" @tap="selectShop()">切换店铺</view>
-					<view class="sure" @tap="iAmSure()">确认</view>
-				</view>
-			</view>
-			<!-- 弹框地图的蒙版 -->
-			<view class="mapmask" v-show="mask"></view>
-			
-			
-			<!-- 蒙版2 -->
-			<view class="accreditmask"  v-show="accreditshow"></view>
-			<view class="allbottom" v-show="agreeUserInfo">
-				<view class="close" @tap="closeagreeuserinfo()">
-					<image src="../../static/icon/close.png" mode="widthFix" style="width: 30upx;float:right;padding: 28upx 28upx 0 0;"></image>
-				</view>
-					<view class="bottom">						
-						<view>欢迎来到Manner咖啡</view>
-						<view style="font-size: 24upx;color: #9B9B9B;">Manner申请获取您用户信息</view>
-						<button class="agree u-f-ajc" open-type="getUserInfo" @tap="wxlogin()">同意授权</button>
+				<!-- 弹框地图 -->
+				<view class="map animated fadeInUpBig" v-show="mask">
+					<view class="u-f u-f-jsb">
+						<view style="font-size: 35upx;">{{currentShop.name}}</view>
+						<view class="u-f" style="margin-right: 50upx;" @tap="openMap()">
+							<view ><image src="../../static/img/blackmap.png" 
+								mode="widthFix" 
+								style="width: 50upx;margin-right: 10upx;"></image></view>
+							<view>导航</view>
+						</view>
 					</view>
-			</view>
-			
+					<view class="u-f u-f-jsb" style="margin: 20upx 0;">
+						<view style="font-size: 25upx;">{{currentShop.address}}</view>
+						<view style="font-size: 25upx;color: #ff0000;margin-right: 50upx;">当前店铺</view>
+					</view>
+					<view>
+						<template>
+						    <view>
+						        <view class="page-body">
+						            <view class="page-section page-section-gap">
+						                <map style="width: 92%; height: 360upx;" :latitude="currentShop.lat" :longitude="currentShop.lng" :markers="covers">
+						                </map>
+						            </view>
+						        </view>
+						    </view>
+						</template>
+					</view>
+					<view class="u-f u-f-jsb" style="margin: 20upx 0;">
+						<view class="switch" @tap="selectShop()">切换店铺</view>
+						<view class="sure" @tap="iAmSure()">确认</view>
+					</view>
+				</view>
+				<!-- 弹框地图的蒙版 -->
+				<view class="mapmask" v-show="mask"></view>
+				<!-- 蒙版2 -->
+				<view class="accreditmask"  v-show="accreditshow"></view>
+				
+				<!-- 蒙版4 -->
+				<view class="templatemsgmask"  v-show="templatemsgshow"></view>
+				
+				<view class="allbottom" v-show="agreeUserInfo">
+					<view class="close" @tap="closeagreeuserinfo()">
+						<image src="../../static/icon/close.png" mode="widthFix" style="width: 30upx;float:right;padding: 28upx 28upx 0 0;"></image>
+					</view>
+						<view class="bottom">						
+							<view>欢迎来到Manner咖啡</view>
+							<view style="font-size: 24upx;color: #9B9B9B;">Manner申请获取您用户信息</view>
+							<button class="agree u-f-ajc" open-type="getUserInfo" @tap="wxlogin()">同意授权</button>
+						</view>
+				</view>
+				
+				<view class="allbottom" v-show="agreeTemplateMsg">
+					<view class="close" @tap="closetemplatemsg()">
+						<image src="../../static/icon/close.png" mode="widthFix" style="width: 30upx;float:right;padding: 28upx 28upx 0 0;"></image>
+					</view>
+						<view class="bottom">						
+							<view>欢迎来到Manner咖啡</view>
+							<view style="font-size: 24upx;color: #9B9B9B;">Manner申请您授权模板消息</view>
+							<button class="agree u-f-ajc" open-type="getUserInfo" @tap="showTemp()">同意授权</button>
+						</view>
+				</view>
+				
+			</view>			
 	</view>
 </template>
 
@@ -307,7 +332,6 @@
 	import zcmRadioGroup from "@/components/common/radio-group.vue"
 	import uniNumberBox from "@/components/uni-ui/uni-number-box/uni-number-box.vue"
 	
-	// import uniNumberBoxx from "@/components/uni-number-boxx.vue"
 	import {mapState,mapGetters,mapActions,mapMutations} from "vuex"
 
 	export default {
@@ -371,7 +395,7 @@
 				
 				checkedSkus = this.$Util.removeEmptyArrayEle(checkedSkus);
 				//加上特调规格
-				return (checkedSkus.join('/') + '/' + this.multiAttrStr.join('/')).trim('/')
+				return (checkedSkus.join('/') + ' ' + this.multiAttrStr.join('/')).trim('/')
 			},
 		},
 		data () {
@@ -380,6 +404,8 @@
 				height:0,
 				accreditshow:false,
 				agreeUserInfo:false,
+				agreeTemplateMsg:false,
+				templatemsgshow:false,
 				// 弹框地图start
 				id:0, 
 				 // 使用 marker点击事件 需要填写id
@@ -409,8 +435,6 @@
 				showattr:false,
 				//底部小购物车
 				showcart:false,
-				//可视高度
-				height:0,
 				//商品规格的特殊选项
 				specialcard:false,				
 				//当前商品数量
@@ -438,58 +462,125 @@
 				// 右侧商品节点高度
 				rightDomsTop:[], 
 				// 左侧种类显示的高度
-				leftScrollTop:[],
+				leftScrollTop:0,
 				// 右侧商品种类显示的高度
 				rightScrollTop:0,
 				//类别的数据(左侧)
 				cate:[],
 				//商品的数据(右侧)
 				list:[],
+				cateItemHeight:0
 			}
 		},		
 		watch:{
-			async activeIndex(newValue,oldValue){
-				// 获取scroll-view高度
-				let data = await this.getElInfo({
-					size:true,
-					scrollOffset:true,					
-				})
-				let H = data.height
-				let ST = data.scrollTop 	
-				//下边
-				if ((this.leftDomsTop[newValue]+this.cateItemHeight) > (H+ST) ) {
-					return this.leftScrollTop = this.leftDomsTop[newValue]+this.cateItemHeight - H
+			async activeIndex(newValue, oldValue) {
+					// 获取scroll-view高度，scrollTop
+					let data = await this.getElInfo({
+						size:true,
+						scrollOffset:true
+					})
+					//拿到左侧的向上滑动偏移量 以及左侧的高度
+					let H = data.height		
+					let ST = data.scrollTop
+					// console.log(this.leftDomsTop[newValue]+parseFloat(this.cateItemHeight))
+					
+					// 下边
+					if ((this.leftDomsTop[newValue]+parseFloat(this.cateItemHeight)) > (H+ST) ) {
+						 return this.leftScrollTop = this.leftDomsTop[newValue]+this.cateItemHeight - H
 					}
-				//上边
-				if (ST > this.cateItemHeight) {
-					this.leftScrollTop = this.leftDomsTop[newValue]
+					// 上边
+					if (ST > this.cateItemHeight) {
+						this.leftScrollTop = this.leftDomsTop[newValue]
+					}
 				}
-			}
-		},
+			},
 
 		onReady() {
-			// 获取左侧节点
+			
 			this.getElInfo({
 				all:'left',
 				size:true,
 				rect:true
 			}).then(data=>{
+				console.log(data)
+				//左节点总向上偏移量的累加计算
 				this.leftDomsTop = data.map(v=>{
-					this.cateItemHeight = v.height
-					return v.top
+					  this.cateItemHeight = v.height
+					  return v.top
 				})
-			})		
-			// 获取右侧节点
+			})
 			this.getElInfo({
 				all:'right',
-				size:false,
+				size:true,
 				rect:true
 			}).then(data=>{
+				console.log(data)
 				this.rightDomsTop = data.map(v=> v.top)
 			})
 		},
 		
 		methods: {
+			/**
+			 * 显示地图蒙版
+			 */
+			showMap: function()
+			{
+				this.mask = true;
+			},
+			//进行模板消息授权
+			showTemp: function() {
+				var that = this;
+				wx.requestSubscribeMessage({  
+				  tmplIds: ['nxyyDOAqE29fWEbvEM96ic-lv7W3LRuTJtO34zihDBk','FwqdpQ5V9rqfOM8vanxGHoxnaMHeyciPDenZssgwj7c'],  
+				  success (res) {  //获取成功以后 取消遮罩层和弹窗
+					  that.agreeTemplateMsg = false;
+					  that.templatemsgshow = false;
+					  
+					  that.showMap();
+				  },  
+				  fail (res) {  
+					  console.log("fail:"+res.errMsg + "---" + res.errCode);  
+				  },  
+				  complete (res) {  
+					  console.log("complete:"+res.errMsg + "---" + res.errCode);  
+				  }  
+				})  
+			},
+			// 获取节点信息
+			getElInfo(obj = {}){
+				return new Promise((res,rej)=>{
+					let option = {
+						size:obj.size ? true : false,
+						rect:obj.rect ? true : false,
+						scrollOffset:obj.scrollOffset ? true : false,
+					}
+					
+					const query = uni.createSelectorQuery().in(this);
+					let q = obj.all ? query.selectAll(`.${obj.all}-scroll-item`):query.select('#leftScroll')
+					
+					console.log(q)
+					q.fields(option,data => {
+					  res(data)
+					}).exec();
+				})
+			},
+			//点击左边当前分类，传值index
+			changeCate(index){
+				this.activeIndex = index
+				// 右边scroll-view滚动到对应区块
+				console.log(this.rightDomsTop[index])
+				this.rightScrollTop = this.rightDomsTop[index]
+			},
+			// 监听右边滚动事件
+			async onRightScroll(e){
+				// 匹配当前scrollTop所处的索引
+				this.rightDomsTop.forEach((v,k)=>{
+					if (v < e.detail.scrollTop + 3) {
+						this.activeIndex = k 
+						return false
+					}
+				})
+			},
 			iAmSure(){
 				this.mask = false
 			},
@@ -555,8 +646,6 @@
 								// 这里登录是没有token的情况不进行token检测
 								token:false,
 							}).then((res)=>{
-								console.log(res)
-								console.log(this)
 								//vuex登录方法 进行登录状态存储
 								that.login(res)
 								//跳转操作跳转到登录前的页面
@@ -568,33 +657,33 @@
 								that.agreeUserInfo = false;
 								that.accreditshow = false;
 								
-								// setTimeout(function(){
-								// 	uni.hideLoading()
-								// 	//打开消息模板授权
-								// 	that.agreeTemplateMsg = true;
-								// 	that.templatemsgshow = true;
-								// },1000)
+								setTimeout(function(){
+									uni.hideLoading()
+									//打开消息模板授权
+									that.agreeTemplateMsg = true;
+									that.templatemsgshow = true;
+								},1000)
 								
 								//登录后拿地址信息
 								// this.height = Number(uni.getSystemInfoSync().windowHeight) - 310;
 								//这时候that指的是全局，在内部函数想用全局的时候就得用that
 								// 获取当前坐标
-								wx.getLocation({
-								    type:'wgs84',
-								    success: function (res) {				
-										// 打印一下获取的经纬度
-								        // console.log('当前位置的经度：' + res.longitude);
-								        // console.log('当前位置的纬度：' + res.latitude);
-										uni.showLoading({
-										    title: '加载中'
-										});
-										// 请求后台数据
-										that.loadData( res.longitude, res.latitude,(res)=>{
-										    // 将获取的data数据存入上边的List[]中
-										    // that.List = res
-										});
-								    }
-								});
+								// wx.getLocation({
+								//     type:'wgs84',
+								//     success: function (res) {				
+								// 		// 打印一下获取的经纬度
+								//         // console.log('当前位置的经度：' + res.longitude);
+								//         // console.log('当前位置的纬度：' + res.latitude);
+								// 		uni.showLoading({
+								// 		    title: '加载中'
+								// 		});
+								// 		// 请求后台数据
+								// 		that.loadData( res.longitude, res.latitude,(res)=>{
+								// 		    // 将获取的data数据存入上边的List[]中
+								// 		    // that.List = res
+								// 		});
+								//     }
+								// });
 								// that.showTemp()
 							})
 							
@@ -611,6 +700,8 @@
 			 */
 			async loadData(lng,lat,cb)
 			{
+				//获取数据两种方式
+				
 				var that = this;
 				this.$H.get('/mannerdish/index/index?lng='+lng+'&lat='+lat,{},{
 					// 这里测试先不用token				
@@ -624,7 +715,7 @@
 					this.data = res
 					//店铺列表存为缓存
 					this.$Util.setCache("shop_list",res,0);
-					this.nearshop.shopname = this.data[0].name
+					this.nearshop.name = this.data[0].name
 					this.nearshop.shopaddress = this.data[0].address
 					this.nearshop.tel = this.data[0].tel
 					//删除下标为0，长度为1的一个数据
@@ -652,7 +743,6 @@
 				this.coffeePieces = value
 				this.newoptions[index2].isnum = value;
 				this.changePrice = 5 * ( Math.ceil(value / 2) - 1);
-				
 			},
 			
 			changeGoodsNumber(value)
@@ -660,7 +750,7 @@
 				//改变商品数量
 				this.goodsNum = value
 			},
-			// 点击弹出规格按钮
+			//点击弹出规格按钮
 			showAttr(){
 				this.showattr = !this.showattr
 			},
@@ -700,10 +790,38 @@
 				this.specialcard = !this.specialcard;
 				//特调是否展示判断
 			},		
-			onShow(){
+			onShow(option){
+				console.log(option)
 				var that = this;
+				this.currentShop = this.$Util.getCache('current_shop');	
+				//地图信息拼接
+				this.covers[0].latitude = this.currentShop.lat;
+				this.covers[0].longitude = this.currentShop.lng;
+				//经纬度的信息复制
+				this.latitude = this.currentShop.latitude;
+				this.longitude = this.currentShop.longitude;
+				//查看option是否存在值
+				if(this.$Util.getCache("current_shop_change") == 1){ //这个是有选项的时候 要取后台取餐品信息
+					that.cate = [];
+					that.list = [];
+					//先把餐品信息与分类设置为空 然后去后台取数据  
+					that.$H.post('/mannerdish/index/shopinfo?shop_id='+this.currentShop.id,{},{
+						token:true,
+						cb:function(){ //如果没有登录的回调操作
+							that.agreeUserInfo = true;
+							that.accreditshow = true;
+						}
+					}).then((res)=>{
+						that.currentShop = res;
+						//商品种类
+						that.cate = res.cats
+						that.list = res.goods_info
+						that.url = that.$H.common.ul
+					});
+					
+					this.$Util.setCache("current_shop_change",0);
+				}
 				//取出已经选择的店铺
-				this.currentShop = this.$Util.getCache('current_shop');		
 				// console.log(this.currentShop)
 				//更新购物车
 				this.updateCartList(res => {
@@ -712,6 +830,12 @@
 						that.showcart = true;
 					}	
 				});
+				
+				//显示地图
+				setTimeout(function(){
+					that.showMap();
+				},1000)
+				
 			},
 			onLoad(){
 				// 获取可用屏幕高度
@@ -719,24 +843,34 @@
 				var that = this;			
 				//可使用窗口高度减少55,可使用窗口高度是642
 				//后面加一个店铺商品判断
-				this.$H.post('/mannerdish/goods/goodslist',{},{
-					token:true,
-					cb:function(){
-						console.log("here it is\n")
-						that.agreeUserInfo = true;
-						that.accreditshow = true;
-					}
-				}).then((res)=>{
-					//商品种类
-					this.cate = res
-					this.list = res
-					this.url = this.$H.common.ul
-				});
-				// 加载动画
-				this.$nextTick(()=>{
-					this.showLoading = false
-				});
-				
+				//获取当前坐标
+				wx.getLocation({
+				    type:'wgs84',
+				    success: function (res) {				
+						// 打印一下获取的经纬度
+				        // console.log('当前位置的经度：' + res.longitude);
+				        // console.log('当前位置的纬度：' + res.latitude);
+						uni.showLoading({
+						    title: '加载中'
+						});
+						
+						//获取坐标以后进行登录判断操作
+						that.$H.post('/mannerdish/index/shopinfo?lng='+res.longitude+'&lat='+res.latitude,{},{
+							token:true,
+							cb:function(){ //如果没有登录的回调操作
+								that.agreeUserInfo = true;
+								that.accreditshow = true;
+							}
+						}).then((res)=>{
+							that.currentShop = res;
+							that.$Util.setCache("current_shop",res,0);
+							//商品种类6
+							that.cate = res.cats
+							that.list = res.goods_info
+							that.url = that.$H.common.ul
+						});
+				      },
+			      })
 			},
 			
 			changeNum(e,item){
@@ -804,7 +938,6 @@
 			 * @param {Object} index2
 			 */
 			show(index,index2){
-				
 				//确认当前商品下标
 				this.goodsIndex = index2
 				//当前点击的商品信息，把点击的信息传递到currentGoods{}内
@@ -815,6 +948,7 @@
 				//设置当前的规格
 			    var newoptions =  this.$Util.deepClone(this.list[index]['goods'][this.goodsIndex]['option']['options']);
 				
+				console.log(this.currentGoods)
 				this.specialexist = false
 				//看是否有特调
 				for(let i = 0;i<newoptions.length;i++){
@@ -839,28 +973,7 @@
 				// 如允许点击超链接跳转，则应该打开一个新页面，并传入href，由新页面内嵌webview组件负责显示该链接内容
 				console.log("href: " + href);
 			},
-			//获取节点信息
-			getElInfo(obj = {}){
-				return new Promise((res,rej)=>{
-					let option = {
-						size:obj.size ? true : false,
-						rect:obj.rect ? true : false,
-						scrollOffset:obj.scrollOffset ? true : false,
-					}
-					const query = uni.createSelectorQuery().in(this);
-					let q = obj.all ? query.selectAll(`.${obj.all}-scroll-item`):query.select('#leftScroll')
-					q.fields(option,data => {
-						res(data)
-					}).exec();
-				})
-			},
-			//点击左边当前分类，传值index
-			changeCate(index){
-				// 如果此时点击的index等于循环到的那个商品index
-				this.activeIndex = index
-				//右侧scroll-view滚动到制定区块,点击左侧，此时右侧对应商品联动成功
-				this.rightScrollTop = this.rightDomsTop[index]
-			},
+			
 			/**
 			 * 选择店铺
 			 */
@@ -893,7 +1006,6 @@
 				let attrStr = [];
 				//取反操作
 				this.$data.newoptions[index].child[index2].selected = !this.$data.newoptions[index].child[index2].selected ? 1 : 0 
-				
 				this.$forceUpdate()
 				
 				for(let i = 0;i<this.newoptions.length;i++)
@@ -909,7 +1021,6 @@
 								//规格内容
 								attrStr.push(this.newoptions[i].child[j].name)
 							}
-							
 						}
 					}
 				}
@@ -917,7 +1028,6 @@
 				this.multiAttrStr = attrStr
 				//总价增加
 				this.multiPrice = addPrice
-				
 			},
 			/**
 			 * 提交订单
@@ -929,16 +1039,6 @@
 				//2 跳转到订单结算页面 ordersubmit
 				uni.navigateTo({
 					url:"../../pages/mannerorder/ordersubmit"
-				})
-			},
-			// 监听右边滚动事件
-			async onRightScroll(e){
-				// 匹配当前scrollTop所处的索引
-				this.rightDomsTop.forEach((v,k)=>{
-					if (v < e.detail.scrollTop + 3) {
-						this.activeIndex = k
-						return false
-					}
 				})
 			},
 		}	
@@ -978,6 +1078,13 @@
 		bottom: 0;
 		z-index: 2021;
 		background-color:  #00000082;
+	}
+	
+	.allbottom{
+		position: fixed;
+		bottom: 0;
+		background-color: #FFFFFF;
+		z-index: 8998;
 	}
 	.uparse .p{ padding: 0!important; }
 	.uparse view,.uparse uni-view{ line-height: 0!important; }
@@ -1219,15 +1326,15 @@
 	.banner{
 		height: 100%;
 		width: 100%;
-		background-color: rgba(90, 90, 90, 0.8);;
+		/* background-color: rgba(90, 90, 90, 0.8); */
 		position: fixed;
 		z-index: 2000;
 		top: 0;
 		
-			  -webkit-filter: blur(5px); /* Chrome, Opera */
-		       -moz-filter: blur(5px);
+			  /* -webkit-filter: blur(5px); */ /* Chrome, Opera */
+		      /* -moz-filter: blur(5px);
 		        -ms-filter: blur(5px);    
-		            filter: blur(5px);
+		            filter: blur(5px); */
 		
 		
 	}
@@ -1238,7 +1345,9 @@
 		box-shadow: 10upx 0 0 0 #cccccc;
 		position: fixed;
 		z-index: 2001;		
-		bottom: 0;	
+		bottom: 0;
+		height: 65%;
+		border-top-color: #000000;
 	}
 	.specialcardtop1{
 		background-color: #F7F7F7;
@@ -1284,6 +1393,7 @@
 		padding: 6upx 40upx;
 		border-radius: 10upx;
 		background-color: #EFF2F3;
+		border: 1upx solid #ffffff;
 	}
 	.ischecked{
 		text-align: center;
@@ -1434,7 +1544,10 @@
 		bottom: 0;
 		z-index: 9001;
 		position: fixed;
-		border-top: 1upx solid #e8e8e8;
+		/* border-top: 1upx solid #e8e8e8; */
+		width: 100%;height: 100rpx;
+		background-color: white;
+		box-shadow: 2rpx 0rpx 8rpx 2rpx #d4d4d4;
 	}
 	/* 加载地图弹框 */
 	.map{

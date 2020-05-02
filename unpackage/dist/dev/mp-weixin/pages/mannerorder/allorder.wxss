@@ -7,6 +7,10 @@
 	color: #4A4A4A;
 	font-size: 28rpx;
 }
+.order{
+	padding-top: 20rpx;
+	padding-bottom: 20rpx;
+}
 .order>view{
 	height: 125rpx;
 	border-bottom: 1rpx solid #eeeeee;

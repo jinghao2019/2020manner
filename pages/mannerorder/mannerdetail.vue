@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view style="height: 100%;">
 		<view class="all" :class="{blur:Blur}">
 			<view class="head" v-if="status === 0">
 				待支付
@@ -29,7 +29,7 @@
 				</view> -->
 				<view class="infoshop u-f">										
 						<view>{{orderdetail.orderstore.name}}</view>								
-					<view><image src="../../static/letright1.png" style="width: 40upx;margin: 8upx 0 0 0;" mode="widthFix"></image></view>
+					<view><image src="../../static/letright.png" style="width: 40upx;height: auto;margin: 8upx 0 0 0;" mode="widthFix"></image></view>
 				</view>
 				<view class="address">{{orderdetail.orderstore.address}}</view>
 				<view class="tel">取餐预留电话:13849929503</view>
@@ -74,11 +74,11 @@
 			<view class="foot">
 				<view class="u-f u-f-jsb">
 					<view>自助开票</view>
-					<view><image src="../../static/letright1.png" style="width: 40upx;margin: 12upx 0 0 0;" mode="widthFix"></image></view>
+					<view><image src="../../static/letright.png" style="width: 40upx;height: auto;margin: 12upx 0 0 0;" mode="widthFix"></image></view>
 				</view>
 				<view class="u-f u-f-jsb">
 					<view>客服与帮助</view>
-					<view><image src="../../static/letright1.png" style="width: 40upx;margin: 12upx 0 0 0;" mode="widthFix"></image></view>
+					<view><image src="../../static/letright.png" style="width: 40upx;height: auto;margin: 12upx 0 0 0;" mode="widthFix"></image></view>
 				</view>
 			</view>
 			<view class="close u-f-ajc">取消订单</view>

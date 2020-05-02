@@ -1,5 +1,5 @@
 <template>
-	<view class="all">
+	<view class="all" style="height: 100%;">
 		<view class="discounts">
 			<image src="../../static/img/discounts.png" mode="widthFix" style="width: 100%;"></image>
 		</view>

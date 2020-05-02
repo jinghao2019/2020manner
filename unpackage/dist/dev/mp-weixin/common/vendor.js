@@ -3014,7 +3014,143 @@ var _util = _interopRequireDefault(__webpack_require__(/*! @/common/lib/util.js 
 
 /***/ }),
 
-/***/ 182:
+/***/ 19:
+/*!*******************************************!*\
+  !*** X:/vue/manner422/common/lib/util.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  //获取手机号的正则
+  checkMobile: function checkMobile(mobile) {
+    return RegExp(/^1[34578]\d{9}$/).test(mobile);
+  },
+
+  // 更新tabbar角标
+  updateCartBadge: function updateCartBadge(count) {
+    if (count > 0) {
+      return uni.setTabBarBadge({
+        index: 2,
+        text: count.toString() });
+
+    }
+    uni.removeTabBarBadge({
+      index: 2 });
+
+  },
+  // 判断订单状态
+  formatStatus: function formatStatus(order) {
+    if (!order) {
+      return '';
+    }
+    // 未支付
+    if (!order.paid_time) {
+      return "待支付";
+    }
+    // 退款情况
+    if (order.refund_status !== 'pending') {
+      switch (order.refund_status) {
+        case 'applied':
+          return '退款中';
+          break;
+        case 'success':
+          return '退款成功';
+          break;
+        case 'failed':
+          return '退款失败';
+          break;}
+
+    }
+    switch (order.ship_status) {
+      case 'pending':
+        return '待发货';
+        break;
+      case 'delivered':
+        return '待收货';
+        break;
+      case 'received':
+        return '已签收';
+        break;}
+
+  },
+
+  setCache: function setCache(e, t, a) {
+    // e下标
+    // t值
+    // a传过来的过期时间
+    // i当前时间 
+    // expire是过期时间点
+    var i = +new Date() / 1e3,n = !0,o = {
+      expire: a ? parseInt(i + parseInt(a)) : 0,
+      value: t };
+
+    try {
+      // 设置缓存
+      wx.setStorageSync(e, o);
+    } catch (e) {
+      // n=!1  意思是false
+      n = !1;
+    }
+    return n;
+  },
+
+  //获取缓存
+  // parseInt存整形
+  getCache: function getCache(e, t)
+  {
+    var i = +new Date() / 1e3,n = "";
+    i = parseInt(i);
+
+    //去处缓存
+    // n = wx.getStorageSync(e);
+
+    try {
+      (n = wx.getStorageSync(e)).expire > i || n.expire == 0 ? n = n.value : (n = "", this.removeCache(e));
+    } catch (e) {
+      n = void 0 === t ? "" : t;
+    }
+    return n || t;
+  },
+
+
+  //删除缓存
+  removeCache: function removeCache(e) {
+    var t = !0;
+    try {
+      wx.removeStorageSync(e);
+    } catch (e) {
+      t = !1;
+    }
+    return t;
+  },
+
+  //删除数组里面的undefined元素
+  removeEmptyArrayEle: function removeEmptyArrayEle(arr) {
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i] == undefined || arr[i] == 'undefined' || arr[i] == false) {
+        arr.splice(i, 1);
+        i = i - 1; // i - 1 ,因为空元素在数组下标 2 位置，删除空之后，后面的元素要向前补位，
+        // 这样才能真正去掉空元素,觉得这句可以删掉的连续为空试试，然后思考其中逻辑
+      }
+    }
+
+    // console.log(arr)
+    return arr;
+  },
+
+  //深拷贝方法
+  deepClone: function deepClone(obj) {
+    var _obj = JSON.stringify(obj),
+    objClone = JSON.parse(_obj);
+    return objClone;
+  } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 190:
 /*!*******************************************!*\
   !*** X:/vue/manner422/common/lib/time.js ***!
   \*******************************************/
@@ -3132,7 +3268,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 188:
+/***/ 196:
 /*!***********************************************************************!*\
   !*** X:/vue/manner422/components/uni-ui/uParse/src/libs/html2json.js ***!
   \***********************************************************************/
@@ -3154,8 +3290,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-var _wxDiscode = _interopRequireDefault(__webpack_require__(/*! ./wxDiscode */ 189));
-var _htmlparser = _interopRequireDefault(__webpack_require__(/*! ./htmlparser */ 190));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**
+var _wxDiscode = _interopRequireDefault(__webpack_require__(/*! ./wxDiscode */ 197));
+var _htmlparser = _interopRequireDefault(__webpack_require__(/*! ./htmlparser */ 198));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**
                                                                                                                                                                  * html2Json 改造来自: https://github.com/Jxck/html2json
                                                                                                                                                                  *
                                                                                                                                                                  *
@@ -3404,7 +3540,7 @@ html2json;exports.default = _default;
 
 /***/ }),
 
-/***/ 189:
+/***/ 197:
 /*!***********************************************************************!*\
   !*** X:/vue/manner422/components/uni-ui/uParse/src/libs/wxDiscode.js ***!
   \***********************************************************************/
@@ -3609,142 +3745,7 @@ function urlToHttpUrl(url, domain) {
 
 /***/ }),
 
-/***/ 19:
-/*!*******************************************!*\
-  !*** X:/vue/manner422/common/lib/util.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  checkMobile: function checkMobile(mobile) {
-    return RegExp(/^1[34578]\d{9}$/).test(mobile);
-  },
-
-  // 更新tabbar角标
-  updateCartBadge: function updateCartBadge(count) {
-    if (count > 0) {
-      return uni.setTabBarBadge({
-        index: 2,
-        text: count.toString() });
-
-    }
-    uni.removeTabBarBadge({
-      index: 2 });
-
-  },
-  // 判断订单状态
-  formatStatus: function formatStatus(order) {
-    if (!order) {
-      return '';
-    }
-    // 未支付
-    if (!order.paid_time) {
-      return "待支付";
-    }
-    // 退款情况
-    if (order.refund_status !== 'pending') {
-      switch (order.refund_status) {
-        case 'applied':
-          return '退款中';
-          break;
-        case 'success':
-          return '退款成功';
-          break;
-        case 'failed':
-          return '退款失败';
-          break;}
-
-    }
-    switch (order.ship_status) {
-      case 'pending':
-        return '待发货';
-        break;
-      case 'delivered':
-        return '待收货';
-        break;
-      case 'received':
-        return '已签收';
-        break;}
-
-  },
-
-  setCache: function setCache(e, t, a) {
-    // e下标
-    // t值
-    // a传过来的过期时间
-    // i当前时间 
-    // expire是过期时间点
-    var i = +new Date() / 1e3,n = !0,o = {
-      expire: a ? parseInt(i + parseInt(a)) : 0,
-      value: t };
-
-    try {
-      // 设置缓存
-      wx.setStorageSync(e, o);
-    } catch (e) {
-      // n=!1  意思是false
-      n = !1;
-    }
-    return n;
-  },
-
-  //获取缓存
-  // parseInt存整形
-  getCache: function getCache(e, t)
-  {
-    var i = +new Date() / 1e3,n = "";
-    i = parseInt(i);
-
-    //去处缓存
-    // n = wx.getStorageSync(e);
-
-    try {
-      (n = wx.getStorageSync(e)).expire > i || n.expire == 0 ? n = n.value : (n = "", this.removeCache(e));
-    } catch (e) {
-      n = void 0 === t ? "" : t;
-    }
-    return n || t;
-  },
-
-
-  //删除缓存
-  removeCache: function removeCache(e) {
-    var t = !0;
-    try {
-      wx.removeStorageSync(e);
-    } catch (e) {
-      t = !1;
-    }
-    return t;
-  },
-
-  //删除数组里面的undefined元素
-  removeEmptyArrayEle: function removeEmptyArrayEle(arr) {
-    for (var i = 0; i < arr.length; i++) {
-      if (arr[i] == undefined || arr[i] == 'undefined' || arr[i] == false) {
-        arr.splice(i, 1);
-        i = i - 1; // i - 1 ,因为空元素在数组下标 2 位置，删除空之后，后面的元素要向前补位，
-        // 这样才能真正去掉空元素,觉得这句可以删掉的连续为空试试，然后思考其中逻辑
-      }
-    }
-
-    // console.log(arr)
-    return arr;
-  },
-
-  //深拷贝方法
-  deepClone: function deepClone(obj) {
-    var _obj = JSON.stringify(obj),
-    objClone = JSON.parse(_obj);
-    return objClone;
-  } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
-/***/ 190:
+/***/ 198:
 /*!************************************************************************!*\
   !*** X:/vue/manner422/components/uni-ui/uParse/src/libs/htmlparser.js ***!
   \************************************************************************/
@@ -10054,7 +10055,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 265:
+/***/ 273:
 /*!**************************************************************************!*\
   !*** X:/vue/manner422/components/mpvue-citypicker/city-data/province.js ***!
   \**************************************************************************/
@@ -10204,7 +10205,7 @@ provinceData;exports.default = _default;
 
 /***/ }),
 
-/***/ 266:
+/***/ 274:
 /*!**********************************************************************!*\
   !*** X:/vue/manner422/components/mpvue-citypicker/city-data/city.js ***!
   \**********************************************************************/
@@ -11718,7 +11719,7 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 267:
+/***/ 275:
 /*!**********************************************************************!*\
   !*** X:/vue/manner422/components/mpvue-citypicker/city-data/area.js ***!
   \**********************************************************************/
@@ -26010,7 +26011,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/mannershop/mannershop1": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerlist/mannerlist1": { "usingComponents": { "base-info": "/components/detail/base-info", "scroll-attrs": "/components/detail/scroll-attrs", "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item", "scroll-comments": "/components/detail/scroll-comments", "u-parse": "/components/uni-ui/uParse/src/wxParse", "card": "/components/common/card", "common-list": "/components/common/common-list", "bottom-btn": "/components/detail/bottom-btn", "common-popup": "/components/common/common-popup", "price": "/components/common/price", "zcm-radio-group": "/components/common/radio-group", "uni-number-box": "/components/uni-ui/uni-number-box/uni-number-box" }, "usingAutoImportComponents": {} }, "pages/mannerorder/mannerorder": { "enablePullDownRefresh": true, "usingComponents": { "no-thing": "/components/common/no-thing", "all-order": "/components/order/all-order" }, "usingAutoImportComponents": {} }, "pages/mannercart/mannercart": { "usingComponents": { "uni-nav-bar": "/components/uni-ui/uni-nav-bar/uni-nav-bar", "price": "/components/common/price", "uni-number-box": "/components/uni-ui/uni-number-box/uni-number-box", "card": "/components/common/card", "zcm-radio-group": "/components/common/radio-group", "common-popup": "/components/common/common-popup" }, "usingAutoImportComponents": {} }, "pages/mannerhome/mannerhome": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerorder/mannerpayok": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerorder/mannerpayfail": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerlogin/login": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerlogin/mannerlogin": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/addressList/addressList": { "navigationBarBackgroundColor": "#ffffff", "navigationBarTitleText": "地址管理", "backgroundColorTop": "#ffffff", "backgroundColorBottom": "#ffffff", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/addressList/edit/edit": { "navigationBarBackgroundColor": "#ffffff", "navigationBarTitleText": "编辑收件人地址", "backgroundColorTop": "#ffffff", "backgroundColorBottom": "#ffffff", "usingComponents": { "mpvue-city-picker": "/components/mpvue-citypicker/mpvueCityPicker" }, "usingAutoImportComponents": {} }, "pages/mannershop/listshop": { "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/discounts/discounts": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerorder/ordersubmit": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerorder/mannerdetail": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerorder/ordertoday": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerorder/allorder": { "usingComponents": {}, "usingAutoImportComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "Manner", "navigationBarBackgroundColor": "#FFFFFF", "backgroundColor": "#FFFFFF" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/mannerlist/mannerlist1": {}, "pages/mannershop/mannershop1": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerlist/mannerlist": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerorder/mannerorder": { "enablePullDownRefresh": true }, "pages/mannercart/mannercart": {}, "pages/mannerhome/mannerhome": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerorder/mannerpayok": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerorder/mannerpayfail": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerlogin/login": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerlogin/mannerlogin": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/addressList/addressList": { "navigationBarBackgroundColor": "#ffffff", "navigationBarTitleText": "地址管理", "backgroundColorTop": "#ffffff", "backgroundColorBottom": "#ffffff", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/addressList/edit/edit": { "navigationBarBackgroundColor": "#ffffff", "navigationBarTitleText": "编辑收件人地址", "backgroundColorTop": "#ffffff", "backgroundColorBottom": "#ffffff" }, "pages/mannershop/listshop": { "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/discounts/discounts": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerorder/ordersubmit": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerorder/mannerdetail": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerorder/ordertoday": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/mannerorder/allorder": { "usingComponents": {}, "usingAutoImportComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "Manner", "navigationBarBackgroundColor": "#FFFFFF", "backgroundColor": "#FFFFFF", "disableScroll": true } };exports.default = _default;
 
 /***/ }),
 

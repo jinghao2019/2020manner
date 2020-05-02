@@ -59,7 +59,7 @@
 .nearshop>view>view:last-child,
 .othershop>view:last-child>view:last-child{
 	color: #ffffff;
-	background-color: #e82125;
+	background-color: #88272E;
 	width: 100rpx;
 	border-radius: 50rpx;
 	font-size: 20rpx;

@@ -1,82 +1,85 @@
 <template>
-	<view class="all">
-		<!-- 订单信息模块 -->
-		<view class="info">			
-			<view class="u-f u-f-jsb">
-				<view class="info1">订单结算</view>
-				<view class="info2"></view>
-			</view>
-			<view class="read">请仔细确认下单门店,下单后无法更改</view>
-			<view class="infoshop u-f">
-				<view>{{currentShop.name}}</view>
-				<view><image src="../../static/letright1.png" style="width: 40upx;margin: 8upx 0 0 0;" mode="widthFix"></image></view>
-			</view>			
-			<view class="address">{{currentShop.address}}</view>									
-		</view>	
-		<!-- 订单详情模块 -->
-		<view class="info">
-			<view class="orderdetail" style="margin-top: 20upx;font-size: 32upx;font-weight: 600;">订单详情</view>		
-			<block v-for="(item,index) in orderInfo" :key="index">
-				<view class="infogoods">{{item.title}}</view>
-				<view class="u-f">
-					<view class="infoguige" style="flex: 3;">{{item.checkedSku}}</view>
-					<view class="infonum" style="flex: 1;">x{{item.num}}</view>
-					<view class="price" style="flex: 1;">￥{{item.num * item.showPrice}}</view>
+	<scroll-view scroll-y="true" style="height: 100%">
+		<view class="all">
+			<!-- 订单信息模块 -->
+			<view class="info">			
+				<view class="u-f u-f-jsb">
+					<view class="info1">订单结算</view>
+					<view class="info2"></view>
 				</view>
-			</block>
-			<view class="allprice u-f u-f-jsb">
-				<view></view>
-				<view>总价:￥{{totalPrice}}</view>
-			</view>
-		</view>		
-		<!-- 优惠券模块 -->
-		<view class="foot">
-			<view class="u-f u-f-jsb">
-				<view style="margin: 20upx 0upx;">优惠券</view>
-				<view class="u-f">
-					<view style="margin: 20upx 0upx;">暂无可用优惠券</view>
-					<image src="../../static/letright1.png" style="width: 40upx;margin: 24upx 0 0 0;" mode="widthFix"></image>
-				</view>
-			</view>
-			<view class="u-f u-f-jsb">
-				<view>支付方式</view>
-				<view class="u-f">
-					<view style="margin: 20upx 0upx;">微信支付</view>
-					<image src="../../static/letright1.png" style="width: 40upx;margin: 25upx 0 0 0;" mode="widthFix"></image>
-				</view>
-			</view>
-			<!-- 手机号模块 -->
-			<view class="u-f u-f-jsb">
-				<input class="uni-input" type="number" placeholder="请输入手机号" :value="phoneNum" placeholder-style="color:#F76260" style="padding: 0;" @input="onKeyInput" />		
-				<button style="font-size: 24upx;" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">点击获取</button> 
+				<view class="read">请仔细确认下单门店,下单后无法更改</view>
+				<view class="infoshop u-f">
+					<view>{{currentShop.name}}</view>
+					<view><image src="../../static/icon/letright.png" style="width: 40upx;height: auto; margin: 8upx 0 0 0;" mode="widthFix"></image></view>
+				</view>			
+				<view class="address">{{currentShop.address}}</view>									
 			</view>	
-			<!-- <view class="title">实时获取输入值，可注释：{{phoneNum}}</view> -->			
-		</view>		
-				
-		<!-- 打包模块 -->
-		<view class="foot">
-			<view class="u-f u-f-jsb">
-				<view>打包</view>
-				<view class="u-f">
-					<view style="width: 40upx;margin: 16upx 0 0 0;">是</view>
-					<image src="../../static/letright1.png" style="width: 40upx;margin: 20upx 0 0 0;" mode="widthFix"></image>
+			<!-- 订单详情模块 -->
+			<view class="info">
+				<view class="orderdetail" style="margin-top: 20upx;font-size: 32upx;font-weight: 600;">订单详情</view>		
+				<block v-for="(item,index) in orderInfo" :key="index">
+					<view class="infogoods">{{item.title}}</view>
+					<view class="u-f">
+						<view class="infoguige" style="flex: 3;">{{item.checkedSku}}</view>
+						<view class="infonum" style="flex: 1;">x{{item.num}}</view>
+						<view class="price" style="flex: 1;">￥{{item.num * item.showPrice}}</view>
+					</view>
+				</block>
+				<view class="allprice u-f u-f-jsb">
+					<view></view>
+					<view>总价:￥{{totalPrice}}</view>
+				</view>
+			</view>		
+			<!-- 优惠券模块 -->
+			<view class="foot">
+				<view class="u-f u-f-jsb">
+					<view style="margin: 20upx 0upx;">优惠券</view>
+					<view class="u-f">
+						<view style="margin: 20upx 0upx;">暂无可用优惠券</view>
+						<image src="../../static/icon/letright.png" style="width: 40upx;height: auto;margin: 24upx 0 0 0;" mode="widthFix"></image>
+					</view>
+				</view>
+				<view class="u-f u-f-jsb">
+					<view>支付方式</view>
+					<view class="u-f">
+						<view style="margin: 20upx 0upx;">微信支付</view>
+						<image src="../../static/icon/letright.png" style="width: 40upx;height: auto;margin: 25upx 0 0 0;" mode="widthFix"></image>
+					</view>
+				</view>
+				<!-- 手机号模块 -->
+				<view class="u-f u-f-jsb">
+					<input class="uni-input" type="number" placeholder="请输入手机号" :value="phoneNum" placeholder-style="color:#F76260" style="padding: 0;" @input="onKeyInput" />		
+					<button v-if="!phoneNum" style="font-size: 24upx;margin-bottom: 10upx;" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">点击获取</button> 
+				</view>	
+				<!-- <view class="title">实时获取输入值，可注释：{{phoneNum}}</view> -->			
+			</view>		
+					
+			<!-- 打包模块 -->
+			<view class="foot">
+				<view class="u-f u-f-jsb">
+					<view>打包</view>
+					<view class="u-f">
+						<view style="width: 40upx;margin: 16upx 0 0 0;">是</view>
+						<image src="../../static/icon/letright.png" style="width: 40upx;height: auto;margin: 20upx 0 0 0;" mode="widthFix"></image>
+					</view>
+				</view>
+				<view class="u-f u-f-jsb">
+					<view>特殊备注</view>
+					<view><image src="../../static/icon/letright.png" style="width: 40upx;height: auto;margin: 25upx 0 0 0;" mode="widthFix"></image></view>
+				</view>			
+			</view>
+			<view style="background-color: #EBEBEB;padding: 10upx 40upx;font-size: 20upx;color: #4A4A4A;">我已阅读并同意我已阅读并同意我已阅读并同意我已阅读并同意我已阅读并同意我已阅读并同意我已阅读并同意</view>
+			<view class="bottom u-f u-f-jsb">
+				<view class=" u-f-ajc u-f-ac">
+					总计:{{totalPrice}}
+				</view>
+				<view  class="pay u-f-ajc u-f-ac" @tap.stop="openPayMethods()">
+					支付
 				</view>
 			</view>
-			<view class="u-f u-f-jsb">
-				<view>特殊备注</view>
-				<view><image src="../../static/letright1.png" style="width: 40upx;margin: 25upx 0 0 0;" mode="widthFix"></image></view>
-			</view>			
 		</view>
-		<view style="background-color: #EBEBEB;padding: 10upx 40upx;font-size: 20upx;color: #4A4A4A;">我已阅读并同意我已阅读并同意我已阅读并同意我已阅读并同意我已阅读并同意我已阅读并同意我已阅读并同意</view>
-		<view class="bottom u-f u-f-jsb">
-			<view class=" u-f-ajc u-f-ac">
-				总计:{{totalPrice}}
-			</view>
-			<view  class="pay u-f-ajc u-f-ac" @click="openPayMethods()">
-				支付
-			</view>
-		</view>
-	</view>
+	</scroll-view>
+	
 </template>
 
 <script>
@@ -84,17 +87,45 @@
 		methods:{
 			//实时获取手机号value值
 			onKeyInput: function(event) {
-			            this.phoneNum = event.target.value
-			        },
+			   this.phoneNum = event.target.value
+			},
 			// 点击获取手机号方法
 			getPhoneNumber:function(e){
 				var that = this;
-			 	if (e.detail.errMsg != 'getPhoneNumber:ok') {  			 
+			 	if (e.detail.errMsg != 'getPhoneNumber:ok'){	 
+					
 			 	} else {  
-					console.log(e)
-			 		//如果成功的话 先如数据库 然后更新本地缓存			 		
-			 		//然后激活模板消息授权
-			 	}  
+					let userInfo = this.$Util.getCache("userInfo");
+					uni.showLoading({
+						title:"加载中"
+					})
+					
+					let data = {
+						'code' : this.session_key,
+						'encryptedData' : e.detail.encryptedData,
+						'iv' : e.detail.iv
+					};
+					//如果成功的话 先入数据库 然后更新本地缓存
+					this.$H.post('/mannerdish/user/updateUserPhone',data,{
+						token:true,
+						native:true
+					}).then(res=>{
+						//如果更新成功
+						if(res.data.code == 1)
+						{
+							//当前缓存更新电话信息
+							let userInfo = this.$Util.getCache("userInfo");
+							userInfo.mobile = res.data.data.mobile;
+							//重新设置用户信息的缓存
+							this.$Util.setCache("userInfo",userInfo);
+							//当前页面更新电话信息
+							this.phoneNum = res.data.data.mobile;
+						}
+						
+						uni.hideLoading();
+					});
+				  }  
+			 		//然后激活模板消息授 
 			 },
 			onLoad(){
 				var that = this;
@@ -106,7 +137,21 @@
 				this.orderInfo.map(v => {
 					this.hashKey.unshift(v.hashKey)
 				})
+				//从缓存中拿出电话信息
+				let userInfo = this.$Util.getCache('userInfo');
+				//电话号码不为空 则进行电话号码变量的赋值操作
+				if(userInfo.mobile != "")
+				{
+					this.phoneNum = userInfo.mobile
+				}
 				
+				wx.login({
+					success: (res) => {
+					  if (res.code) {
+						  this.session_key = res.code;
+					  }
+					}
+				})
 				// #ifdef MP-WEIXIN
 				this.options = [{
 					title:"微信支付",
@@ -151,8 +196,7 @@
 						       success: (res) => {
 						           // 重定向/防止重复支付
 						           uni.switchTab({
-						           	// url: '../mannerorder/ordertoday?order_id='+that.$data.order_id
-									url: '/pages/mannerorder/ordertoday'
+									  url: '/pages/mannerorder/ordertoday'
 						           });
 						           console.log('success:' + JSON.stringify(res));
 						       },
@@ -210,7 +254,6 @@
 					title:"加载中"
 				})
 				
-				uni.show
 				let options = {
 					hashKey:this.hashKey.join(','),
 					flag:'cartPay', //表示从购物车进行支付
@@ -300,6 +343,7 @@
 		},
 		data(){
 			return{
+				session_key:"",
 				//当前输入的手机号
 				phoneNum:"",
 				loading:false,
@@ -363,7 +407,7 @@
 }
 .all{
 	background-color: #F3F3F3;
-	height: 100%;
+
 }
 .order{
 	color: #4A4A4A;
@@ -446,6 +490,7 @@
 	background-color: #ffffff;
 	margin-bottom: 0;
 	padding: 40upx 40upx;
+	z-index: 6000;
 }
 .pay{
 	color: #ffffff;

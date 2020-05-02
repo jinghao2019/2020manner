@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/mannershop/mannershop1",
     "pages/mannerlist/mannerlist1",
+    "pages/mannershop/mannershop1",
+    "pages/mannerlist/mannerlist",
     "pages/mannerorder/mannerorder",
     "pages/mannercart/mannercart",
     "pages/mannerhome/mannerhome",
@@ -23,7 +24,8 @@
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "Manner",
     "navigationBarBackgroundColor": "#FFFFFF",
-    "backgroundColor": "#FFFFFF"
+    "backgroundColor": "#FFFFFF",
+    "disableScroll": true
   },
   "tabBar": {
     "color": "#ADADAD",

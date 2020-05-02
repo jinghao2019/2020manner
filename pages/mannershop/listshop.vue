@@ -1,24 +1,27 @@
 <template>
-	<view>
-		<view class="title">
-			<image src="../../static/img/title.png" mode="widthFix"></image>
+	<view :style="{height:height+'px'}" style="background-color: #F5F5F5;">
+		<view style="height: 35%">
+			<view class="title">
+				<image src="../../static/img/title.png" mode="widthFix"></image>
+			</view>
+			
+			
+			<!-- 1.离我最近店铺 -->
+			<view class="nearshop">
+				<view class="u-f u-f-ac">
+					<view>{{nearshop.name}}</view>
+					<view>最近</view>
+				</view>
+				<view class="u-f u-f-jsb">
+					<view>{{nearshop.address}}</view>
+					<view @click="setNearShop()">去点单</view>
+				</view>
+			</view>
 		</view>
 		
-		
-		<!-- 1.离我最近店铺 -->
-		<view class="nearshop">
-			<view class="u-f u-f-ac">
-				<view>{{nearshop.name}}</view>
-				<view>最近</view>
-			</view>
-			<view class="u-f u-f-jsb">
-				<view>{{nearshop.address}}</view>
-				<view>去点单</view>
-			</view>
-		</view>
 		
 		<!-- 2.循环出其他店铺 -->
-		<scroll-view scroll-y="true" style="height: 750upx;">
+		<scroll-view scroll-y="true"  style="height: 65%">
 		<block v-for="(item,index) in list" :key="index">
 			<view class="othershop headtitle" v-show="item.status == 0">
 				<view class="u-f u-f-jsb">
@@ -54,6 +57,8 @@
 		},
 		data() {
 			return {
+				//屏幕高度
+				height:0,
 				page:1, //默认第一页
 				refresh_tag:1, //开始加载数据的时候是0 加载完改为1  枷锁操作 
 				list:[],	
@@ -95,16 +100,36 @@
 			 * 去店铺下单
 			 */
 			setCurrentShop(index){
-				console.log('66')
 			  //1 设置当前店铺到缓存
 			  this.$Util.setCache("current_shop",this.list[index]);
+			  
+			  //设置店铺改变状态
+			  this.$Util.setCache("current_shop_change",1);
 			  //2 跳转到菜单页面
 			  //跳转导选择店铺的页面
 			  uni.switchTab({
 			  	url:"../../pages/mannerlist/mannerlist1"
 			  })
 			},
-			onLoad(){		
+			
+			/**
+			 * 单独点击最近店铺
+			 */
+			setNearShop(){
+			  //1 设置当前店铺到缓存
+			  this.$Util.setCache("current_shop",this.nearshop);
+			  
+			  //设置店铺改变状态
+			  this.$Util.setCache("current_shop_change",1);
+			  //2 跳转到菜单页面
+			  //跳转导选择店铺的页面
+			  uni.switchTab({
+			  	url:"../../pages/mannerlist/mannerlist1"
+			  })
+			},
+			onLoad(){	
+					// 获取可用屏幕高度
+					this.height = Number(uni.getSystemInfoSync().windowHeight);
 					//这时候that指的是全局，在内部函数想用全局的时候就得用that
 					var that = this;
 					// 获取当前坐标
@@ -200,7 +225,7 @@
 	.nearshop>view>view:last-child,
 	.othershop>view:last-child>view:last-child{
 		color: #ffffff;
-		background-color: #e82125;
+		background-color: #88272E;
 		width: 100upx;
 		border-radius: 50upx;
 		font-size: 20upx;

@@ -43,29 +43,29 @@
 		
 		<view class="u-f u-f-jsb list order" @click="order">
 			<view>订单管理</view>
-			<view><image src="../../static/letright1.png" mode="widthFix" style="width: 40upx;"></image></view>
+			<view><image src="../../static/icon/letright.png" mode="widthFix" style="width: 40upx;"></image></view>
 		</view>
 		
 		<view class="u-f u-f-jsb list middle">
 			<view>会员资料</view>
-			<view><image src="../../static/letright1.png" mode="widthFix" style="width: 40upx;"></image></view>
+			<view><image src="../../static/icon/letright.png" mode="widthFix" style="width: 40upx;"></image></view>
 		</view>
 		<view class="u-f u-f-jsb list middle" @click="address">
 			<view>地址簿</view>
-			<view><image src="../../static/letright1.png" mode="widthFix" style="width: 40upx;"></image></view>
+			<view><image src="../../static/icon/letright.png" mode="widthFix" style="width: 40upx;"></image></view>
 		</view>
 		<view class="u-f u-f-jsb list">
 			<view>自定义菜单</view>
-			<view><image src="../../static/letright1.png" mode="widthFix" style="width: 40upx;"></image></view>
+			<view><image src="../../static/icon/letright.png" mode="widthFix" style="width: 40upx;"></image></view>
 		</view>
 		
 		<view class="u-f u-f-jsb list manner">
 			<view>客服与反馈</view>
-			<view><image src="../../static/letright1.png" mode="widthFix" style="width: 40upx;"></image></view>
+			<view><image src="../../static/icon/letright.png" mode="widthFix" style="width: 40upx;"></image></view>
 		</view>
 		<view class="u-f u-f-jsb list">
 			<view>关于manner</view>
-			<view><image src="../../static/letright1.png" mode="widthFix" style="width: 40upx;"></image></view>
+			<view><image src="../../static/icon/letright.png" mode="widthFix" style="width: 40upx;"></image></view>
 		</view>
 	</view>
 </template>
@@ -81,7 +81,7 @@
 			// 点击跳转订单详情
 			order(){
 				uni.switchTab({
-				    url: '/pages/mannerorder/mannerorder'
+				    url: '/pages/mannerorder/ordertoday'
 				});
 			},
 			// 点击跳转订单详情

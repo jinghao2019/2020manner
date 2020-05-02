@@ -1,5 +1,5 @@
 <template>
-	<view style="height: 100%;background-color: #F0F2F5;">
+	<view style="background-color: #F0F2F5;":style="{height:height+'px'}">
 		<!-- 订单中心 -->
 		<view class="u-f u-f-jsb head">
 			<view class="u-f">
@@ -48,7 +48,7 @@
 					</view>
 					<view>
 						<block v-for="(item2,index) in item.orderproduct" :key="index">
-							<image :src="url + item2.goods_img" mode="widthFix"></image>
+							<image :src="url + item2.goods_img" mode="widthFix" style="width: 120upx;height: 12upx;"></image>
 						</block>
 						
 					</view>
@@ -64,7 +64,9 @@
 				</view>
 			</block>				
 		</view>
+		
 		</scroll-view>
+	
 	</view>
 </template>
 
@@ -73,7 +75,8 @@
 		data(){
 			return{
 				url:'',
-				listorder:[]
+				listorder:[],
+				height:0,
 			}
 		},
 		onShow() {
@@ -82,6 +85,8 @@
 		},
 		methods:{
 			onLoad(){
+				// 获取可用屏幕高度
+				this.height = Number(uni.getSystemInfoSync().windowHeight) - 75
 			},
 			toallorder(){
 				uni.navigateTo({

@@ -1,14 +1,14 @@
 <template>
-	<view class="all  animated fadeIn" :style="{height:height+'px'}">
+	<view class="all" :style="{height:height+'px'}">
 		<view style="height: 50%;">
 			<view class="title">
 				<image src="../../static/img/title.png" mode="widthFix"></image>
 			</view>
 				
 			<view class="list u-f">
-				<image src="../../static/img/img1.png" mode="widthFix" @tap="toList()"></image>
-				<image src="../../static/img/img2.png" mode="widthFix" @tap="toOrder()"></image>
-				<image src="../../static/img/img3.png" mode="widthFix" @tap="info()"></image>
+				<image src="../../static/img/img1.png" mode="widthFix" @tap.stop="toList()"></image>
+				<image src="../../static/img/img2.png" mode="widthFix" @tap.stop="toOrder()"></image>
+				<image src="../../static/img/img3.png" mode="widthFix" @tap.stop="info()"></image>
 			</view>
 			
 			<!-- <view class="banner">
@@ -21,31 +21,31 @@
 		</view>
 		
 		<view style="height: 50%">
-			<scroll-view scroll-y class="shops-wrapper  animated bounceInRight"  style="height: 100%;">
-				<view class="near">
-					<view>最近店铺</view>
-				</view>
-						
-				<view class="nearshop" @tap="showshop">
-					<view>{{nearshop.shopname}}</view>
-					<view class="u-f u-f-jsb">
-						<view>{{nearshop.shopaddress}}</view>
-						<view @click.stop="toList()">去点单</view>
+			<scroll-view scroll-y class="shops-wrapper "  style="height: 100%;">
+				<view class=" animated fadeInUpBig">
+					<view class="near">
+						<view>最近店铺</view>
+					</view>
+					<view class="nearshop" @tap.stop="showshop()">
+						<view>{{nearshop.shopname}}</view>
+						<view class="u-f u-f-jsb">
+							<view>{{nearshop.shopaddress}}</view>
+							<view @tap.stop="toList()">去点单</view>
+						</view>
+					</view>
+					<view class="other">
+						<view>其他店铺</view>
+					</view>
+					<view class="othershop" v-for="(item,index) in list" :key="index">
+						<view>{{item.name}}</view>
+						<view class="u-f u-f-jsb">
+							<view>{{item.address}}</view>
+							<view  @tap.stop="setCurrentShop(index)">去点单</view>
+						</view>
 					</view>
 				</view>
-						
-				<view class="other">
-					<view>其他店铺</view>
-				</view>
-						
-				<view class="othershop" v-for="(item,index) in list" :key="index">
-					<view>{{item.name}}</view>
-					<view class="u-f u-f-jsb">
-						<view>{{item.address}}</view>
-						<view  @tap="setCurrentShop(index)">去点单</view>
-					</view>
-				</view>		
 				
+						
 				 <!-- 店铺详情 -->
 				
 			</scroll-view>
@@ -55,7 +55,7 @@
 				<view class="u-f around">
 					<view class="shopleft">
 						<view class="u-f">
-							<image src="../../static/icon/zuojian.png" mode="aspectFit" style="width: 40upx;margin-top: 4upx;margin-right: 10upx;height: auto;"  @tap="hidedeatil()"></image>
+							<image src="../../static/icon/zuojian.png" mode="aspectFit" style="width: 40upx;margin-top: 4upx;margin-right: 10upx;height: auto;"  @tap.stop="hidedeatil()"></image>
 							<view class="shopname">{{nearshop.shopname}}</view>
 						</view>
 						
@@ -67,21 +67,21 @@
 					</view>
 					<view class="shopright u-f">
 						<view>
-							<image src="../../static/img/dingwei.png" mode="widthFix" style="width: 45upx;height: auto;" @tap="openMap()"></image>
+							<image src="../../static/img/dingwei.png" mode="widthFix" style="width: 45upx;height: auto;" @tap.stop="openMap()"></image>
 						</view>
 						<view>
-							<image src="../../static/img/tel.png"  mode="widthFix" style="width: 45upx;height: auto;" @click="tel()"></image>
+							<image src="../../static/img/tel.png"  mode="widthFix" style="width: 45upx;height: auto;" @tap.stop="tel()"></image>
 						</view>
 					</view>
 				</view>
 				<view class="u-f u-f-jsb">
 					<view></view>
-					<view class="ok" @tap="setCurrentShop(index)" >去点单</view>
+					<view class="ok" @tap.stop="setCurrentShop(index)" >去点单</view>
 				</view>
 			</view>
 			<!-- 蒙版1 -->
 			<view>
-				<view class="shopmask" @tap="hidedeatil()" v-show="shopshow"></view>
+				<view class="shopmask" @tap.stop="hidedeatil()" v-show="shopshow"></view>
 			</view>
 			
 			
@@ -95,18 +95,18 @@
 					
 
 			<view class="allbottom" v-show="agreeUserInfo">
-				<view class="close" @tap="closeagreeuserinfo()">
+				<view class="close" @tap.stop="closeagreeuserinfo()">
 					<image src="../../static/icon/close.png" mode="widthFix" style="width: 30upx;float:right;padding: 28upx 28upx 0 0;height: auto;"></image>
 				</view>
 					<view class="bottom">						
 						<view>欢迎来到Manner咖啡</view>
 						<view style="font-size: 24upx;color: #9B9B9B;">Manner申请获取您用户信息</view>
-						<button class="agree u-f-ajc" open-type="getUserInfo" @tap="wxlogin()">同意授权</button>
+						<button class="agree u-f-ajc" open-type="getUserInfo" @tap.stop="wxlogin()">同意授权</button>
 					</view>
 			</view>
 			
 			<view class="allbottom" v-show="agreePhoneNum">
-				<view class="close" @tap="closeagreephonenum()">
+				<view class="close" @tap.stop="closeagreephonenum()">
 					<image src="../../static/icon/close.png" mode="widthFix" style="width: 30upx;float:right;padding: 28upx 28upx 0 0;"></image>
 				</view>
 					<view class="bottom">						
@@ -117,13 +117,13 @@
 			</view>
 			
 			<view class="allbottom" v-show="agreeTemplateMsg">
-				<view class="close" @tap="closetemplatemsg()">
+				<view class="close" @tap.stop="closetemplatemsg()">
 					<image src="../../static/icon/close.png" mode="widthFix" style="width: 30upx;float:right;padding: 28upx 28upx 0 0;"></image>
 				</view>
 					<view class="bottom">						
 						<view>欢迎来到Manner咖啡</view>
 						<view style="font-size: 24upx;color: #9B9B9B;">Manner申请您授权模板消息</view>
-						<button class="agree u-f-ajc" open-type="getUserInfo" @tap="showTemp()">同意授权</button>
+						<button class="agree u-f-ajc" open-type="getUserInfo" @tap.stop="showTemp()">同意授权</button>
 					</view>
 			</view>
 				
@@ -158,7 +158,6 @@
 				phonenumshow:false,
 				templatemsgshow:false,
 				show:false,
-				height:0,
 				currentShop:{}
 			}
 		},
@@ -273,9 +272,7 @@
 			 
 			 	} else {  
 			 		//如果成功的话 先如数据库 然后更新本地缓存
-			 		
 			 		//然后激活模板消息授权
-			 		
 			 		//先关再开
 			 		that.agreePhoneNum = false;
 			 		that.phonenumshow = false;
@@ -347,7 +344,7 @@
 			  //2 跳转到菜单页面
 			  //跳转导选择店铺的页面
 			  uni.switchTab({
-			  	url:"../../pages/mannerlist/mannerlist1"
+			  	url:"../../pages/mannerlist/mannerlist1?change=1"
 			  })
 			},
 			
@@ -484,7 +481,7 @@
 	.nearshop>view>view:last-child,
 	.othershop>view>view:last-child{
 		color: #ffffff;
-		background-color: #e80000;
+		background-color: #88272E;
 		width: 100upx;
 		border-radius: 50upx;
 		font-size: 20upx;
@@ -519,7 +516,7 @@
 		width: 200upx;
 		height: 80upx;
 		border-radius: 50upx;
-		background-color: #d10003;
+		background-color: #88272E;
 		color: #ffffff;
 		display: flex;
 		align-items: center;

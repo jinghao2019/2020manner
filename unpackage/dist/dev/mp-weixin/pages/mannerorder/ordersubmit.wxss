@@ -38,7 +38,6 @@
 }
 .all{
 	background-color: #F3F3F3;
-	height: 100%;
 }
 .order{
 	color: #4A4A4A;
@@ -121,6 +120,7 @@
 	background-color: #ffffff;
 	margin-bottom: 0;
 	padding: 40rpx 40rpx;
+	z-index: 6000;
 }
 .pay{
 	color: #ffffff;

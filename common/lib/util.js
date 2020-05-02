@@ -1,4 +1,5 @@
 export default {
+	//获取手机号的正则
 	checkMobile(mobile){
 		return RegExp(/^1[34578]\d{9}$/).test(mobile);
 	},
